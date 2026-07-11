@@ -692,11 +692,13 @@ const ARTICLES = [
 [data-theme=dark] .story-card,
 [data-theme=dark] .article-card,
 [data-theme=dark] .av-body,
+[data-theme=dark] .art-body-text,
 [data-theme=dark] .num-card,
 [data-theme=dark] .formula-table { background: rgba(30,20,10,.85) !important; border-color: rgba(176,120,40,.2) !important; }
 
 [data-theme=dark] .sc-text,
 [data-theme=dark] .av-body,
+[data-theme=dark] .art-body-text,
 [data-theme=dark] .ac-title,
 [data-theme=dark] .sc-title { color: rgba(242,232,213,.9) !important; }
 
@@ -712,11 +714,13 @@ const ARTICLES = [
 [data-theme=amoled] .story-card,
 [data-theme=amoled] .article-card,
 [data-theme=amoled] .av-body,
+[data-theme=amoled] .art-body-text,
 [data-theme=amoled] .num-card,
 [data-theme=amoled] .formula-table { background: rgba(0,0,0,.88) !important; }
 
 [data-theme=amoled] .sc-text,
-[data-theme=amoled] .av-body { color: rgba(242,232,213,.9) !important; }
+[data-theme=amoled] .av-body,
+[data-theme=amoled] .art-body-text { color: rgba(242,232,213,.9) !important; }
 /* ── СТАТЬИ ── */
 .lit-empty { text-align:center; color:var(--muted); font-family:var(--s); padding:40px 20px; }
 .art-card { background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:16px; cursor:pointer; transition:.15s; display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
@@ -730,6 +734,10 @@ const ARTICLES = [
 .art-body { display:flex; flex-direction:column; gap:10px; }
 .art-body-level { font-family:var(--m); font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
 .art-body-title { font-family:var(--d); font-size:28px; font-style:italic; font-weight:700; color:var(--red); line-height:1.2; }
-.art-body-text { font-family:var(--s); font-size:15px; color:var(--ink); line-height:1.8; }
+.art-body-text {
+  font-family:var(--s); font-size:15px; color:var(--ink); line-height:1.8;
+  background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:18px;
+}
 .art-body-text p { margin:0 0 12px; }
+.art-body-text p:last-child { margin:0; }
 </style>
