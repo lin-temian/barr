@@ -597,11 +597,17 @@ const ARTICLES = [
 
 .lit-inner { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 .lit-back, .art-back {
-  background: none; border: none; font-family: var(--m); font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
-  cursor: pointer; padding: 0; align-self: flex-start;
+  background: var(--bg2); border: 1px solid var(--line); border-radius: 20px;
+  font-family: var(--m); font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--ink);
+  cursor: pointer; padding: 8px 14px; align-self: flex-start; transition: .15s;
 }
-.lit-back:hover, .art-back:hover { color: var(--red); }
+.lit-back:hover, .art-back:hover { color: var(--red); border-color: var(--gold); }
+
+[data-theme=dark] .lit-back,
+[data-theme=dark] .art-back { background: rgba(30,20,10,.85) !important; border-color: rgba(176,120,40,.2) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=amoled] .lit-back,
+[data-theme=amoled] .art-back { background: rgba(0,0,0,.88) !important; color: rgba(242,232,213,.9) !important; }
 
 .sec-title { font-family: var(--d); font-size: 26px; font-style: italic; color: var(--red); margin: 0; }
 

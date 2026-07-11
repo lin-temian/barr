@@ -308,10 +308,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 .dt-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .pill {
   padding: 5px 12px; border: 1px solid var(--line); border-radius: 20px;
-  background: transparent; font-family: var(--m); font-size: 10px;
-  letter-spacing: 1px; color: var(--muted); cursor: pointer; transition: .15s;
+  background: var(--bg2); font-family: var(--m); font-size: 10px;
+  letter-spacing: 1px; color: var(--ink); cursor: pointer; transition: .15s;
   text-transform: capitalize;
 }
+.pill:hover { border-color: var(--gold); }
 .pill.on { background: var(--red); border-color: var(--red); color: var(--bg); }
 .dt-words { display: flex; flex-direction: column; gap: 6px; }
 .dt-word {
