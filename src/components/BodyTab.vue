@@ -35,7 +35,7 @@ const BODY = [
 </script>
 <style scoped>
 .sect-lbl{font-family:var(--m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-top:6px;}
-.h-phrase{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;}
+.h-phrase{background:var(--glass-bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .hp-arm{font-family:var(--d);font-size:17px;font-style:italic;color:var(--red);}
 .hp-tr{font-family:var(--m);font-size:10px;color:var(--muted);}
 .hp-ru{font-family:var(--s);font-size:13px;color:var(--ink);}

@@ -104,11 +104,11 @@ const levels = [
   display: flex; align-items: center; gap: 14px;
   border: 1.5px solid var(--line);
   border-radius: 12px; padding: 14px 16px;
-  background: rgba(236,221,198,.5);
+  background:var(--glass-bg);
   cursor: pointer; transition: all .2s;
   position: relative;
-}
-.ob-level:hover { border-color: var(--gold); background: rgba(242,232,213,.8); }
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.ob-level:hover { border-color: var(--gold); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .ob-level.active {
   border-color: var(--red); border-width: 2px;
   background: rgba(140,28,28,.06);

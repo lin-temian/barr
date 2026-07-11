@@ -109,12 +109,12 @@ async function send() {
 .bug-btn {
   position: fixed; bottom: 76px; right: 16px; z-index: 50;
   width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(242,232,213,.92); backdrop-filter: blur(8px);
+  background:var(--glass-bg); backdrop-filter: blur(8px);
   border: 1px solid rgba(176,120,40,.3);
   color: var(--muted); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.1);
-}
+border-color:var(--glass-border);}
 .bug-btn:hover { border-color: var(--gold); color: var(--red); transform: scale(1.05); }
 
 .bug-overlay {
@@ -138,21 +138,21 @@ async function send() {
 .bug-field { margin-bottom: 16px; }
 .bug-label { font-family: var(--m); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
 .bug-types { display: flex; flex-wrap: wrap; gap: 8px; }
-.bug-type  { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background: var(--bg2); font-family: var(--s); font-size: 13px; color: var(--ink); cursor: pointer; transition: .15s; }
+.bug-type  { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background:var(--glass-bg); font-family: var(--s); font-size: 13px; color: var(--ink); cursor: pointer; transition:.15s var(--spring); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .bug-type.active { background: var(--red); border-color: var(--red); color: var(--bg); }
 .bug-textarea {
   width: 100%; padding: 12px 14px;
   border: 1.5px solid var(--line); border-radius: 12px;
-  background: rgba(236,221,198,.5); font-family: var(--s); font-size: 15px;
+  background:var(--glass-bg); font-family: var(--s); font-size: 15px;
   color: var(--ink); resize: none; outline: none; line-height: 1.5;
-}
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .bug-textarea:focus { border-color: var(--gold); }
 .bug-input {
   width: 100%; padding: 10px 14px;
   border: 1.5px solid var(--line); border-radius: 12px;
-  background: rgba(236,221,198,.5); font-family: var(--d); font-size: 18px;
+  background:var(--glass-bg); font-family: var(--d); font-size: 18px;
   font-style: italic; color: var(--red); outline: none;
-}
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .bug-input:focus { border-color: var(--gold); }
 .bug-status { text-align: center; padding: 12px; border-radius: 10px; font-family: var(--s); font-size: 14px; margin-bottom: 12px; }
 .bug-status.ok  { background: rgba(42,94,58,.1); color: #2a5e3a; }
@@ -161,7 +161,7 @@ async function send() {
   width: 100%; padding: 16px; background: var(--red); border: none;
   border-radius: 14px; color: var(--bg);
   font-family: var(--d); font-size: 18px; font-style: italic;
-  cursor: pointer; transition: .2s; margin-top: 4px;
+  cursor: pointer; transition:.2s var(--spring); margin-top: 4px;
 }
 .bug-send:hover { opacity: .88; }
 .bug-send:disabled { opacity: .5; cursor: default; }

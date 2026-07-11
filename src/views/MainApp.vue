@@ -17,22 +17,24 @@
       @close="alphaOpen = false"
     />
 
-    <nav class="tabbar">
+    <nav class="tabbar" ref="tabbarEl">
+      <div class="tab-indicator" ref="indicatorEl"></div>
+
       <!-- АЛФАВИТ — центральная кнопка -->
-      <button class="tabbar-btn alpha-fab" @click="alphaOpen = true" :class="{active: alphaOpen}">
+      <button class="tabbar-btn alpha-fab" @click="alphaOpen = true" :class="{active: alphaOpen}" ref="btnRefs" data-key="alpha">
         <span class="alpha-fab-letter">Ա</span>
         <span class="tabbar-label">Алфавит</span>
       </button>
 
       <button v-for="t in tabs" :key="t.id"
         class="tabbar-btn" :class="{active: tab===t.id}"
-        @click="tab=t.id">
+        @click="tab=t.id" ref="btnRefs" :data-key="t.id">
         <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path :d="t.icon"/>
         </svg>
         <span class="tabbar-label">{{ t.label }}</span>
       </button>
-      <button v-if="isAdmin" class="tabbar-btn admin-btn" :class="{active: tab==='admin'}" @click="tab='admin'">
+      <button v-if="isAdmin" class="tabbar-btn admin-btn" :class="{active: tab==='admin'}" @click="tab='admin'" ref="btnRefs" data-key="admin">
       <span class="tabbar-icon">⚙️</span>
       <span class="tabbar-label">Админ</span>
     </button>
@@ -41,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { logout } from '../firebase'
 import HomeTab     from '../components/tabs/HomeTab.vue'
 import LearnTab    from '../components/tabs/LearnTab.vue'
@@ -103,31 +105,84 @@ onMounted(() => {
     localStorage.setItem('barr_last_day', today)
   }
 })
+
+/* ── морфящий стеклянный индикатор в таббаре ── */
+const tabbarEl    = ref(null)
+const indicatorEl = ref(null)
+const btnRefs     = ref([])
+
+function activeKey() {
+  if (alphaOpen.value) return 'alpha'
+  return tab.value
+}
+function moveIndicator() {
+  const bar = tabbarEl.value
+  const ind = indicatorEl.value
+  if (!bar || !ind) return
+  const btn = btnRefs.value.find(b => b && b.dataset && b.dataset.key === activeKey())
+  if (!btn) return
+  const barRect = bar.getBoundingClientRect()
+  const btnRect = btn.getBoundingClientRect()
+  ind.style.width     = btnRect.width + 'px'
+  ind.style.transform = `translateX(${btnRect.left - barRect.left}px)`
+}
+onMounted(() => nextTick(moveIndicator))
+watch([tab, alphaOpen], () => nextTick(moveIndicator))
+window.addEventListener('resize', () => nextTick(moveIndicator))
 </script>
 
 <style scoped>
 .app-wrap    { display:flex; flex-direction:column; min-height:100vh; min-height:100dvh; }
-.app-content { flex:1; overflow-y:auto; padding-bottom:64px; }
+.app-content { flex:1; overflow-y:auto; padding-bottom:96px; }
+
+/* ── ПЛАВАЮЩАЯ СТЕКЛЯННАЯ КАПСУЛА ── */
 .tabbar {
-  position:fixed; bottom:0; left:0; right:0;
-  height:64px;
-  background: rgba(242,232,213,.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(176,120,40,.25);
+  position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
+  height:64px; border-radius:24px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 34px var(--glass-shadow), inset 0 1px 0 var(--glass-shine);
   display:flex; align-items:stretch;
   z-index:100;
-  padding-bottom: env(safe-area-inset-bottom);
+  transition: background-color .4s var(--spring-soft), border-color .4s var(--spring-soft);
 }
+.tabbar::before{
+  content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:linear-gradient(135deg, var(--glass-shine) 0%, transparent 30%, transparent 70%, rgba(176,120,40,.08) 100%);
+}
+.tabbar::after{
+  content:''; position:absolute; top:0; left:16%; right:16%; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:.5; pointer-events:none;
+}
+
+/* морфящий индикатор — перетекает между вкладками */
+.tab-indicator{
+  position:absolute; top:6px; bottom:6px; left:0;
+  border-radius:18px;
+  background: rgba(140,28,28,.10);
+  box-shadow: inset 0 0 0 1px rgba(140,28,28,.18);
+  transition: transform .5s var(--spring), width .5s var(--spring);
+  pointer-events:none; z-index:0;
+}
+[data-theme=dark] .tab-indicator, [data-theme=amoled] .tab-indicator{
+  background: rgba(212,160,64,.12);
+  box-shadow: inset 0 0 0 1px rgba(212,160,64,.22);
+}
+
 .tabbar-btn {
+  position:relative; z-index:1;
   flex:1; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:3px;
   background:none; border:none; cursor:pointer; padding:6px 0;
-  transition: all .15s; color: #b09070;
+  transition: color .3s var(--ease-out), transform .25s var(--spring); color: #b09070;
 }
-.tabbar-btn:active { transform: scale(.9); }
+.tabbar-btn:active { transform: scale(.88); }
 .tabbar-btn.active  { color: var(--red); }
-.tab-svg    { width:22px; height:22px; }
+.tab-svg    { width:22px; height:22px; transition: transform .3s var(--spring); }
+.tabbar-btn.active .tab-svg { transform: translateY(-1px) scale(1.08); }
 .tabbar-label { font-family:var(--m); font-size:9px; letter-spacing:.5px; }
 
 /* АЛФАВИТ — особая кнопка */
@@ -142,14 +197,12 @@ onMounted(() => {
   font-weight: 700;
   line-height: 1;
   color: var(--red);
-  transition: transform .15s;
+  transition: transform .35s var(--spring);
 }
 .alpha-fab.active .alpha-fab-letter {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(-4deg);
 }
 
-[data-theme=dark]   .tabbar  { background: rgba(10,8,4,.95); border-top-color: rgba(176,120,40,.2); }
-[data-theme=amoled] .tabbar  { background: rgba(0,0,0,.98); }
 [data-theme=dark] .tabbar-btn   { color: rgba(180,140,90,.6); }
 [data-theme=dark] .tabbar-btn.active { color: var(--red); }
 [data-theme=dark] .alpha-fab-letter { color: var(--red); }

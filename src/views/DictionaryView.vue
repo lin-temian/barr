@@ -170,7 +170,7 @@ function catProgress(cat) { return catTotal(cat) ? catLearned(cat)/catTotal(cat)
 .aybouben-btn {
   font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase;
   color:var(--muted); background:transparent; border:1px solid var(--line);
-  padding:5px 12px; cursor:pointer; transition:.15s; margin-left:14px;
+  padding:5px 12px; cursor:pointer; transition:.15s var(--spring); margin-left:14px;
 }
 .aybouben-btn:hover { color:var(--ink); border-color:var(--gold); }
 .topbar-left { display:flex; align-items:center; }

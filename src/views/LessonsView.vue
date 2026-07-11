@@ -175,19 +175,19 @@ const examples = [
 .lesson-page { max-width:800px; margin:0 auto; padding:0 56px 80px; }
 .lesson-header { padding:48px 0 32px; border-bottom:3px solid var(--ink); margin-bottom:48px; position:relative; border-top:4px solid var(--blue); box-shadow:inset 0 3px 0 var(--gold); }
 .lesson-header::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--gold); opacity:.5; }
-.lesson-back { font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); background:transparent; border:1px solid var(--line); padding:7px 16px; cursor:pointer; transition:.15s; margin-bottom:20px; display:inline-block; }
+.lesson-back { font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); background:transparent; border:1px solid var(--line); padding:7px 16px; cursor:pointer; transition:.15s var(--spring); margin-bottom:20px; display:inline-block; }
 .lesson-back:hover { color:var(--ink); border-color:var(--gold); }
 .lesson-eyebrow { font-family:var(--m); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
 .lesson-title { font-family:var(--d); font-size:clamp(48px,8vw,88px); font-weight:700; font-style:italic; line-height:1; letter-spacing:-2px; color:var(--red); margin-bottom:14px; }
 .lesson-desc { font-family:var(--s); font-size:18px; color:var(--muted); font-style:italic; line-height:1.6; max-width:560px; }
 .lesson-nav { display:flex; gap:8px; margin-top:20px; }
-.lesson-dot { width:28px; height:3px; background:var(--line); cursor:pointer; transition:.2s; }
+.lesson-dot { width:28px; height:3px; background:var(--line); cursor:pointer; transition:.2s var(--spring); }
 .lesson-dot.active { background:var(--red); }
 .lesson-block { margin-bottom:48px; padding-bottom:40px; border-bottom:1px solid var(--line); }
 .lb-title { font-family:var(--d); font-size:28px; font-weight:700; font-style:italic; color:var(--ink); margin-bottom:6px; }
 .lb-sub   { font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
 .lb-letters { display:flex; flex-wrap:wrap; gap:10px; }
-.lb-letter-card { border:1px solid var(--line); padding:14px 16px; min-width:72px; text-align:center; transition:.15s; background:rgba(236,221,198,.7); }
+.lb-letter-card { border:1px solid var(--line); padding:14px 16px; min-width:72px; text-align:center; transition:.15s var(--spring); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .lb-letter-card.is-vowel .llc-big { color:var(--vowel); }
 .lb-letter-card.is-consonant .llc-big { color:var(--consonant); }
 .llc-big   { font-family:var(--d); font-size:40px; font-weight:700; line-height:1; }
@@ -197,7 +197,7 @@ const examples = [
 .tip-letter { font-family:var(--d); font-size:28px; font-weight:700; color:var(--red); flex-shrink:0; min-width:60px; }
 .pron-table { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; border-left:1px solid var(--line); border-top:1px solid var(--line); }
 .pt-header  { background:var(--ink); color:var(--bg); font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:10px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
-.pt-cell    { padding:12px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(236,221,198,.7); }
+.pt-cell    { padding:12px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .pt-arm     { font-family:var(--d); font-size:22px; font-style:italic; color:var(--red); }
 .pt-tr      { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:2px; }
 .pt-ru      { font-family:var(--s); font-size:14px; color:var(--ink); margin-top:2px; }

@@ -63,8 +63,8 @@ const openIdx = ref(-1)
 .sent-hd h2 { font-family:var(--d); font-size:clamp(26px,3.5vw,46px); font-weight:400; color:var(--red); }
 .sent-hd p  { font-size:15px; color:var(--muted); font-style:italic; margin-top:4px; }
 .sent-list  { display:flex; flex-direction:column; gap:7px; margin-top:14px; }
-.scard { border:1px solid var(--line); background:rgba(236,221,198,.8); padding:18px 22px; cursor:pointer; transition:.15s; position:relative; }
-.scard:hover { border-color:var(--gold); background:rgba(242,232,213,.9); }
+.scard { border:1px solid var(--line); background:var(--glass-bg); padding:18px 22px; cursor:pointer; transition:.15s var(--spring); position:relative; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.scard:hover { border-color:var(--gold); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .s-arm  { font-family:var(--d); font-size:clamp(18px,2.2vw,24px); font-weight:600; color:var(--red); }
 .s-tr   { font-family:var(--m); font-size:11px; color:var(--muted); margin-top:3px; }
 .s-ru   { display:none; font-size:15px; color:var(--blue); font-style:italic; margin-top:9px; padding-top:9px; border-top:1px solid var(--line); }
