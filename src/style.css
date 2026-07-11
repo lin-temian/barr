@@ -991,7 +991,8 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=dark] .pts-desc,
 [data-theme=dark] .ptrc-desc,
 [data-theme=dark] .pt-note li,
-[data-theme=dark] .ptcmp-ru {
+[data-theme=dark] .ptcmp-ru,
+[data-theme=dark] .cc-title {
   color: var(--ink) !important;
 }
 
@@ -1079,7 +1080,8 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=amoled] .ll-ru,
 [data-theme=amoled] .ll-desc,
 [data-theme=amoled] .av-body p,
-[data-theme=amoled] .av-body li {
+[data-theme=amoled] .av-body li,
+[data-theme=amoled] .cc-title {
   color: var(--ink) !important;
 }
 

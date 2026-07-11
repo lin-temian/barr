@@ -138,7 +138,7 @@ const rows3 = [
 .pt-tr  { font-family:var(--m); font-size:10px; color:var(--muted); }
 .pt-ru  { font-family:var(--s); font-size:14px; color:var(--ink); margin-top:2px; font-weight:600; }
 .pt-case-arm { font-family:var(--d); font-size:clamp(12px,2vw,15px); font-style:italic; color:var(--red); line-height:1.2; margin-bottom:2px; }
-.pt-case-ru  { font-family:var(--m); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:rgba(255,255,255,.7); }
+.pt-case-ru  { font-family:var(--m); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--bg); opacity:.75; }
 
 /* VALUE CELLS */
 .pt-val { border:1px solid var(--line); padding:10px 12px; text-align:center; background:var(--glass-bg); vertical-align:middle; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
@@ -149,10 +149,10 @@ const rows3 = [
 .pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg); backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 
 [data-theme=dark] .pt-val,
-[data-theme=dark] .pt thead th { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+[data-theme=dark] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 [data-theme=dark] .pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 [data-theme=dark] .ptv-arm { color:var(--ink) !important; }
 
 [data-theme=amoled] .pt-val,
-[data-theme=amoled] .pt thead th { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+[data-theme=amoled] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 </style>
