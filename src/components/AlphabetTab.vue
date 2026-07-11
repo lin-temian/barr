@@ -364,7 +364,7 @@ const highlightedWord = computed(() => {
 
 /* КАРТОЧКА */
 .letter-view { padding:16px; display:flex; flex-direction:column; gap:14px; }
-.lv-back { background:none; border:none; font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); cursor:pointer; padding:0; align-self:flex-start; }
+.lv-back { background:none; border:none; font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink); cursor:pointer; padding:0; align-self:flex-start; }
 .lv-back:hover { color:var(--red); }
 .lv-counter-row { display:flex; align-items:center; justify-content:center; gap:20px; }
 .lv-nav-btn { background:var(--bg2); border:1px solid var(--line); width:44px; height:44px; border-radius:50%; font-size:22px; cursor:pointer; transition:.15s; color:var(--ink); }

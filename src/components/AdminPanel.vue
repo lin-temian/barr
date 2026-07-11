@@ -290,7 +290,7 @@ onMounted(loadArts)
 .ap-header { padding:16px 16px 0; position:sticky; top:0; z-index:10; background:var(--bg2); border-bottom:1px solid var(--line); }
 .ap-title { font-family:var(--d); font-size:24px; font-weight:700; font-style:italic; color:var(--red); margin-bottom:10px; }
 .ap-tabs { display:flex; gap:4px; }
-.apt-btn { padding:8px 14px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--s); font-size:13px; color:var(--muted); cursor:pointer; position:relative; bottom:-1px; transition:.15s; }
+.apt-btn { padding:8px 14px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--s); font-size:13px; color:var(--ink); cursor:pointer; position:relative; bottom:-1px; transition:.15s; }
 .apt-btn.on { color:var(--red); border-bottom-color:var(--red); font-weight:600; }
 .ap-sec { padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
 .ap-row { display:flex; gap:10px; }

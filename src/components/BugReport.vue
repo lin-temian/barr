@@ -138,7 +138,7 @@ async function send() {
 .bug-field { margin-bottom: 16px; }
 .bug-label { font-family: var(--m); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
 .bug-types { display: flex; flex-wrap: wrap; gap: 8px; }
-.bug-type  { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background: transparent; font-family: var(--s); font-size: 13px; color: var(--muted); cursor: pointer; transition: .15s; }
+.bug-type  { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background: var(--bg2); font-family: var(--s); font-size: 13px; color: var(--ink); cursor: pointer; transition: .15s; }
 .bug-type.active { background: var(--red); border-color: var(--red); color: var(--bg); }
 .bug-textarea {
   width: 100%; padding: 12px 14px;
