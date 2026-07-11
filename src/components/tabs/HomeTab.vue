@@ -2,7 +2,7 @@
   <div class="home">
     <div class="home-header">
       <div>
-        <div class="home-greeting">Բarев,</div>
+        <div class="home-greeting">Բարև,</div>
         <div class="home-name">{{ displayName }} 👋</div>
       </div>
       <div class="home-level">{{ level }}</div>
@@ -69,6 +69,13 @@
         </div>
       </div>
 
+      <!-- ФАКТ О ЯЗЫКЕ -->
+      <div class="lang-fact">
+        <div class="lf-label">✦ Знаешь ли ты?</div>
+        <div class="lf-text">{{ facts[factIdx] }}</div>
+        <button class="lf-next" @click="nextFact">Следующий факт →</button>
+      </div>
+
       <!-- СТАТИСТИКА -->
       <div class="stats-row">
         <div class="stat"><div class="stat-n">{{ learned.size }}</div><div class="stat-l">выучено</div></div>
@@ -91,6 +98,23 @@ const displayName = computed(() => props.user?.displayName?.split(' ')[0] || 'Д
 const progress = computed(() => Math.round(props.learned.size / props.words.length * 100))
 const lessonTitle = computed(() => ({ A1:'Урок 1 · Алфавит', A2:'Урок 5 · Глаголы', B1:'Урок 10 · Падежи' }[props.level] || 'Урок 1'))
 const wordDay = props.words[new Date().getDate() % props.words.length]
+
+const factIdx = ref(0)
+const facts = [
+  'Армянский алфавит создан в 405 году Месропом Маштоцем — одним из первых в мире специально созданных алфавитов.',
+  'В армянском языке нет грамматического рода — он, она, оно обозначаются одним словом «Նа».',
+  'Ударение в армянском всегда падает на последний слог.',
+  'Армянский — один из древнейших живых языков мира, ему более 1600 лет в письменной форме.',
+  'В армянском 7 падежей — на два больше чем в русском.',
+  'Восточноармянский и западноармянский — два диалекта, носители с трудом понимают друг друга.',
+  'Слово «Հaйastан» (Армения) означает «страна Хайев» — самоназвание армян.',
+  'Армянский язык является изолированной ветвью индоевропейской семьи языков.',
+  'Первая книга на армянском вышла в 1512 году в Венеции.',
+  'В армянском алфавите 39 букв — одна из самых богатых фонетических систем.',
+]
+function nextFact() {
+  factIdx.value = (factIdx.value + 1) % facts.length
+}
 </script>
 
 <style scoped>
@@ -98,9 +122,9 @@ const wordDay = props.words[new Date().getDate() % props.words.length]
 .home-header {
   display:flex; align-items:center; justify-content:space-between;
   padding:20px 20px 16px;
-  background:rgba(242,232,213,.82);
+  background:var(--bg2);
   backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(176,120,40,.2);
+  border-bottom:1px solid var(--line);
   position:sticky; top:0; z-index:10;
 }
 .home-greeting { font-family:var(--m); font-size:11px; color:var(--muted); }
@@ -108,7 +132,7 @@ const wordDay = props.words[new Date().getDate() % props.words.length]
 .home-level { background:var(--red); color:var(--bg); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; letter-spacing:1px; }
 .home-body { padding:16px; display:flex; flex-direction:column; gap:14px; }
 .streak-card {
-  background:rgba(242,232,213,.88); backdrop-filter:blur(8px);
+  background:var(--bg2); backdrop-filter:blur(8px);
   border:1px solid rgba(176,120,40,.3); border-radius:16px;
   padding:18px; display:flex; gap:16px; align-items:center;
 }
@@ -136,7 +160,7 @@ const wordDay = props.words[new Date().getDate() % props.words.length]
 .cc-pct { font-family:var(--m); font-size:11px; color:rgba(242,232,213,.6); }
 .cc-arrow { margin-left:auto; font-size:18px; color:rgba(242,232,213,.4); }
 .word-card {
-  background:rgba(242,232,213,.88); backdrop-filter:blur(8px);
+  background:var(--bg2); backdrop-filter:blur(8px);
   border:1px solid rgba(26,58,110,.2); border-radius:16px;
   padding:20px; cursor:pointer; min-height:110px;
   transition:all .2s;
@@ -150,22 +174,31 @@ const wordDay = props.words[new Date().getDate() % props.words.length]
 .wc-arm-sm { font-family:var(--d); font-size:20px; font-style:italic; color:var(--muted); margin-top:4px; }
 .quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .qc {
-  background:rgba(242,232,213,.88); backdrop-filter:blur(8px);
-  border:1px solid rgba(176,120,40,.25); border-radius:16px;
+  background:var(--bg2); backdrop-filter:blur(8px);
+  border:1px solid var(--line); border-radius:16px;
   padding:18px; cursor:pointer; transition:all .2s; text-align:center;
 }
 .qc:hover { border-color:var(--gold); }
 .qc-label { font-family:var(--s); font-size:15px; font-weight:600; color:var(--ink); margin-top:8px; }
 .qc-desc  { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:3px; }
 .stats-row {
-  background:rgba(242,232,213,.88); backdrop-filter:blur(8px);
-  border:1px solid rgba(176,120,40,.2); border-radius:16px;
+  background:var(--bg2); backdrop-filter:blur(8px);
+  border:1px solid var(--line); border-radius:16px;
   display:flex; align-items:center;
 }
 .stat { flex:1; padding:16px; text-align:center; }
 .stat-n { font-family:var(--d); font-size:30px; font-weight:700; color:var(--red); line-height:1; }
 .stat-l { font-family:var(--m); font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
 .stat-div { width:1px; height:44px; background:rgba(176,120,40,.2); }
+.lang-fact {
+  background:rgba(26,58,110,.07); backdrop-filter:blur(6px);
+  border:1px solid rgba(26,58,110,.18); border-radius:16px;
+  padding:20px; display:flex; flex-direction:column; gap:12px;
+}
+.lf-label { font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--blue); }
+.lf-text  { font-family:var(--s); font-size:15px; color:var(--ink); line-height:1.6; }
+.lf-next  { background:none; border:none; font-family:var(--m); font-size:11px; color:var(--blue); cursor:pointer; text-align:left; padding:0; letter-spacing:1px; }
+.lf-next:hover { text-decoration:underline; }
 .flip-enter-active, .flip-leave-active { transition: all .25s; }
 .flip-enter-from { opacity:0; transform:translateY(6px); }
 .flip-leave-to   { opacity:0; transform:translateY(-6px); }

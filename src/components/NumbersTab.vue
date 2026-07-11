@@ -39,10 +39,10 @@ const numbers = [
 <style scoped>
 .pv-title { font-family:var(--d); font-size:clamp(26px,4vw,48px); font-weight:700; font-style:italic; color:var(--red); padding:28px 0 20px; border-bottom:2px solid var(--line); margin-bottom:24px; position:relative; }
 .pv-title::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--blue); opacity:.6; }
-.pv-grid  { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; }
-.pv-card  { border:1px solid var(--line); border-left:3px solid var(--red); background:rgba(236,221,198,.78); padding:18px 20px; animation:cardIn .3s both; }
+.pv-grid  { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.pv-card  { border:1px solid var(--line); border-left:3px solid var(--red); background:rgba(236,221,198,.78); padding:14px 16px; overflow:hidden; animation:cardIn .3s both; }
 .num-card:hover { border-color:var(--gold); background:rgba(242,232,213,.9); }
-.pv-arm { font-family:var(--d); font-size:36px; font-weight:700; font-style:italic; color:var(--red); line-height:1; margin-bottom:6px; }
+.pv-arm { font-family:var(--d); font-size:clamp(24px,6vw,36px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700; font-style:italic; color:var(--red); line-height:1; margin-bottom:6px; }
 .pv-tr  { font-family:var(--m); font-size:11px; color:var(--muted); font-style:italic; margin-bottom:4px; }
 .pv-ru  { font-family:var(--s); font-size:16px; color:var(--ink); }
 @keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }

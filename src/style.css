@@ -21,7 +21,7 @@
   --vowel:     #6b1212;
   --vowel-bg:  #ede0c6;
   --consonant: #2e1808;
-  --d: 'Fraunces', serif;
+  --d: 'Fraunces', 'Noto Serif Armenian', serif;
   --s: 'Newsreader', serif;
   --m: 'Instrument Mono', monospace;
 }
@@ -42,6 +42,13 @@
   --ok:#50c070; --muted:#a08050;
   --line:#1e1610; --line2:#2a2018;
   --vowel:#f06060; --vowel-bg:#180e06; --consonant:#e0c090;
+}
+
+/* Армянские глифы: использовать Noto Serif Armenian для корректного отображения */
+@font-face {
+  font-family: 'Fraunces';
+  src: local('Noto Serif Armenian');
+  unicode-range: U+0531-058F, U+FB13-FB17;
 }
 
 html { scroll-behavior:smooth }
@@ -736,8 +743,6 @@ html {
 }
 
 
-[data-theme=dark] 
-[data-theme=amoled] 
 
 /* ── MOBILE ── */
 @media(max-width:768px) {
@@ -847,3 +852,321 @@ html {
 [data-theme=amoled] .dt-tabs {
   background: rgba(0,0,0,.92) !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   DARK / AMOLED — глобальные переопределения карточек
+   Все rgba(242,232,213,...) заменяем на тёмный фон + светлый текст
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── DARK: карточки ── */
+[data-theme=dark] .at-cell,
+[data-theme=dark] .lv-letter-card,
+[data-theme=dark] .lv-sound-block,
+[data-theme=dark] .lv-word-card,
+[data-theme=dark] .lv-quiz,
+[data-theme=dark] .lv-learned-btn,
+[data-theme=dark] .lv-quiz-opt,
+[data-theme=dark] .ll,
+[data-theme=dark] .ltab,
+[data-theme=dark] .lmodal-box,
+[data-theme=dark] .pts-card,
+[data-theme=dark] .pts-compare,
+[data-theme=dark] .pt-rule,
+[data-theme=dark] .ptr-case,
+[data-theme=dark] .pt-note,
+[data-theme=dark] .streak-card,
+[data-theme=dark] .word-card,
+[data-theme=dark] .qc,
+[data-theme=dark] .stats-row,
+[data-theme=dark] .lang-fact,
+[data-theme=dark] .continue-card,
+[data-theme=dark] .lit-section-card,
+[data-theme=dark] .story-card,
+[data-theme=dark] .article-card,
+[data-theme=dark] .av-body,
+[data-theme=dark] .num-card,
+[data-theme=dark] .formula-table,
+[data-theme=dark] .reading-info,
+[data-theme=dark] .num-fact,
+[data-theme=dark] .num-section,
+[data-theme=dark] .sc-legend {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+/* ── DARK: текст внутри карточек ── */
+[data-theme=dark] .sc-title,
+[data-theme=dark] .sc-text,
+[data-theme=dark] .ac-title,
+[data-theme=dark] .ac-desc,
+[data-theme=dark] .lsc-title,
+[data-theme=dark] .lsc-desc,
+[data-theme=dark] .atc-sound,
+[data-theme=dark] .lv-word-ru,
+[data-theme=dark] .lv-word-tr,
+[data-theme=dark] .lv-note,
+[data-theme=dark] .lv-sound-label,
+[data-theme=dark] .ri-desc,
+[data-theme=dark] .ri-count,
+[data-theme=dark] .nc-tr,
+[data-theme=dark] .ft-r,
+[data-theme=dark] .num-fact p,
+[data-theme=dark] .ll-ru,
+[data-theme=dark] .ll-desc,
+[data-theme=dark] .pts-desc,
+[data-theme=dark] .ptrc-desc,
+[data-theme=dark] .pt-note li,
+[data-theme=dark] .ptcmp-ru {
+  color: var(--ink) !important;
+}
+
+[data-theme=dark] .atc-upper { color: var(--red) !important; }
+[data-theme=dark] .at-cell.vowel .atc-upper { color: var(--blue) !important; }
+[data-theme=dark] .at-cell.learned .atc-upper { color: var(--gold) !important; }
+
+[data-theme=dark] .ft-row {
+  border-bottom-color: var(--line) !important;
+  color: var(--ink) !important;
+}
+[data-theme=dark] .ft-head {
+  background: var(--bg3) !important;
+  color: var(--muted) !important;
+}
+
+[data-theme=dark] .lv-quiz-opt:not(.correct):not(.wrong) {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme=dark] .am-header,
+[data-theme=dark] .am-progress-row {
+  background: var(--bg2) !important;
+  border-color: var(--line) !important;
+}
+
+[data-theme=dark] .alpha-modal {
+  background: var(--bg) !important;
+}
+
+[data-theme=dark] .lm-coming-text { color: var(--ink) !important; }
+
+/* av-body deep elements */
+[data-theme=dark] .av-body p,
+[data-theme=dark] .av-body li,
+[data-theme=dark] .av-body ol { color: var(--ink) !important; }
+
+/* gram table inside articles */
+[data-theme=dark] .gram-table .gt-row { color: var(--ink) !important; }
+[data-theme=dark] .gram-table .gt-head { background: var(--bg3) !important; }
+
+/* ── AMOLED: карточки ── */
+[data-theme=amoled] .at-cell,
+[data-theme=amoled] .lv-letter-card,
+[data-theme=amoled] .lv-sound-block,
+[data-theme=amoled] .lv-word-card,
+[data-theme=amoled] .lv-quiz,
+[data-theme=amoled] .lv-learned-btn,
+[data-theme=amoled] .lv-quiz-opt,
+[data-theme=amoled] .ll,
+[data-theme=amoled] .ltab,
+[data-theme=amoled] .lmodal-box,
+[data-theme=amoled] .pts-card,
+[data-theme=amoled] .pts-compare,
+[data-theme=amoled] .pt-rule,
+[data-theme=amoled] .ptr-case,
+[data-theme=amoled] .pt-note,
+[data-theme=amoled] .streak-card,
+[data-theme=amoled] .word-card,
+[data-theme=amoled] .qc,
+[data-theme=amoled] .stats-row,
+[data-theme=amoled] .lang-fact,
+[data-theme=amoled] .lit-section-card,
+[data-theme=amoled] .story-card,
+[data-theme=amoled] .article-card,
+[data-theme=amoled] .av-body,
+[data-theme=amoled] .num-card,
+[data-theme=amoled] .formula-table,
+[data-theme=amoled] .reading-info,
+[data-theme=amoled] .num-fact,
+[data-theme=amoled] .sc-legend {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme=amoled] .sc-title,
+[data-theme=amoled] .sc-text,
+[data-theme=amoled] .ac-title,
+[data-theme=amoled] .ac-desc,
+[data-theme=amoled] .lsc-title,
+[data-theme=amoled] .lsc-desc,
+[data-theme=amoled] .ll-ru,
+[data-theme=amoled] .ll-desc,
+[data-theme=amoled] .av-body p,
+[data-theme=amoled] .av-body li {
+  color: var(--ink) !important;
+}
+
+[data-theme=amoled] .alpha-modal { background: #000 !important; }
+[data-theme=amoled] .am-header,
+[data-theme=amoled] .am-progress-row { background: var(--bg2) !important; }
+
+[data-theme=amoled] .ft-row { color: var(--ink) !important; }
+[data-theme=amoled] .ft-head { background: var(--bg3) !important; color: var(--muted) !important; }
+
+[data-theme=amoled] .lv-quiz-opt:not(.correct):not(.wrong) {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+/* ── MOBILE FIXES ── */
+@media (max-width: 480px) {
+  /* Квиз — слово не вылезает */
+  .qcard { padding: 24px 16px !important; }
+  .qword { font-size: clamp(28px, 9vw, 56px) !important; word-break: break-word; }
+  
+  /* Числа — две колонки */
+  .pv-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .pv-arm  { font-size: clamp(20px, 5vw, 30px) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pv-card { padding: 12px !important; }
+  
+  /* Таблицы — скролл */
+  .pron-scroll { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .pt { min-width: 300px; }
+  
+  /* Карточки уроков */
+  .ll { padding: 12px !important; }
+  .ll-ru { font-size: 15px !important; }
+  .ll-arm { font-size: 12px !important; }
+  
+  /* Главная */
+  .home-header { padding: 14px 16px !important; }
+  .home-name { font-size: 22px !important; }
+  .streak-num { font-size: 32px !important; }
+  .wc-arm { font-size: 40px !important; }
+  
+  /* Алфавит */
+  .at-grid { grid-template-columns: repeat(4, 1fr) !important; }
+  .atc-upper { font-size: 32px !important; }
+  .atc-lower { font-size: 18px !important; }
+  .lv-big { font-size: clamp(80px, 22vw, 120px) !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DARK/AMOLED — фикс жёстко прописанных светлых фонов
+   ══════════════════════════════════════════════════════════════ */
+
+[data-theme=dark] .chip,
+[data-theme=dark] .qopt,
+[data-theme=dark] .qcard,
+[data-theme=dark] .qword-wrap,
+[data-theme=dark] .alpha-card,
+[data-theme=dark] .av-card,
+[data-theme=dark] .lb-letter-card,
+[data-theme=dark] .scard,
+[data-theme=dark] .inline-tab,
+[data-theme=dark] .it-wcard,
+[data-theme=dark] .it-note,
+[data-theme=dark] .continue-card {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+/* Навбар и хедеры */
+[data-theme=dark] .tab-bar,
+[data-theme=dark] .dt-header,
+[data-theme=dark] .dt-tabs {
+  background: var(--bg2) !important;
+  border-color: var(--line) !important;
+}
+
+/* Sticky заголовки */
+[data-theme=dark] header,
+[data-theme=dark] .app-header,
+[data-theme=dark] .home-header {
+  background: rgba(26,18,8,.92) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Практика — карточка слова */
+[data-theme=dark] .q-word-card,
+[data-theme=dark] #quizView .qcard {
+  background: var(--bg2) !important;
+  color: var(--ink) !important;
+}
+
+/* Кнопки ответов */
+[data-theme=dark] .qopt:not(.ok):not(.bad) {
+  background: var(--bg2) !important;
+  color: var(--ink) !important;
+  border-color: var(--line2) !important;
+}
+
+/* Кнопка "Следующее слово" */
+[data-theme=dark] #qNext,
+[data-theme=dark] .q-next-btn {
+  background: var(--ink) !important;
+  color: var(--bg) !important;
+}
+
+/* Словарь карточки */
+[data-theme=dark] .dt-word,
+[data-theme=dark] .sw-front,
+[data-theme=dark] .sw-back {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme=dark] .sw-word,
+[data-theme=dark] .sw-ru { color: var(--ink) !important; }
+
+/* ── AMOLED — те же самые ── */
+[data-theme=amoled] .chip,
+[data-theme=amoled] .qopt,
+[data-theme=amoled] .qcard,
+[data-theme=amoled] .alpha-card,
+[data-theme=amoled] .av-card,
+[data-theme=amoled] .lb-letter-card,
+[data-theme=amoled] .scard,
+[data-theme=amoled] .inline-tab,
+[data-theme=amoled] .it-wcard,
+[data-theme=amoled] .it-note,
+[data-theme=amoled] .continue-card {
+  background: var(--bg2) !important;
+  border-color: var(--line2) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme=amoled] .tab-bar,
+[data-theme=amoled] header,
+[data-theme=amoled] .app-header,
+[data-theme=amoled] .home-header {
+  background: rgba(0,0,0,.95) !important;
+}
+
+[data-theme=amoled] .qopt:not(.ok):not(.bad) {
+  background: var(--bg2) !important;
+  color: var(--ink) !important;
+  border-color: var(--line2) !important;
+}
+
+[data-theme=amoled] .dt-word,
+[data-theme=amoled] .sw-front,
+[data-theme=amoled] .sw-back {
+  background: var(--bg2) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme=amoled] .sw-word,
+[data-theme=amoled] .sw-ru { color: var(--ink) !important; }
+
+/* ── ADMIN TAB BUTTON ── */
+.admin-btn .tabbar-icon { font-size: 18px; }
+.admin-btn { border-left: 1px solid var(--line); }
+[data-theme=dark] .admin-btn,
+[data-theme=amoled] .admin-btn { border-left-color: var(--line2); }

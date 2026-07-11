@@ -1,143 +1,158 @@
 <template>
   <div class="pron-wrap">
-    <div class="pv-title">Դերanouнnеr — Местоимения</div>
+    <div class="pv-title">Դeranounnеr — Местоимения</div>
     <div class="pron-note">В армянском 7 падежей. Местоимения не различают род в 3-м лице.</div>
 
-    <!-- ТАБЛИЦА 1: 1-е и 2-е лицо -->
     <div class="pron-group-title">1-е и 2-е лицо</div>
     <div class="pron-scroll">
       <table class="pt">
         <thead>
           <tr>
             <th class="pt-pad">Падеж</th>
-            <th><div class="pt-arm">Ես</div><div class="pt-tr">Yes</div><div class="pt-ru">Я</div></th>
-            <th><div class="pt-arm">Մենք</div><div class="pt-tr">Menk</div><div class="pt-ru">Мы</div></th>
-            <th><div class="pt-arm">Դու</div><div class="pt-tr">Du</div><div class="pt-ru">Ты</div></th>
-            <th><div class="pt-arm">Դոք</div><div class="pt-tr">Duk</div><div class="pt-ru">Вы</div></th>
+            <th v-for="h in heads1" :key="h.arm">
+              <div class="pt-arm">{{ h.arm }}</div>
+              <div class="pt-tr">{{ h.tr }}</div>
+              <div class="pt-ru">{{ h.ru }}</div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="r in rows1" :key="r.ru">
-            <td class="pt-pad"><div class="pt-case-arm">{{ r.arm }}</div><div class="pt-case-ru">{{ r.ru }}</div></td>
-            <td v-for="v in r.vals" :key="v" class="pt-val">{{ v }}</td>
+            <td class="pt-pad">
+              <div class="pt-case-arm">{{ r.arm }}</div>
+              <div class="pt-case-ru">{{ r.ru }}</div>
+            </td>
+            <td v-for="v in r.vals" :key="v.arm" class="pt-val">
+              <div class="ptv-arm">{{ v.arm }}</div>
+              <div class="ptv-tr">{{ v.tr }}</div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- ТАБЛИЦА 2: 3-е лицо -->
     <div class="pron-group-title" style="margin-top:32px">3-е лицо</div>
     <div class="pron-scroll">
       <table class="pt">
         <thead>
           <tr>
             <th class="pt-pad">Падеж</th>
-            <th><div class="pt-arm">Նա</div><div class="pt-tr">Na</div><div class="pt-ru">Он / Она</div></th>
-            <th><div class="pt-arm">Նրանք</div><div class="pt-tr">Nrank</div><div class="pt-ru">Они</div></th>
+            <th v-for="h in heads3" :key="h.arm">
+              <div class="pt-arm">{{ h.arm }}</div>
+              <div class="pt-tr">{{ h.tr }}</div>
+              <div class="pt-ru">{{ h.ru }}</div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="r in rows3" :key="r.ru">
-            <td class="pt-pad"><div class="pt-case-arm">{{ r.arm }}</div><div class="pt-case-ru">{{ r.ru }}</div></td>
-            <td v-for="v in r.vals" :key="v" class="pt-val">{{ v }}</td>
+            <td class="pt-pad">
+              <div class="pt-case-arm">{{ r.arm }}</div>
+              <div class="pt-case-ru">{{ r.ru }}</div>
+            </td>
+            <td v-for="v in r.vals" :key="v.arm" class="pt-val">
+              <div class="ptv-arm">{{ v.arm }}</div>
+              <div class="ptv-tr">{{ v.tr }}</div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="pron-note" style="margin-top:24px">
-      Притяжательные артикли крепятся к концу слова: մayрс (моя мать), мayрд (твоя мать), мayрн (его/её мать).
+    <div class="pron-note pron-note-bottom">
+      Притяжательные артикли: –ս (мой), –դ (твой), –ն (его/её) крепятся к концу существительного.
     </div>
   </div>
 </template>
 
 <script setup>
+const heads1 = [
+  { arm:'Ես',   tr:'Yes',  ru:'Я'  },
+  { arm:'Մենք', tr:'Menk', ru:'Мы' },
+  { arm:'Դու',  tr:'Du',   ru:'Ты' },
+  { arm:'Դուք', tr:'Duk',  ru:'Вы' },
+]
+const heads3 = [
+  { arm:'Նա',    tr:'Na',    ru:'Он / Она' },
+  { arm:'Նրանք', tr:'Nrank', ru:'Они'      },
+]
+
 const rows1 = [
-  { arm: 'Ողղական',    ru: 'Именительный', vals: ['Ես',    'Մենք',  'Դու',    'Դոք']   },
-  { arm: 'Սևռական',     ru: 'Родит. / Дат.',  vals: ['իմ',     'մեր',   'քո',    'դզեր']  },
-  { arm: 'Հայցական',  ru: 'Винительный',   vals: ['ինդ',   'մեզ',   'կեզ',   'դզեզ']  },
-  { arm: 'Բացառական',  ru: 'Исходный',      vals: ['ինդանից', 'մեզանից', 'կեզանից', 'դզեզանից'] },
-  { arm: 'Գործիական',   ru: 'Творительный',  vals: ['ինդանով','մեզանով','կեզանով','դզեզանով'] },
-  { arm: '',                    ru: 'Местный',       vals: ['—', '—', '—', '—'] },
+  { arm:'Ուղղական',  ru:'Именительный',
+    vals:[ {arm:'Ես',       tr:'Yes'},      {arm:'Մենք',      tr:'Menk'},
+           {arm:'Դու',      tr:'Du'},       {arm:'Դուք',      tr:'Duk'}  ] },
+  { arm:'Սեռական',   ru:'Родит. / Дат.',
+    vals:[ {arm:'իմ',       tr:'im'},       {arm:'մեր',       tr:'mer'},
+           {arm:'քո',       tr:'qo'},       {arm:'Ձեր',       tr:'Dzer'} ] },
+  { arm:'Հայցական',  ru:'Винительный',
+    vals:[ {arm:'ինձ',      tr:'indz'},     {arm:'մեզ',       tr:'mez'},
+           {arm:'քեզ',      tr:'qez'},      {arm:'ձեզ',       tr:'dzez'} ] },
+  { arm:'Բացառական', ru:'Исходный',
+    vals:[ {arm:'ինձանից',  tr:'indzanits'},{arm:'մեզանից',   tr:'mezanits'},
+           {arm:'քեզանից',  tr:'qezanits'}, {arm:'ձեզանից',   tr:'dzezanits'} ] },
+  { arm:'Գործիական', ru:'Творительный',
+    vals:[ {arm:'ինձանով',  tr:'indzanov'}, {arm:'մեզանով',   tr:'mezanov'},
+           {arm:'քեզանով',  tr:'qezanov'},  {arm:'ձեզանով',   tr:'dzezanov'} ] },
+  { arm:'',          ru:'Местный',
+    vals:[ {arm:'—',tr:''}, {arm:'—',tr:''}, {arm:'—',tr:''}, {arm:'—',tr:''} ] },
 ]
 
 const rows3 = [
-  { arm: 'Ողղական',    ru: 'Именительный', vals: ['Նա',    'Նրանք']  },
-  { arm: 'Սևռական',     ru: 'Родит. / Дат.',  vals: ['նրա',   'նրանց']  },
-  { arm: 'Հայցական',  ru: 'Винительный',   vals: ['նրան',  'նրանց'] },
-  { arm: 'Բացառական',  ru: 'Исходный',      vals: ['նրանից','նրանցից'] },
-  { arm: 'Գործիական',   ru: 'Творительный',  vals: ['նրանով','նրանցով'] },
-  { arm: '',                    ru: 'Местный',       vals: ['—', '—'] },
+  { arm:'Ուղղական',  ru:'Именительный',
+    vals:[ {arm:'Նա',      tr:'Na'},      {arm:'Նրանք',    tr:'Nrank'}    ] },
+  { arm:'Սեռական',   ru:'Родит. / Дат.',
+    vals:[ {arm:'նրա',     tr:'nra'},     {arm:'նրանց',    tr:'nrants'}   ] },
+  { arm:'Հայցական',  ru:'Винительный',
+    vals:[ {arm:'նրան',    tr:'nran'},    {arm:'նրանց',    tr:'nrants'}   ] },
+  { arm:'Բացառական', ru:'Исходный',
+    vals:[ {arm:'նրանից',  tr:'nranits'}, {arm:'նրանցից',  tr:'nrantsits'}] },
+  { arm:'Գործիական', ru:'Творительный',
+    vals:[ {arm:'նրանով',  tr:'nranov'},  {arm:'նրանցով',  tr:'nrantsov'} ] },
+  { arm:'',          ru:'Местный',
+    vals:[ {arm:'—',tr:''}, {arm:'—',tr:''} ] },
 ]
 </script>
 
 <style scoped>
-.pron-wrap { padding-bottom: 40px; }
+.pron-wrap { padding-bottom:40px; }
 .pv-title {
-  font-family:var(--d); font-size:clamp(26px,4vw,48px);
+  font-family:var(--d); font-size:clamp(22px,4vw,40px);
   font-weight:700; font-style:italic; color:var(--red);
   padding:28px 0 16px; border-bottom:2px solid var(--line);
   margin-bottom:16px; position:relative;
 }
-.pv-title::after {
-  content:''; position:absolute; bottom:-3px; left:0; right:0;
-  height:1px; background:var(--blue); opacity:.6;
-}
-.pron-note {
-  font-family:var(--s); font-size:14px; color:var(--muted);
-  font-style:italic; padding:10px 0; margin-bottom:20px;
-}
-.pron-group-title {
-  font-family:var(--m); font-size:10px; letter-spacing:3px;
-  text-transform:uppercase; color:var(--gold); margin-bottom:12px;
-}
-.pron-scroll { overflow-x:auto; }
-.pt {
-  border-collapse:collapse; width:100%;
-  border:1px solid var(--line);
-}
-.pt thead th {
-  background:var(--bg2);
-  border:1px solid var(--line);
-  padding:14px 20px;
-  text-align:center;
-  vertical-align:bottom;
-}
+.pv-title::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--blue); opacity:.6; }
+.pron-note { font-family:var(--s); font-size:15px; color:var(--ink); padding:10px 0; margin-bottom:20px; line-height:1.5; }
+.pron-note-bottom { margin-top:24px; border-top:1px solid var(--line); padding-top:16px; color:var(--muted); font-style:italic; }
+.pron-group-title { font-family:var(--m); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.pron-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+.pt { border-collapse:collapse; min-width:340px; width:100%; border:1px solid var(--line); }
+.pt thead th { background:var(--bg2); border:1px solid var(--line); padding:12px 14px; text-align:center; vertical-align:bottom; }
 .pt-pad {
-  background:var(--ink) !important;
-  color:var(--bg) !important;
-  font-family:var(--m); font-size:9px; letter-spacing:2px;
-  text-transform:uppercase;
-  min-width:140px; width:140px;
-  padding:12px 16px !important;
-  text-align:left !important;
-  vertical-align:middle !important;
+  background:var(--ink) !important; color:var(--bg) !important;
+  font-family:var(--m); font-size:10px; letter-spacing:1px; text-transform:uppercase;
+  min-width:100px; width:100px; padding:12px 10px !important;
+  text-align:left !important; vertical-align:middle !important;
 }
-.pt-arm {
-  font-family:var(--d); font-size:24px; font-style:italic;
-  color:var(--red); line-height:1.1; margin-bottom:4px;
-}
-.pt-tr { font-family:var(--m); font-size:9px; color:var(--muted); }
-.pt-ru { font-family:var(--s); font-size:13px; color:var(--ink); margin-top:2px; }
-.pt tbody tr:hover td { background:rgba(242,232,213,.9); }
-.pt-case-arm {
-  font-family:var(--d); font-size:13px; font-style:italic;
-  color:var(--red); margin-bottom:3px;
-}
-.pt-case-ru {
-  font-family:var(--m); font-size:9px; color:var(--bg);
-  letter-spacing:1px;
-}
-.pt-val {
-  font-family:var(--d); font-size:20px; font-style:italic;
-  color:var(--ink); padding:12px 20px;
-  border:1px solid var(--line);
-  background:rgba(236,221,198,.7);
-  text-align:center;
-}
-@media(max-width:768px) {
-  .pt-pad { min-width:100px; width:100px; padding:10px 10px !important; }
-  .pt-val { font-size:16px; padding:10px 12px; }
-  .pt-arm { font-size:18px; }
-}
+.pt-arm { font-family:var(--d); font-size:clamp(18px,3.5vw,24px); font-style:italic; color:var(--red); line-height:1.1; margin-bottom:2px; }
+.pt-tr  { font-family:var(--m); font-size:10px; color:var(--muted); }
+.pt-ru  { font-family:var(--s); font-size:14px; color:var(--ink); margin-top:2px; font-weight:600; }
+.pt-case-arm { font-family:var(--d); font-size:clamp(12px,2vw,15px); font-style:italic; color:var(--red); line-height:1.2; margin-bottom:2px; }
+.pt-case-ru  { font-family:var(--m); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:rgba(255,255,255,.7); }
+
+/* VALUE CELLS */
+.pt-val { border:1px solid var(--line); padding:10px 12px; text-align:center; background:var(--bg2); vertical-align:middle; }
+.ptv-arm { font-family:var(--d); font-size:clamp(16px,2.5vw,20px); font-style:italic; color:var(--ink); line-height:1.2; }
+.ptv-tr  { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:3px; letter-spacing:.3px; }
+
+/* Чередование строк */
+.pt tbody tr:nth-child(even) .pt-val { background:var(--bg3); }
+
+[data-theme=dark] .pt-val,
+[data-theme=dark] .pt thead th { background:var(--bg2) !important; }
+[data-theme=dark] .pt tbody tr:nth-child(even) .pt-val { background:var(--bg3) !important; }
+[data-theme=dark] .ptv-arm { color:var(--ink) !important; }
+
+[data-theme=amoled] .pt-val,
+[data-theme=amoled] .pt thead th { background:var(--bg2) !important; }
 </style>
