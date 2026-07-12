@@ -390,7 +390,7 @@ function markDone() {
   display:flex; align-items:center; justify-content:space-between;
   padding:20px; border-bottom:1px solid var(--line);
   position:sticky; top:0; z-index:10;
-  background:var(--glass-bg); backdrop-filter:blur(10px);
+  background:var(--glass-bg-strong);
 border-color:var(--glass-border);}
 .learn-title { font-family:var(--d); font-size:28px; font-weight:700; font-style:italic; color:var(--red); }
 .learn-level { background:var(--red); color:var(--bg); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; }

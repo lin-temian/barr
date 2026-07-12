@@ -154,16 +154,16 @@ const earnedSet = computed(() => {
 .prof-header {
   padding: 20px; border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 10;
-  background:var(--glass-bg); backdrop-filter: blur(10px);
+  background:var(--glass-bg-strong);
 border-color:var(--glass-border);}
 .prof-title { font-family: var(--d); font-size: 28px; font-weight: 700; font-style: italic; color: var(--red); }
 .prof-body  { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 
 .prof-user {
   display: flex; align-items: center; gap: 14px;
-  background:var(--glass-bg); border: 1px solid var(--line); border-radius: 16px;
+  background:var(--glass-bg-strong); border: 1px solid var(--line); border-radius: 16px;
   padding: 16px;
-border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .prof-avatar {
   width: 52px; height: 52px; border-radius: 50%; background: var(--red);
   display: flex; align-items: center; justify-content: center;
@@ -178,9 +178,9 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 
 .prof-stats {
   display: flex; align-items: center;
-  background:var(--glass-bg); border: 1px solid var(--line); border-radius: 14px;
+  background:var(--glass-bg-strong); border: 1px solid var(--line); border-radius: 14px;
   padding: 16px;
-border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .ps     { flex: 1; text-align: center; }
 .ps-n   { font-family: var(--d); font-size: 26px; font-weight: 700; color: var(--ink); }
 .ps-l   { font-family: var(--m); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }

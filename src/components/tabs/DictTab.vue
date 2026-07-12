@@ -277,7 +277,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 20px 16px; border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 10;
-  background:var(--glass-bg); backdrop-filter: blur(10px);
+  background:var(--glass-bg-strong);
 border-color:var(--glass-border);}
 .dt-title { font-family: var(--d); font-size: 28px; font-weight: 700; font-style: italic; color: var(--red); }
 .dt-count { font-family: var(--m); font-size: 10px; letter-spacing: 1px; color: var(--muted); }
@@ -285,8 +285,8 @@ border-color:var(--glass-border);}
 /* ── TABS ── */
 .dt-tabs {
   display: flex; border-bottom: 1px solid var(--line);
-  position: sticky; top: 69px; z-index: 9; background:var(--glass-bg);
-border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+  position: sticky; top: 69px; z-index: 9; background:var(--glass-bg-strong);
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .dt-tab {
   flex: 1; padding: 12px; background: none; border: none;
   border-bottom: 2px solid transparent;

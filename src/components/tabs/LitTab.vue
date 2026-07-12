@@ -573,8 +573,7 @@ const ARTICLES = [
 .lit-header {
   padding: 20px;
   border-bottom:1px solid var(--line);
-  background:var(--glass-bg);
-  backdrop-filter: blur(8px);
+  background:var(--glass-bg-strong);
   position: sticky; top: 0; z-index: 10;
 border-color:var(--glass-border);}
 .lit-title { font-family: var(--d); font-size: clamp(26px,5vw,40px); font-weight: 700; font-style: italic; color: var(--red); }

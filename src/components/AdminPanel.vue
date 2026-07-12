@@ -287,7 +287,7 @@ onMounted(loadArts)
 
 <style scoped>
 .admin-panel { padding-bottom:80px; }
-.ap-header { padding:16px 16px 0; position:sticky; top:0; z-index:10; background:var(--glass-bg); border-bottom:1px solid var(--line); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.ap-header { padding:16px 16px 0; position:sticky; top:0; z-index:10; background:var(--glass-bg-strong); border-bottom:1px solid var(--line); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .ap-title { font-family:var(--d); font-size:24px; font-weight:700; font-style:italic; color:var(--red); margin-bottom:10px; }
 .ap-tabs { display:flex; gap:4px; }
 .apt-btn { padding:8px 14px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--s); font-size:13px; color:var(--ink); cursor:pointer; position:relative; bottom:-1px; transition:.15s var(--spring); }

@@ -122,8 +122,7 @@ function nextFact() {
 .home-header {
   display:flex; align-items:center; justify-content:space-between;
   padding:20px 20px 16px;
-  background:var(--glass-bg);
-  backdrop-filter:blur(10px);
+  background:var(--glass-bg-strong);
   border-bottom:1px solid var(--line);
   position:sticky; top:0; z-index:10;
 border-color:var(--glass-border);}

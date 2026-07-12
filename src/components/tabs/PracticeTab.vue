@@ -21,8 +21,8 @@ defineProps({ words: Array })
 .prac-header {
   padding: 20px; border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 10;
-  background:var(--glass-bg);
-border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+  background:var(--glass-bg-strong);
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .prac-title { font-family: var(--d); font-size: 28px; font-weight: 700; font-style: italic; color: var(--red); }
 .prac-body { padding: 20px; }
 </style>
