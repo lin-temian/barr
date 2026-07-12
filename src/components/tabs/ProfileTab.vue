@@ -253,4 +253,27 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .prof-item:hover { border-color: var(--gold); }
 .prof-item.danger { color: var(--red); }
+
+[data-theme=dark] .prof-header,
+[data-theme=dark] .prof-user,
+[data-theme=dark] .prof-stats,
+[data-theme=dark] .ach-card,
+[data-theme=dark] .alpha-progress-card,
+[data-theme=dark] .theme-btn,
+[data-theme=dark] .level-btn,
+[data-theme=dark] .prof-item {
+  background: rgba(30,20,10,.85) !important;
+  border-color: rgba(176,120,40,.2) !important;
+}
+
+[data-theme=amoled] .prof-header,
+[data-theme=amoled] .prof-user,
+[data-theme=amoled] .prof-stats,
+[data-theme=amoled] .ach-card,
+[data-theme=amoled] .alpha-progress-card,
+[data-theme=amoled] .theme-btn,
+[data-theme=amoled] .level-btn,
+[data-theme=amoled] .prof-item {
+  background: rgba(0,0,0,.88) !important;
+}
 </style>
