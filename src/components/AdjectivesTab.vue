@@ -1,6 +1,6 @@
 <template>
   <div class="inline-tab">
-    <div class="it-title">Прилагательные — Ածդականներ</div>
+    <div class="it-title">Прилагательные — Ածականներ</div>
     <div class="it-note">Прилагательное стоит <strong>перед</strong> существительным и не изменяется по роду</div>
     <div class="sect-lbl">Антонимы</div>
     <div class="adj-pairs">
@@ -23,25 +23,25 @@
 </template>
 <script setup>
 const PAIRS = [
-  {arm1:"Մևծ", tr1:"Metse",  ru1:"Большой",  arm2:"Փոքր", tr2:"Pokr",   ru2:"Маленький"},
-  {arm1:"բարծ",tr1:"Barje",  ru1:"Высокий",  arm2:"ցածր", tr2:"Tsaghr", ru2:"Низкий"},
+  {arm1:"Մեծ", tr1:"Mets",  ru1:"Большой",  arm2:"Փոքր", tr2:"Pokr",   ru2:"Маленький"},
+  {arm1:"Բարձր",tr1:"Bardzr",  ru1:"Высокий",  arm2:"ցածր", tr2:"Tsatsr", ru2:"Низкий"},
   {arm1:"լավ",tr1:"Lav",    ru1:"Хороший",  arm2:"վատ",   tr2:"Vat",    ru2:"Плохой"},
   {arm1:"նոր",tr1:"Nor",   ru1:"Новый",    arm2:"հին", tr2:"Hin",    ru2:"Старый"},
-  {arm1:"Արագ",tr1:"Arag",   ru1:"Быстрый",  arm2:"դանդալ",  tr2:"Dandal", ru2:"Медленный"},
-  {arm1:"Մաքուր",tr1:"Makur", ru1:"Чистый",   arm2:"կևղտ", tr2:"Keght",  ru2:"Грязный"},
+  {arm1:"Արագ",tr1:"Arag",   ru1:"Быстрый",  arm2:"Դանդաղ",  tr2:"Dandagh", ru2:"Медленный"},
+  {arm1:"Մաքուր",tr1:"Makur", ru1:"Чистый",   arm2:"Կեղտոտ", tr2:"Keghtot",  ru2:"Грязный"},
   {arm1:"տաք", tr1:"Tak",    ru1:"Горячий",  arm2:"սառ",  tr2:"Sar",    ru2:"Холодный"},
-  {arm1:"բարի",tr1:"Bari",   ru1:"Добрый",   arm2:"լկa", tr2:"Lka", ru2:"Злой"},
+  {arm1:"բարի",tr1:"Bari",   ru1:"Добрый",   arm2:"Չար", tr2:"Char", ru2:"Злой"},
 ]
 const COMPARE = [
-  {base:"Մևծ",  super:"Մևծագույն",   ru:"самый большой"},
+  {base:"Մեծ",  super:"Մեծագույն",   ru:"самый большой"},
   {base:"լավ", super:"լավագույն",  ru:"самый хороший"},
   {base:"Արագ", super:"Արագագույն",  ru:"самый быстрый"},
 ]
 const EX = [
-  {arm:"Մևծ Կաղաք", ru:"Большой город"},
+  {arm:"Մեծ Քաղաք", ru:"Большой город"},
   {arm:"լավ Մարդ",       ru:"Хороший человек"},
   {arm:"նոր Գիրք",      ru:"Новая книга"},
-  {arm:"տաք սուրՃ", ru:"Горячий кофе"},
+  {arm:"տաք սուրճ", ru:"Горячий кофе"},
 ]
 </script>
 <style scoped>

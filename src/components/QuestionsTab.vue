@@ -7,17 +7,17 @@
     <div class="sect-lbl">Диалог: знакомство</div>
     <div class="dialog-list">
       <div class="d-line"><div class="d-sp">A</div>
-        <div class="d-body"><div class="d-arm">Բարևվ!</div><div class="d-tr">Barev!</div><div class="d-ru">Привет!</div></div></div>
+        <div class="d-body"><div class="d-arm">Բարև!</div><div class="d-tr">Barev!</div><div class="d-ru">Привет!</div></div></div>
       <div class="d-line rb"><div class="d-sp">B</div>
-        <div class="d-body"><div class="d-arm">Բարևվ, կերպ Ես?</div><div class="d-tr">Barev, kerp yes?</div><div class="d-ru">Привет! Как ты?</div></div></div>
+        <div class="d-body"><div class="d-arm">Բարև, ինչպե՞ս ես</div><div class="d-tr">Barev, inchpes es?</div><div class="d-ru">Привет! Как ты?</div></div></div>
       <div class="d-line"><div class="d-sp">A</div>
         <div class="d-body"><div class="d-arm">լավ, շնորհակալ.</div><div class="d-tr">Lav, shnorhakal.</div><div class="d-ru">Хорошо, спасибо.</div></div></div>
       <div class="d-line rb"><div class="d-sp">B</div>
-        <div class="d-body"><div class="d-arm">ինդզ անունխ Արամ ե.</div><div class="d-tr">Indz anunh Aram e.</div><div class="d-ru">Меня зовут Арам.</div></div></div>
+        <div class="d-body"><div class="d-arm">Իմ անունը Արամ է.</div><div class="d-tr">Im anuny Aram e.</div><div class="d-ru">Меня зовут Арам.</div></div></div>
       <div class="d-line"><div class="d-sp">A</div>
-        <div class="d-body"><div class="d-arm">ինդզ անունխ Անի ե.</div><div class="d-tr">Indz anunh Ani e.</div><div class="d-ru">Меня зовут Ани.</div></div></div>
+        <div class="d-body"><div class="d-arm">Իմ անունը Անի է.</div><div class="d-tr">Im anuny Ani e.</div><div class="d-ru">Меня зовут Ани.</div></div></div>
       <div class="d-line rb"><div class="d-sp">B</div>
-        <div class="d-body"><div class="d-arm">որտևղից եք?</div><div class="d-tr">Vortegits ek?</div><div class="d-ru">Откуда вы?</div></div></div>
+        <div class="d-body"><div class="d-arm">որտեղից եք?</div><div class="d-tr">Vortegits ek?</div><div class="d-ru">Откуда вы?</div></div></div>
       <div class="d-line"><div class="d-sp">A</div>
         <div class="d-body"><div class="d-arm">Ես Հայաստանից եմ.</div><div class="d-tr">Yes Hayastanits em.</div><div class="d-ru">Я из Армении.</div></div></div>
     </div>
@@ -27,8 +27,8 @@
 const QS = [
   {arm:"ով", tr:"Ov", ru:"Кто?"},
   {arm:"ինչ", tr:"Inch", ru:"Что?"},
-  {arm:"որտևղ", tr:"Vortegh", ru:"Где?"},
-  {arm:"կան", tr:"Kan", ru:"Куда?"},
+  {arm:"որտեղ", tr:"Vortegh", ru:"Где?"},
+  {arm:"ուր", tr:"Ur", ru:"Куда?"},
   {arm:"երբ", tr:"Yerb", ru:"Когда?"},
   {arm:"ինչով", tr:"Inchov", ru:"Как? Чем?"},
   {arm:"քանի", tr:"Qani", ru:"Сколько?"},
@@ -40,7 +40,6 @@ const QS = [
 ]
 </script>
 <style scoped>
-.sect-lbl{font-family:var(--m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-top:6px;}
 .sect-lbl{font-family:var(--m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-top:6px;}
 .dialog-list{display:flex;flex-direction:column;gap:8px;}
 .d-line{display:flex;gap:10px;align-items:flex-start;}.d-line.rb{flex-direction:row-reverse;}

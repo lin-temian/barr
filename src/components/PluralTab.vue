@@ -73,25 +73,25 @@
 
 <script setup>
 const SINGULAR = [
-  {arm:'Տoun', tr:'Tun', ru:'Дом'},
-  {arm:'Манук', tr:'Manuk', ru:'Ребёнок'},
-  {arm:'Кин', tr:'Gin', ru:'Женщина'},
-  {arm:'Айр', tr:'Ayr', ru:'Мужчина/Отец'},
-  {arm:'Сер', tr:'Ser', ru:'Любовь'},
-  {arm:'Гирк', tr:'Girk', ru:'Книга'},
+  {arm:'Տուն', tr:'Tun', ru:'Дом'},
+  {arm:'Մանուկ', tr:'Manuk', ru:'Ребёнок'},
+  {arm:'Կին', tr:'Gin', ru:'Женщина'},
+  {arm:'Այր', tr:'Ayr', ru:'Мужчина/Отец'},
+  {arm:'Սեր', tr:'Ser', ru:'Любовь'},
+  {arm:'Գիրք', tr:'Girk', ru:'Книга'},
 ]
 
 const PLURAL_ER = [
-  {arm:'Сер', ru:'Любовь', plural:'Серер', ru_pl:'Любови'},
-  {arm:'Гирк', ru:'Книга', plural:'Гирkер', ru_pl:'Книги'},
-  {arm:'Ашхарh', ru:'Мир', plural:'Ашхарhер', ru_pl:'Миры'},
+  {arm:'Սեր', ru:'Любовь', plural:'Սերեր', ru_pl:'Любови'},
+  {arm:'Գիրք', ru:'Книга', plural:'Գիրքեր', ru_pl:'Книги'},
+  {arm:'Աշխարհ', ru:'Мир', plural:'Աշխարհեր', ru_pl:'Миры'},
 ]
 
 const PLURAL_NER = [
-  {arm:'Тун', ru:'Дом', plural:'Тунер', ru_pl:'Дома'},
-  {arm:'Манук', ru:'Ребёнок', plural:'Манукнер', ru_pl:'Дети'},
-  {arm:'Кин', ru:'Женщина', plural:'Кинер', ru_pl:'Женщины'},
-  {arm:'Айр', ru:'Отец', plural:'Айрер', ru_pl:'Отцы'},
+  {arm:'Տուն', ru:'Дом', plural:'Տուներ', ru_pl:'Дома'},
+  {arm:'Մանուկ', ru:'Ребёнок', plural:'Մանուկներ', ru_pl:'Дети'},
+  {arm:'Կին', ru:'Женщина', plural:'Կիներ', ru_pl:'Женщины'},
+  {arm:'Այր', ru:'Отец', plural:'Այրեր', ru_pl:'Отцы'},
 ]
 </script>
 

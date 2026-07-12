@@ -184,7 +184,7 @@ const ColorsTab = defineComponent({
       {arm:'Մանուշակագույն', tr:'Manushakaguyn',  ru:'Фиолетовый',  color:'#8e44ad'},
       {arm:'Նարնջագույն',   tr:'Narnchaguyn',    ru:'Оранжевый',   color:'#e67e22'},
       {arm:'Սպիտակ',        tr:'Spitak',         ru:'Белый',       color:'#ecf0f1', dark:true},
-      {arm:'Սևվ',           tr:'Sev',            ru:'Чёрный',      color:'#2c3e50'},
+      {arm:'Սև',            tr:'Sev',            ru:'Чёрный',      color:'#2c3e50'},
       {arm:'Մոխրագույն',     tr:'Mokhaguyn',      ru:'Серый',       color:'#95a5a6'},
       {arm:'Շագանակագույն', tr:'Shaganakaguyn',  ru:'Коричневый',  color:'#8b4513'},
       {arm:'Վարդագույն',     tr:'Vardaguyn',      ru:'Розовый',     color:'#e91e8c'},
@@ -211,7 +211,7 @@ const FoodTab = defineComponent({
       {arm:'Ջուր',       tr:'Jur',       ru:'Вода'},
       {arm:'Գինի',      tr:'Gini',      ru:'Вино'},
       {arm:'Թեյ',       tr:'Tey',       ru:'Чай'},
-      {arm:'ՍուրՃ',     tr:'Surch',     ru:'Кофе'},
+      {arm:'Սուրճ',     tr:'Surch',     ru:'Кофе'},
       {arm:'Միս',       tr:'Mis',       ru:'Мясо'},
       {arm:'Ձուկ',      tr:'Dzuk',      ru:'Рыба'},
       {arm:'Բանջարեղեն',    tr:'Banjareghen', ru:'Овощи'},
@@ -249,7 +249,7 @@ const TimeTab = defineComponent({
     ]
     const months = [
       {arm:'Հունվար',    tr:'Hunvar',    ru:'Январь'},
-      {arm:'Փևտրվար',   tr:'Fetrvar',   ru:'Февраль'},
+      {arm:'Փետրվար',   tr:'Fetrvar',   ru:'Февраль'},
       {arm:'Մարտ',     tr:'Marts',     ru:'Март'},
       {arm:'Ապրիլ', tr:'April',     ru:'Апрель'},
       {arm:'Մայիս',     tr:'Mayis',     ru:'Май'},

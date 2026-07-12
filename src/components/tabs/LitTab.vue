@@ -404,53 +404,53 @@ const STORIES = [
 
 // ─── NUMBERS ─────────────────────────────────────────────────────────────────
 const UNITS = [
-  {n:'0', arm:'Զռо', tr:'zero'},
-  {n:'1', arm:'Մек', tr:'Mek'},
-  {n:'2', arm:'Երку', tr:'Yerku'},
-  {n:'3', arm:'Ерек', tr:'Yerek'},
-  {n:'4', arm:'Чорс', tr:'Chors'},
-  {n:'5', arm:'Хинг', tr:'Hing'},
-  {n:'6', arm:'Вец', tr:'Vets'},
-  {n:'7', arm:'Йот', tr:'Yot'},
-  {n:'8', arm:'Ут', tr:'Ut'},
-  {n:'9', arm:'Инэ', tr:'Inne'},
-  {n:'10', arm:'Тас', tr:'Tas'},
+  {n:'0', arm:'Զրո', tr:'zero'},
+  {n:'1', arm:'Մեկ', tr:'Mek'},
+  {n:'2', arm:'Երկու', tr:'Yerku'},
+  {n:'3', arm:'Երեք', tr:'Yerek'},
+  {n:'4', arm:'Չորս', tr:'Chors'},
+  {n:'5', arm:'Հինգ', tr:'Hing'},
+  {n:'6', arm:'Վեց', tr:'Vets'},
+  {n:'7', arm:'Յոթ', tr:'Yot'},
+  {n:'8', arm:'Ութ', tr:'Ut'},
+  {n:'9', arm:'Ինը', tr:'Inne'},
+  {n:'10', arm:'Տաս', tr:'Tas'},
 ]
 
 const FORMULA11 = [
-  {n:'11', formula:'Тас + н + Мek', result:'Тасnмek'},
-  {n:'12', formula:'Тас + н + Ерку', result:'ТасnЕрку'},
-  {n:'13', formula:'Тас + н + Ерek', result:'ТасnЕрek'},
-  {n:'14', formula:'Тас + н + Чорс', result:'ТасnЧорс'},
-  {n:'15', formula:'Тас + н + Хинг', result:'ТасnХинг'},
-  {n:'19', formula:'Тас + н + Инэ', result:'ТасnИнэ'},
+  {n:'11', formula:'Տաս + ն + Մեկ', result:'Տասնմեկ'},
+  {n:'12', formula:'Տաս + ն + Երկու', result:'Տասներկու'},
+  {n:'13', formula:'Տաս + ն + Երեք', result:'Տասներեք'},
+  {n:'14', formula:'Տաս + ն + Չորս', result:'Տասնչորս'},
+  {n:'15', formula:'Տաս + ն + Հինգ', result:'Տասնհինգ'},
+  {n:'19', formula:'Տաս + ն + Ինը', result:'Տասնինը'},
 ]
 
 const DECADES = [
-  {n:'20', arm:'Цсан', tr:'Ksan'},
-  {n:'30', arm:'Ересун', tr:'Yeresun'},
-  {n:'40', arm:'Карасун', tr:'Karasun'},
-  {n:'50', arm:'Хисун', tr:'Hisun'},
-  {n:'60', arm:'Ватсун', tr:'Vatsun'},
-  {n:'70', arm:'Йотсун', tr:'Yotsun'},
-  {n:'80', arm:'Утсун', tr:'Utsun'},
-  {n:'90', arm:'Иннсун', tr:'Innsun'},
+  {n:'20', arm:'Քսան', tr:'Ksan'},
+  {n:'30', arm:'Երեսուն', tr:'Yeresun'},
+  {n:'40', arm:'Քառասուն', tr:'Karasun'},
+  {n:'50', arm:'Հիսուն', tr:'Hisun'},
+  {n:'60', arm:'Վաթսուն', tr:'Vatsun'},
+  {n:'70', arm:'Յոթսուն', tr:'Yotsun'},
+  {n:'80', arm:'Ութսուն', tr:'Utsun'},
+  {n:'90', arm:'Իննսուն', tr:'Innsun'},
 ]
 
 const FORMULA_COMP = [
-  {n:'21', formula:'Цсан + у + Мek', result:'Цсан у мek'},
-  {n:'35', formula:'Ересун + у + Хинг', result:'Ересун у хинг'},
-  {n:'47', formula:'Карасун + у + Йот', result:'Карасун у йот'},
-  {n:'100', formula:'Хариур', result:'самостоятельное слово'},
-  {n:'101', formula:'Хариур + у + Мek', result:'Хариур у мek'},
-  {n:'1000', formula:'Хазар', result:'самостоятельное слово'},
+  {n:'21', formula:'Քսան + ու + Մեկ', result:'Քսան ու մեկ'},
+  {n:'35', formula:'Երեսուն + ու + Հինգ', result:'Երեսուն ու հինգ'},
+  {n:'47', formula:'Քառասուն + ու + Յոթ', result:'Քառասուն ու յոթ'},
+  {n:'100', formula:'Հարյուր', result:'самостоятельное слово'},
+  {n:'101', formula:'Հարյուր + ու + Մեկ', result:'Հարյուր ու մեկ'},
+  {n:'1000', formula:'Հազար', result:'самостоятельное слово'},
 ]
 
 const LARGE = [
-  {n:'100', arm:'Харюр', tr:'Haryur'},
-  {n:'200', arm:'Ерку харюр', tr:'Yerku Haryur'},
-  {n:'1000', arm:'Хазар', tr:'Hazar'},
-  {n:'2000', arm:'Ерку хазар', tr:'Yerku Hazar'},
+  {n:'100', arm:'Հարյուր', tr:'Haryur'},
+  {n:'200', arm:'Երկու հարյուր', tr:'Yerku Haryur'},
+  {n:'1000', arm:'Հազար', tr:'Hazar'},
+  {n:'2000', arm:'Երկու հազար', tr:'Yerku Hazar'},
 ]
 
 // ─── GRAMMAR ARTICLES ────────────────────────────────────────────────────────

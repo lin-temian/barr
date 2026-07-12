@@ -1,20 +1,20 @@
 <template>
   <div class="inline-tab">
-    <div class="it-title">Прошедшее время — Անցյaլ</div>
+    <div class="it-title">Прошедшее время — Անցյալ</div>
     <div class="it-note">Образование: основа + <strong>–ацி (–atsi)</strong> + личное окончание</div>
-    <div class="sect-lbl">Спряжение: Կարդլ (читать)</div>
+    <div class="sect-lbl">Спряжение: Կարդալ (читать)</div>
     <div class="conj-table">
       <div class="cj-head"><div>Лицо</div><div>Форма</div><div>Translit</div></div>
       <div class="cj-row"><div class="cj-face">Ես (я)</div><div class="cj-arm">Կարդացի</div><div class="cj-tr">kardatsi</div></div>
       <div class="cj-row"><div class="cj-face">Դու (ты)</div><div class="cj-arm">Կարդացիր</div><div class="cj-tr">kardatsir</div></div>
-      <div class="cj-row"><div class="cj-face">Նա (он/она)</div><div class="cj-arm">Կարդաց</div><div class="cj-tr">kardatsets</div></div>
+      <div class="cj-row"><div class="cj-face">Նա (он/она)</div><div class="cj-arm">Կարդաց</div><div class="cj-tr">kardats</div></div>
       <div class="cj-row"><div class="cj-face">Մենք (мы)</div><div class="cj-arm">Կարդացինք</div><div class="cj-tr">kardatsink</div></div>
       <div class="cj-row"><div class="cj-face">Դուք (вы)</div><div class="cj-arm">Կարդացիք</div><div class="cj-tr">kardatsik</div></div>
       <div class="cj-row"><div class="cj-face">Նրանք (они)</div><div class="cj-arm">Կարդացին</div><div class="cj-tr">kardatsin</div></div>
     </div>
     <div class="sect-lbl">Другие глаголы в прошедшем</div>
     <div class="past-list">
-      <div class="pl-row"><span class="pl-inf">Գնaլ</span><span class="pl-arr">→</span><span class="pl-past">Գնaցի</span><span class="pl-tr">gnatsi</span><span class="pl-ru">Пошёл</span></div>
+      <div class="pl-row"><span class="pl-inf">Գնալ</span><span class="pl-arr">→</span><span class="pl-past">Գնացի</span><span class="pl-tr">gnatsi</span><span class="pl-ru">Пошёл</span></div>
       <div class="pl-row"><span class="pl-inf">Սիրել</span><span class="pl-arr">→</span><span class="pl-past">Սիրեցի</span><span class="pl-tr">siretsi</span><span class="pl-ru">Полюбил</span></div>
       <div class="pl-row"><span class="pl-inf">Ուտել</span><span class="pl-arr">→</span><span class="pl-past">Ուտեցի</span><span class="pl-tr">utetsi</span><span class="pl-ru">Покушал</span></div>
       <div class="pl-row"><span class="pl-inf">Խոսել</span><span class="pl-arr">→</span><span class="pl-past">Խոսեցի</span><span class="pl-tr">khosetsi</span><span class="pl-ru">Поговорил</span></div>
@@ -22,8 +22,8 @@
       <div class="pl-row"><span class="pl-inf">Տեսնել</span><span class="pl-arr">→</span><span class="pl-past">Տեսնեցի</span><span class="pl-tr">tesnetsi</span><span class="pl-ru">Увидел</span></div>
     </div>
     <div class="sect-lbl">Примеры</div>
-    <div class="past-ex"><div class="pe-arm">Ես Երևվան Գնaցի</div><div class="pe-tr">Yes Yerevan gnatsi</div><div class="pe-ru">Я поехал в Ереван</div></div>
-    <div class="past-ex"><div class="pe-arm">Ես Գիրք Կարդaցի</div><div class="pe-tr">Yes girk kardatsi</div><div class="pe-ru">Я читал книгу</div></div>
+    <div class="past-ex"><div class="pe-arm">Ես Երևան Գնացի</div><div class="pe-tr">Yes Yerevan gnatsi</div><div class="pe-ru">Я поехал в Ереван</div></div>
+    <div class="past-ex"><div class="pe-arm">Ես Գիրք Կարդացի</div><div class="pe-tr">Yes girk kardatsi</div><div class="pe-ru">Я читал книгу</div></div>
   </div>
 </template>
 <script setup></script>

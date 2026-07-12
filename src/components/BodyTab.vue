@@ -5,32 +5,32 @@
       <div v-for="w in BODY" :key="w.tr" class="it-wcard"><div class="it-arm">{{w.arm}}</div><div class="it-tr">{{w.tr}}</div><div class="it-ru">{{w.ru}}</div></div>
     </div>
     <div class="sect-lbl">Фразы: у врача</div>
-    <div class="h-phrase"><div class="hp-arm">Ես կահկալ եմ</div><div class="hp-tr">Yes kahkal em</div><div class="hp-ru">Я устал</div></div>
+    <div class="h-phrase"><div class="hp-arm">Ես հոգնած եմ</div><div class="hp-tr">Yes hognats em</div><div class="hp-ru">Я устал</div></div>
     <div class="h-phrase"><div class="hp-arm">Ես հիվանդ եմ</div><div class="hp-tr">Yes hivand em</div><div class="hp-ru">Я болен</div></div>
-    <div class="h-phrase"><div class="hp-arm">գլխխխխ կածիկ եմ</div><div class="hp-tr">Glkhs kakikh em</div><div class="hp-ru">У меня болит голова</div></div>
-    <div class="h-phrase"><div class="hp-arm">Բժիկ կխնդրևք</div><div class="hp-tr">Bjishkin khndrek</div><div class="hp-ru">Вызовите врача</div></div>
-    <div class="h-phrase"><div class="hp-arm">Ապթևկ կa եմ?</div><div class="hp-tr">Aptyek ka e?</div><div class="hp-ru">Есть аптека?</div></div>
-    <div class="h-phrase"><div class="hp-arm">Լավ լինի եմ</div><div class="hp-tr">Lav lini em</div><div class="hp-ru">Буду здоров</div></div>
+    <div class="h-phrase"><div class="hp-arm">Գլուխս ցավում է</div><div class="hp-tr">Glukhs tsavum e</div><div class="hp-ru">У меня болит голова</div></div>
+    <div class="h-phrase"><div class="hp-arm">Կանչեք բժիշկ</div><div class="hp-tr">Kanchek bzhishk</div><div class="hp-ru">Вызовите врача</div></div>
+    <div class="h-phrase"><div class="hp-arm">Դեղատուն կա՞</div><div class="hp-tr">Deghatun ka?</div><div class="hp-ru">Есть аптека?</div></div>
+    <div class="h-phrase"><div class="hp-arm">Ես առողջ կլինեմ</div><div class="hp-tr">Yes aroghj klinem</div><div class="hp-ru">Буду здоров</div></div>
   </div>
 </template>
 <script setup>
 const BODY = [
-  {arm:"գլխխ", tr:"Glukh", ru:"Голова"},
-  {arm:"աչքխ", tr:"Achqh", ru:"Глаза"},
-  {arm:"քիթ", tr:"Qith", ru:"Нос"},
-  {arm:"բակ", tr:"Bak", ru:"Рот"},
-  {arm:"ականջ", tr:"Akanj", ru:"Ухо"},
-  {arm:"բազկ", tr:"Bazk", ru:"Рука"},
-  {arm:"դկ", tr:"Dk", ru:"Нога"},
-  {arm:"սիրտ", tr:"Sirt", ru:"Сердце"},
-  {arm:"լևզկ", tr:"Lezk", ru:"Язык"},
-  {arm:"կոխկ", tr:"Kokhk", ru:"Грудь"},
-  {arm:"հկլկի", tr:"Hklki", ru:"Спина"},
-  {arm:"վիրaկ", tr:"Virak", ru:"Шея"},
-  {arm:"ատամ", tr:"Atam", ru:"Зуб"},
-  {arm:"գլխխին", tr:"Glkhin", ru:"Мозг"},
-  {arm:"ariun", tr:"Ariun", ru:"Кровь"},
-  {arm:"ոսկ", tr:"Osk", ru:"Кость"},
+  {arm:"Գլուխ", tr:"Glukh", ru:"Голова"},
+  {arm:"Աչք", tr:"Achk", ru:"Глаза"},
+  {arm:"Քիթ", tr:"Qith", ru:"Нос"},
+  {arm:"Բերան", tr:"Beran", ru:"Рот"},
+  {arm:"Ականջ", tr:"Akanj", ru:"Ухо"},
+  {arm:"Ձեռք", tr:"Dzerk", ru:"Рука"},
+  {arm:"Ոտք", tr:"Votk", ru:"Нога"},
+  {arm:"Սիրտ", tr:"Sirt", ru:"Сердце"},
+  {arm:"Լեզու", tr:"Lezu", ru:"Язык"},
+  {arm:"Կուրծք", tr:"Kurtsk", ru:"Грудь"},
+  {arm:"Մեջք", tr:"Mejk", ru:"Спина"},
+  {arm:"Պարանոց", tr:"Paranots", ru:"Шея"},
+  {arm:"Ատամ", tr:"Atam", ru:"Зуб"},
+  {arm:"Ուղեղ", tr:"Ughegh", ru:"Мозг"},
+  {arm:"Արյուն", tr:"Aryun", ru:"Кровь"},
+  {arm:"Ոսկոր", tr:"Voskor", ru:"Кость"},
 ]
 </script>
 <style scoped>

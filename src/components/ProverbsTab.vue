@@ -1,17 +1,17 @@
 <template>
   <div class="inline-tab">
-    <div class="it-title">Пословицы — Ասացխալիք</div>
+    <div class="it-title">Пословицы — Առածներ</div>
     <div class="it-note">Армянские пословицы и крылатые выражения народной мудрости</div>
-    <div class="prov-card"><div class="pr-arm">Ալիք լավությունը ինկնիր</div><div class="pr-tr">Ljin gortse</div><div class="pr-ru">Дело красит человека — букв. «Красота в труде»</div></div>
-    <div class="prov-card"><div class="pr-arm">Բարի կարխ Բարի կենալ</div><div class="pr-tr">Bari karg bari kenal</div><div class="pr-ru">Хорошая жизнь — хорошо умереть</div></div>
-    <div class="prov-card"><div class="pr-arm">Լավ լինի</div><div class="pr-tr">Lav lini</div><div class="pr-ru">Будь добр / Пожалуйста</div></div>
-    <div class="prov-card"><div class="pr-arm">Ասվազի լլ Ասվազի</div><div class="pr-tr">Ashvazi ll Ashvazi</div><div class="pr-ru">У мельницы своя мельница (каждый при своём)</div></div>
-    <div class="prov-card"><div class="pr-arm">Լավ կարխ լaվ կենaլ</div><div class="pr-tr">Lav karg lav kenal</div><div class="pr-ru">Кто хорошо живёт — хорошо умирает</div></div>
-    <div class="prov-card"><div class="pr-arm">Անկլիա կեխaլ a</div><div class="pr-tr">Anklia kengal a</div><div class="pr-ru">Невозможное — это возможное</div></div>
-    <div class="prov-card"><div class="pr-arm">@ajreniկ լeզenի leu կa</div><div class="pr-tr">Hayrenik lezou lev ka</div><div class="pr-ru">Родина, язык и вера</div></div>
-    <div class="prov-card"><div class="pr-arm">Լլկի</div><div class="pr-tr">Llki</div><div class="pr-ru">Будь здоров</div></div>
-    <div class="prov-card"><div class="pr-arm">Լaվ կեծaլ</div><div class="pr-tr">Lav kengal</div><div class="pr-ru">Хорошо жить</div></div>
-    <div class="prov-card"><div class="pr-arm">@arunիկ լeզկի</div><div class="pr-tr">Arunikq lezki</div><div class="pr-ru">Кровь — не вода (семья важна)</div></div>
+    <div class="prov-card"><div class="pr-arm">Աշխատանքը մարդուն կզարդարէ</div><div class="pr-tr">Ashkhatanqy martun kzardare</div><div class="pr-ru">Труд красит человека</div></div>
+    <div class="prov-card"><div class="pr-arm">Համբերությունը դառը է, բայց պտուղը՝ քաղցր</div><div class="pr-tr">Hamberutyuny dary e, bayts ptughy k'aghtsr</div><div class="pr-ru">Терпение горько, но плод его сладок</div></div>
+    <div class="prov-card"><div class="pr-arm">Լավ է ուշ, քան երբեք</div><div class="pr-tr">Lav e ush, qan yerbek</div><div class="pr-ru">Лучше поздно, чем никогда</div></div>
+    <div class="prov-card"><div class="pr-arm">Կաթիլ առ կաթիլ ծով կդառնա</div><div class="pr-tr">Katil ar katil tsov kdarna</div><div class="pr-ru">Капля за каплей — море (терпение и труд всё перетрут)</div></div>
+    <div class="prov-card"><div class="pr-arm">Լեզուն ոսկոր չունի</div><div class="pr-tr">Lezun voskor chuni</div><div class="pr-ru">Язык без костей</div></div>
+    <div class="prov-card"><div class="pr-arm">Ով որ փոս փորի ուրիշի համար, ինքն կընկնի մեջը</div><div class="pr-tr">Ov vor pos pori urishi hamar, inkn kynkni mejy</div><div class="pr-ru">Не рой другому яму — сам в неё попадёшь</div></div>
+    <div class="prov-card"><div class="pr-arm">Հայրենիք, լեզու, հավատք</div><div class="pr-tr">Hayrenik, lezu, havatq</div><div class="pr-ru">Родина, язык и вера</div></div>
+    <div class="prov-card"><div class="pr-arm">Առողջ եղիր</div><div class="pr-tr">Aroghj yeghir</div><div class="pr-ru">Будь здоров</div></div>
+    <div class="prov-card"><div class="pr-arm">Ապրես</div><div class="pr-tr">Apres</div><div class="pr-ru">Живи долго (пожелание благодарности)</div></div>
+    <div class="prov-card"><div class="pr-arm">Արյունը ջուր չի դառնում</div><div class="pr-tr">Aryuny jur chi darnum</div><div class="pr-ru">Кровь не превращается в воду (семья важна)</div></div>
   </div>
 </template>
 <script setup></script>

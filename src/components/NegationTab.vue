@@ -1,17 +1,17 @@
 <template>
   <div class="inline-tab">
-    <div class="it-title">Отрицание — Անիծչև</div>
-    <div class="it-note">Частица <strong>չև</strong> ставится перед глаголом. В некоторых формах сливается с ним.</div>
+    <div class="it-title">Отрицание — Ժխտում</div>
+    <div class="it-note">Частица <strong>չ</strong> присоединяется к вспомогательному глаголу и встаёт перед смысловым глаголом</div>
     <div class="sect-lbl">Положительное → отрицательное</div>
-    <div class="neg-pair"><div class="np-s"><div class="np-arm">Ես Կարդում եմ</div><div class="np-ru">Я читаю</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">Ես չևԿարդում եմ</div><div class="np-ru">Я не читаю</div></div></div>
-    <div class="neg-pair"><div class="np-s"><div class="np-arm">Ես գնում եմ</div><div class="np-ru">Я иду</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">Ես չևգնուt եմ</div><div class="np-ru">Я не иду</div></div></div>
-    <div class="neg-pair"><div class="np-s"><div class="np-arm">Նա calis</div><div class="np-ru">Он придёт</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">na չև caլ</div><div class="np-ru">Он не придёт</div></div></div>
+    <div class="neg-pair"><div class="np-s"><div class="np-arm">Ես կարդում եմ</div><div class="np-ru">Я читаю</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">Ես չեմ կարդում</div><div class="np-ru">Я не читаю</div></div></div>
+    <div class="neg-pair"><div class="np-s"><div class="np-arm">Ես գնում եմ</div><div class="np-ru">Я иду</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">Ես չեմ գնում</div><div class="np-ru">Я не иду</div></div></div>
+    <div class="neg-pair"><div class="np-s"><div class="np-arm">Նա կգա</div><div class="np-ru">Он придёт</div></div><div class="np-arr">→</div><div class="np-s np-n"><div class="np-arm red">Նա չի գա</div><div class="np-ru">Он не придёт</div></div></div>
     <div class="sect-lbl">Важные отрицательные фразы</div>
-    <div class="neg-ph"><div class="nph-arm">չև citem</div><div class="nph-tr">Che gitem</div><div class="nph-ru">Не знаю</div></div>
-    <div class="neg-ph"><div class="nph-arm">չև kareli</div><div class="nph-tr">Che kareli</div><div class="nph-ru">Нельзя/Невозможно</div></div>
-    <div class="neg-ph"><div class="nph-arm">կa չև</div><div class="nph-tr">Ka che</div><div class="nph-ru">Нет (есть нет)</div></div>
-    <div class="neg-ph"><div class="nph-arm">` voretegh</div><div class="nph-tr">Voch vortegh</div><div class="nph-ru">Нигде</div></div>
-    <div class="neg-ph"><div class="nph-arm">` erb</div><div class="nph-tr">Voch yerb</div><div class="nph-ru">Никогда</div></div>
+    <div class="neg-ph"><div class="nph-arm">Չգիտեմ</div><div class="nph-tr">Chgitem</div><div class="nph-ru">Не знаю</div></div>
+    <div class="neg-ph"><div class="nph-arm">Հնարավոր չէ</div><div class="nph-tr">Hnaravor che</div><div class="nph-ru">Нельзя/Невозможно</div></div>
+    <div class="neg-ph"><div class="nph-arm">Չկա</div><div class="nph-tr">Chka</div><div class="nph-ru">Нет (не имеется)</div></div>
+    <div class="neg-ph"><div class="nph-arm">Ոչ մի տեղ</div><div class="nph-tr">Voch mi tegh</div><div class="nph-ru">Нигде</div></div>
+    <div class="neg-ph"><div class="nph-arm">Երբեք</div><div class="nph-tr">Yerbek</div><div class="nph-ru">Никогда</div></div>
   </div>
 </template>
 <script setup></script>

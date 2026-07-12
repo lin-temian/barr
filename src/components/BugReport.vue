@@ -35,7 +35,7 @@
 
           <div class="bug-field" v-if="type==='word'">
             <label class="bug-label">Армянское слово (если знаешь)</label>
-            <input class="bug-input" v-model="wordArm" placeholder="Например: մarд" />
+            <input class="bug-input" v-model="wordArm" placeholder="Например: մարդ" />
           </div>
 
           <div class="bug-status ok"  v-if="status==='ok'">✓ Спасибо! Мы получили твоё сообщение.</div>

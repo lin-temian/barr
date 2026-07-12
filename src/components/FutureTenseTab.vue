@@ -1,22 +1,22 @@
 <template>
   <div class="inline-tab">
-    <div class="it-title">Будущее время — Ապaգa</div>
-    <div class="it-note">Способ 1: <strong>կբ</strong> + настоящее. Способ 2: <strong>պիտի</strong> + инфинитив</div>
-    <div class="sect-lbl">կբ + настоящее время (Կարդլ)</div>
+    <div class="it-title">Будущее время — Ապագա</div>
+    <div class="it-note">Способ 1: <strong>կը</strong> + настоящее. Способ 2: <strong>պիտի</strong> + инфинитив</div>
+    <div class="sect-lbl">կը + настоящее время (Կարդալ)</div>
     <div class="conj-table">
       <div class="cj-head"><div>Лицо</div><div>Форма</div><div>Перевод</div></div>
-      <div class="cj-row"><div class="cj-face">Ես (я)</div><div class="cj-arm">կբ Կարդում եմ</div><div class="cj-tr">Я буду читать</div></div>
-      <div class="cj-row"><div class="cj-face">Դու (ты)</div><div class="cj-arm">կբ Կարդում ես</div><div class="cj-tr">Ты будешь читать</div></div>
-      <div class="cj-row"><div class="cj-face">Նա (он)</div><div class="cj-arm">կբ Կարդում ե</div><div class="cj-tr">Он будет читать</div></div>
-      <div class="cj-row"><div class="cj-face">Մենք (мы)</div><div class="cj-arm">կբ Կարդում ենք</div><div class="cj-tr">Мы будем читать</div></div>
-      <div class="cj-row"><div class="cj-face">Դուք (вы)</div><div class="cj-arm">կբ Կարդում եք</div><div class="cj-tr">Вы будете читать</div></div>
-      <div class="cj-row"><div class="cj-face">Նրանք (они)</div><div class="cj-arm">կբ Կարդում են</div><div class="cj-tr">Они будут читать</div></div>
+      <div class="cj-row"><div class="cj-face">Ես (я)</div><div class="cj-arm">կը Կարդում եմ</div><div class="cj-tr">Я буду читать</div></div>
+      <div class="cj-row"><div class="cj-face">Դու (ты)</div><div class="cj-arm">կը Կարդում ես</div><div class="cj-tr">Ты будешь читать</div></div>
+      <div class="cj-row"><div class="cj-face">Նա (он)</div><div class="cj-arm">կը Կարդում ե</div><div class="cj-tr">Он будет читать</div></div>
+      <div class="cj-row"><div class="cj-face">Մենք (мы)</div><div class="cj-arm">կը Կարդում ենք</div><div class="cj-tr">Мы будем читать</div></div>
+      <div class="cj-row"><div class="cj-face">Դուք (вы)</div><div class="cj-arm">կը Կարդում եք</div><div class="cj-tr">Вы будете читать</div></div>
+      <div class="cj-row"><div class="cj-face">Նրանք (они)</div><div class="cj-arm">կը Կարդում են</div><div class="cj-tr">Они будут читать</div></div>
     </div>
     <div class="sect-lbl">պիտի (piti) + инфинитив</div>
-    <div class="past-ex"><div class="pe-arm">Ես պիտի Գնaլ</div><div class="pe-tr">Yes piti gnal</div><div class="pe-ru">Я собираюсь идти</div></div>
-    <div class="past-ex"><div class="pe-arm">Ես պիտի Կարդլ</div><div class="pe-tr">Yes piti kardal</div><div class="pe-ru">Я буду читать</div></div>
-    <div class="past-ex"><div class="pe-arm">Նա պիտի Գaլ</div><div class="pe-tr">Na piti gal</div><div class="pe-ru">Он придёт</div></div>
-    <div class="past-ex"><div class="pe-arm">Մենք պիտի կerկe եմ</div><div class="pe-tr">Menk piti yerke enk</div><div class="pe-ru">Мы будем петь</div></div>
+    <div class="past-ex"><div class="pe-arm">Ես պիտի Գնալ</div><div class="pe-tr">Yes piti gnal</div><div class="pe-ru">Я собираюсь идти</div></div>
+    <div class="past-ex"><div class="pe-arm">Ես պիտի Կարդալ</div><div class="pe-tr">Yes piti kardal</div><div class="pe-ru">Я буду читать</div></div>
+    <div class="past-ex"><div class="pe-arm">Նա պիտի Գալ</div><div class="pe-tr">Na piti gal</div><div class="pe-ru">Он придёт</div></div>
+    <div class="past-ex"><div class="pe-arm">Մենք պիտի երգենք</div><div class="pe-tr">Menk piti yergenk</div><div class="pe-ru">Мы будем петь</div></div>
   </div>
 </template>
 <script setup></script>
