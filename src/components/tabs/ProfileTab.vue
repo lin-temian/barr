@@ -153,7 +153,6 @@ const earnedSet = computed(() => {
 .profile { padding-bottom: 80px; }
 .prof-header {
   padding: 20px; border-bottom: 1px solid var(--line);
-  position: sticky; top: 0; z-index: 10;
   background:var(--glass-bg-strong);
 border-color:var(--glass-border);}
 .prof-title { font-family: var(--d); font-size: 28px; font-weight: 700; font-style: italic; color: var(--red); }
