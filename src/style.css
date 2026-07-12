@@ -26,8 +26,8 @@
   --m: 'Instrument Mono', monospace;
 
   /* ── LIQUID GLASS — тёплое пергаментное стекло, не белое ── */
-  --glass-bg:        rgba(246, 238, 220, 0.55);
-  --glass-bg-strong: rgba(246, 238, 220, 0.78);
+  --glass-bg:        rgba(246, 238, 220, 0.9);
+  --glass-bg-strong: rgba(246, 238, 220, 0.95);
   --glass-border:    rgba(255, 250, 235, 0.65);
   --glass-shine:     rgba(255, 252, 240, 0.7);
   --glass-shadow:    rgba(60, 40, 10, 0.16);
