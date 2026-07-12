@@ -23,20 +23,20 @@
       <div class="tab-indicator" ref="indicatorEl"></div>
 
       <!-- АЛФАВИТ — центральная кнопка -->
-      <button class="tabbar-btn alpha-fab" @click="alphaOpen = true" :class="{active: alphaOpen}" ref="btnRefs" data-key="alpha">
+      <button class="tabbar-btn alpha-fab" @click="alphaOpen = true" :class="{active: alphaOpen}" ref="alphaBtnRef" data-key="alpha">
         <span class="alpha-fab-letter">Ա</span>
         <span class="tabbar-label">Алфавит</span>
       </button>
 
       <button v-for="t in tabs" :key="t.id"
         class="tabbar-btn" :class="{active: tab===t.id}"
-        @click="tab=t.id" ref="btnRefs" :data-key="t.id">
+        @click="tab=t.id" ref="tabBtnRefs" :data-key="t.id">
         <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path :d="t.icon"/>
         </svg>
         <span class="tabbar-label">{{ t.label }}</span>
       </button>
-      <button v-if="isAdmin" class="tabbar-btn admin-btn" :class="{active: tab==='admin'}" @click="tab='admin'" ref="btnRefs" data-key="admin">
+      <button v-if="isAdmin" class="tabbar-btn admin-btn" :class="{active: tab==='admin'}" @click="tab='admin'" ref="adminBtnRef" data-key="admin">
       <span class="tabbar-icon">⚙️</span>
       <span class="tabbar-label">Админ</span>
     </button>
@@ -111,7 +111,9 @@ onMounted(() => {
 /* ── морфящий стеклянный индикатор в таббаре ── */
 const tabbarEl    = ref(null)
 const indicatorEl = ref(null)
-const btnRefs     = ref([])
+const alphaBtnRef = ref(null)
+const tabBtnRefs  = ref([])
+const adminBtnRef = ref(null)
 
 function activeKey() {
   if (alphaOpen.value) return 'alpha'
@@ -121,7 +123,8 @@ function moveIndicator() {
   const bar = tabbarEl.value
   const ind = indicatorEl.value
   if (!bar || !ind) return
-  const btn = btnRefs.value.find(b => b && b.dataset && b.dataset.key === activeKey())
+  const allBtns = [alphaBtnRef.value, ...(Array.isArray(tabBtnRefs.value) ? tabBtnRefs.value : []), adminBtnRef.value]
+  const btn = allBtns.find(b => b && b.dataset && b.dataset.key === activeKey())
   if (!btn) return
   const barRect = bar.getBoundingClientRect()
   const btnRect = btn.getBoundingClientRect()
