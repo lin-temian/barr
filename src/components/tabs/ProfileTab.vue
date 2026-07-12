@@ -204,7 +204,9 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   border-color: var(--gold);
   background: rgba(176,120,40,.08);
 }
-.ach-card.locked { opacity: .45; }
+.ach-card.locked .ach-icon,
+.ach-card.locked .ach-name,
+.ach-card.locked .ach-desc { opacity: .5; }
 .ach-icon { font-size: 28px; line-height: 1; margin-bottom: 6px; }
 .ach-name { font-family: var(--d); font-size: 15px; font-style: italic; color: var(--ink); margin-bottom: 3px; }
 .ach-desc { font-family: var(--s); font-size: 11px; color: var(--muted); line-height: 1.4; }

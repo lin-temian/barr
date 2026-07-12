@@ -411,7 +411,8 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   padding:16px; cursor:pointer; transition:all .2s;
 border-color:var(--glass-border);}
 .ll:hover:not(.locked) { border-color:var(--gold); background:var(--glass-bg); transform:translateX(2px); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.ll.locked { opacity:.5; cursor:default; }
+.ll.locked { cursor:default; }
+.ll.locked .ll-num, .ll.locked .ll-info { opacity:.5; }
 .ll.done   { border-color:var(--gold); background:rgba(176,120,40,.08); }
 .ll-num { width:48px; height:48px; border-radius:12px; flex-shrink:0; background:var(--ink); color:var(--bg); display:flex; align-items:center; justify-content:center; font-family:var(--d); font-size:22px; font-weight:700; }
 .ll-num.locked { background:var(--muted); }
