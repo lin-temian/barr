@@ -204,13 +204,13 @@ border-color:var(--glass-border);}
 .flip-leave-to   { opacity:0; transform:translateY(-6px); }
 
 [data-theme=dark] .home-header,
-[data-theme=amoled] .home-header { background:rgba(10,8,4,.88) !important; }
+[data-theme=amoled] .home-header { background:rgba(10,8,4,.96) !important; }
 [data-theme=dark] .streak-card,
 [data-theme=dark] .word-card,
 [data-theme=dark] .qc,
-[data-theme=dark] .stats-row { background:rgba(26,18,8,.82) !important; }
+[data-theme=dark] .stats-row { background:rgba(24,16,8,.94) !important; }
 [data-theme=amoled] .streak-card,
 [data-theme=amoled] .word-card,
 [data-theme=amoled] .qc,
-[data-theme=amoled] .stats-row { background:rgba(0,0,0,.85) !important; }
+[data-theme=amoled] .stats-row { background:rgba(0,0,0,.95) !important; }
 </style>

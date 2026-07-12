@@ -264,7 +264,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=dark] .theme-btn,
 [data-theme=dark] .level-btn,
 [data-theme=dark] .prof-item {
-  background: rgba(30,20,10,.85) !important;
+  background: rgba(24,16,8,.94) !important;
   border-color: rgba(176,120,40,.2) !important;
 }
 
@@ -276,6 +276,6 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=amoled] .theme-btn,
 [data-theme=amoled] .level-btn,
 [data-theme=amoled] .prof-item {
-  background: rgba(0,0,0,.88) !important;
+  background: rgba(0,0,0,.95) !important;
 }
 </style>

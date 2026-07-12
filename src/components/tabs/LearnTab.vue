@@ -476,16 +476,16 @@ border-color:var(--glass-border);}
 :deep(.itv-ru) { font-family:var(--m); font-size:11px; color:var(--muted); }
 :deep(.itv-tr)  { font-family:var(--m); font-size:10px; color:var(--muted); opacity:.7; }
 
-[data-theme=dark]   .learn-header { background:rgba(10,8,4,.92) !important; }
+[data-theme=dark]   .learn-header { background:rgba(10,8,4,.96) !important; }
 [data-theme=amoled] .learn-header { background:rgba(0,0,0,.96) !important; }
-[data-theme=dark]   .ll { background:rgba(26,18,8,.82) !important; }
-[data-theme=amoled] .ll { background:rgba(0,0,0,.85) !important; }
-[data-theme=dark]   .ltab { background:rgba(26,18,8,.75) !important; }
+[data-theme=dark]   .ll { background:rgba(24,16,8,.94) !important; }
+[data-theme=amoled] .ll { background:rgba(0,0,0,.95) !important; }
+[data-theme=dark]   .ltab { background:rgba(24,16,8,.94) !important; }
 [data-theme=dark]   .ltab.active { background:var(--red) !important; }
 [data-theme=dark]   .lmodal-box { background:#0a0804; }
 [data-theme=dark] :deep(.it-row),
 [data-theme=dark] :deep(.it-wcard),
-[data-theme=dark] :deep(.it-color-card) { background:rgba(26,18,8,.85) !important; }
+[data-theme=dark] :deep(.it-color-card) { background:rgba(24,16,8,.94) !important; }
 [data-theme=dark] :deep(.it-ru),
 [data-theme=dark] :deep(.it-arm) { color:rgba(242,232,213,.9) !important; }
 </style>

@@ -131,7 +131,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 .pt-note strong { color: var(--red); }
 
 [data-theme=dark] .pts-card,
-[data-theme=dark] .pts-compare { background: rgba(30,20,10,.75) !important; }
+[data-theme=dark] .pts-compare { background: rgba(24,16,8,.94) !important; }
 [data-theme=dark] .ptc-ru,
 [data-theme=dark] .ptcmp-ru,
 [data-theme=dark] .pt-note li { color: rgba(242,232,213,.8) !important; }

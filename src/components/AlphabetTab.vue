@@ -410,12 +410,12 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 
 [data-theme=dark] .alpha-modal   { background: #0a0804; }
 [data-theme=dark] .am-header     { background: rgba(10,8,4,.95) !important; }
-[data-theme=dark] .at-cell       { background: rgba(26,18,8,.8); }
+[data-theme=dark] .at-cell       { background: rgba(24,16,8,.94); }
 [data-theme=dark] .lv-letter-card,
 [data-theme=dark] .lv-sound-block,
 [data-theme=dark] .lv-word-card,
 [data-theme=dark] .lv-quiz,
-[data-theme=dark] .lv-learned-btn { background: rgba(26,18,8,.9) !important; }
+[data-theme=dark] .lv-learned-btn { background: rgba(24,16,8,.94) !important; }
 [data-theme=amoled] .alpha-modal  { background: #000; }
 [data-theme=amoled] .am-header    { background: rgba(0,0,0,.98) !important; }
 </style>

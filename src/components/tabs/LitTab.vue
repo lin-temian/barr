@@ -605,9 +605,9 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 .lit-back:hover, .art-back:hover { color: var(--red); border-color: var(--gold); }
 
 [data-theme=dark] .lit-back,
-[data-theme=dark] .art-back { background: rgba(30,20,10,.85) !important; border-color: rgba(176,120,40,.2) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=dark] .art-back { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; color: rgba(242,232,213,.9) !important; }
 [data-theme=amoled] .lit-back,
-[data-theme=amoled] .art-back { background: rgba(0,0,0,.88) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=amoled] .art-back { background: rgba(0,0,0,.95) !important; color: rgba(242,232,213,.9) !important; }
 
 .sec-title { font-family: var(--d); font-size: 26px; font-style: italic; color: var(--red); margin: 0; }
 
@@ -700,7 +700,7 @@ border-color:var(--glass-border);}
 [data-theme=dark] .av-body,
 [data-theme=dark] .art-body-text,
 [data-theme=dark] .num-card,
-[data-theme=dark] .formula-table { background: rgba(30,20,10,.85) !important; border-color: rgba(176,120,40,.2) !important; }
+[data-theme=dark] .formula-table { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; }
 
 [data-theme=dark] .sc-text,
 [data-theme=dark] .av-body,
@@ -714,7 +714,7 @@ border-color:var(--glass-border);}
 [data-theme=dark] .ft-row { color: rgba(242,232,213,.85); border-bottom-color: rgba(176,120,40,.1); }
 [data-theme=dark] .ft-head { background: rgba(176,120,40,.08); }
 
-[data-theme=dark] .sc-legend { background: rgba(30,20,10,.6); color: rgba(242,232,213,.5); }
+[data-theme=dark] .sc-legend { background: rgba(24,16,8,.94); color: rgba(242,232,213,.5); }
 
 [data-theme=amoled] .lit-section-card,
 [data-theme=amoled] .story-card,
@@ -722,7 +722,7 @@ border-color:var(--glass-border);}
 [data-theme=amoled] .av-body,
 [data-theme=amoled] .art-body-text,
 [data-theme=amoled] .num-card,
-[data-theme=amoled] .formula-table { background: rgba(0,0,0,.88) !important; }
+[data-theme=amoled] .formula-table { background: rgba(0,0,0,.95) !important; }
 
 [data-theme=amoled] .sc-text,
 [data-theme=amoled] .av-body,

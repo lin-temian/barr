@@ -48,8 +48,8 @@
   --line:#3a2c18; --line2:#503c24;
   --vowel:#e05050; --vowel-bg:#2a1808; --consonant:#d4b870;
 
-  --glass-bg:        rgba(42, 32, 16, 0.55);
-  --glass-bg-strong: rgba(42, 32, 16, 0.78);
+  --glass-bg:        rgba(24, 16, 8, 0.9);
+  --glass-bg-strong: rgba(24, 16, 8, 0.94);
   --glass-border:    rgba(212, 160, 64, 0.22);
   --glass-shine:     rgba(232, 212, 168, 0.12);
   --glass-shadow:    rgba(0, 0, 0, 0.45);
@@ -63,8 +63,8 @@
   --line:#1e1610; --line2:#2a2018;
   --vowel:#f06060; --vowel-bg:#180e06; --consonant:#e0c090;
 
-  --glass-bg:        rgba(18, 14, 8, 0.6);
-  --glass-bg-strong: rgba(18, 14, 8, 0.85);
+  --glass-bg:        rgba(10, 8, 4, 0.93);
+  --glass-bg-strong: rgba(10, 8, 4, 0.96);
   --glass-border:    rgba(224, 176, 64, 0.18);
   --glass-shine:     rgba(244, 232, 200, 0.08);
   --glass-shadow:    rgba(0, 0, 0, 0.7);
@@ -888,7 +888,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=dark] .home-word-day,
 [data-theme=dark] .ha-btn,
 [data-theme=dark] .home-stats {
-  background: rgba(26,18,8,.75) !important;
+  background: rgba(24,16,8,.94) !important;
   backdrop-filter: blur(6px);
   border-color: rgba(176,120,40,.3) !important;
 }
@@ -897,7 +897,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 [data-theme=dark] .prac-header,
 [data-theme=dark] .home-header,
 [data-theme=dark] .dt-tabs {
-  background: rgba(26,18,8,.85) !important;
+  background: rgba(24,16,8,.94) !important;
   backdrop-filter: blur(8px);
 }
 [data-theme=amoled] .learn-lesson,
