@@ -1,13 +1,15 @@
 <template>
   <div class="app-wrap">
     <div class="app-content">
-      <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" @go-tab="tab=$event" />
-      <LearnTab    v-else-if="tab==='learn'"    :words="words" :level="level" @open-alphabet="alphaOpen = true" />
-      <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" @toggle-learn="toggleLearn" />
-      <PracticeTab v-else-if="tab==='practice'" :words="words" />
-      <LitTab      v-else-if="tab==='lit'"      :learnedAlpha="learnedAlpha" />
-      <AdminPanel  v-else-if="tab==='admin'" :words="words" @words-updated="$emit('reload-words')" />
-      <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" @logout="handleLogout" @change-level="handleChangeLevel" />
+      <KeepAlive>
+        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" @go-tab="tab=$event" />
+        <LearnTab    v-else-if="tab==='learn'"    :words="words" :level="level" @open-alphabet="alphaOpen = true" />
+        <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" @toggle-learn="toggleLearn" />
+        <PracticeTab v-else-if="tab==='practice'" :words="words" />
+        <LitTab      v-else-if="tab==='lit'"      :learnedAlpha="learnedAlpha" />
+        <AdminPanel  v-else-if="tab==='admin'" :words="words" @words-updated="$emit('reload-words')" />
+        <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" @logout="handleLogout" @change-level="handleChangeLevel" />
+      </KeepAlive>
     </div>
 
     <!-- ALPHABET MODAL -->

@@ -319,7 +319,8 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   display: flex; align-items: center; gap: 10px;
   padding: 12px 14px; border: 1px solid var(--line);
   border-radius: 10px; background:var(--glass-bg);
-  cursor: pointer; transition: all .15s; flex-wrap: wrap;
+  cursor: pointer; transition: background-color .15s, border-color .15s; flex-wrap: wrap;
+  content-visibility: auto; contain-intrinsic-size: 0 58px;
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .dt-word.learned { border-color: var(--gold); background: rgba(176,120,40,.07); }
 .dtw-arm  { font-family: var(--d); font-size: 22px; font-style: italic; color: var(--red); flex-shrink: 0; }

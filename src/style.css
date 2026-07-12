@@ -31,8 +31,8 @@
   --glass-border:    rgba(255, 250, 235, 0.65);
   --glass-shine:     rgba(255, 252, 240, 0.7);
   --glass-shadow:    rgba(60, 40, 10, 0.16);
-  --glass-blur: blur(18px) saturate(150%);
-  --glass-blur-sm: blur(12px) saturate(140%);
+  --glass-blur: blur(8px) saturate(120%);
+  --glass-blur-sm: blur(6px) saturate(115%);
 
   /* ── пружинные кривые, как в iOS ── */
   --spring:      cubic-bezier(.34, 1.56, .64, 1);
@@ -103,17 +103,16 @@ html { scroll-behavior:smooth }
 body {
   background-color:var(--bg); color:var(--ink);
   font-family:var(--s); min-height:100vh; overflow-x:hidden;
-  background-image: url('/barr/bg.png');
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  transition: background-image .3s;
 }
-/* Лёгкий overlay для читаемости — не перекрывает картинку */
+/* Фон + лёгкий overlay в одном fixed-слое (не background-attachment:fixed —
+   дешевле для GPU при скролле, т.к. это отдельный composited layer) */
 body::before {
   content:''; position:fixed; inset:0;
   pointer-events:none; z-index:0;
-  background: rgba(242,232,213,.25);
+  background-image: linear-gradient(rgba(242,232,213,.25), rgba(242,232,213,.25)), url('/barr/bg.png');
+  background-size: cover;
+  background-position: center center;
+  transition: background-image .3s;
 }
 /* Пергаментный слой поверх орнамента */
 
@@ -875,17 +874,11 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   .ntab { margin-right:12px; font-size:12px; }
 }
 
-[data-theme=dark] body {
-  background-image: url('/barr/bg-dark.png');
-}
 [data-theme=dark] body::before {
-  background: rgba(0,0,0,.2);
-}
-[data-theme=amoled] body {
-  background-image: url('/barr/bg-dark.png');
+  background-image: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)), url('/barr/bg-dark.png');
 }
 [data-theme=amoled] body::before {
-  background: rgba(0,0,0,.35);
+  background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('/barr/bg-dark.png');
 }
 [data-theme=dark] .learn-lesson,
 [data-theme=dark] .dt-word,
