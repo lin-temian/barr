@@ -27,6 +27,7 @@
           class="dt-word" :class="{learned: learned.has(w.id)}"
           @click="selected=selected===w.id?null:w.id">
           <div class="dtw-arm">{{ w.arm }}</div>
+          <button class="dtw-play" :title="playTitle" @click.stop="speak(w.arm)">▶</button>
           <div class="dtw-tr">{{ w.translit }}</div>
           <div class="dtw-ru" v-if="selected===w.id">{{ w.ru }}</div>
           <button class="dtw-learn" @click.stop="$emit('toggle-learn',w.id)">
@@ -115,9 +116,14 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useSpeech } from '../../composables/useSpeech.js'
 
 const props = defineProps({ words: Array, learned: Object })
 const emit  = defineEmits(['toggle-learn'])
+const { speak, hasArmenianVoice } = useSpeech()
+const playTitle = computed(() => hasArmenianVoice.value
+  ? 'Прослушать произношение'
+  : 'Армянский голос не найден в браузере — приближённое произношение')
 
 // ── СЛОВАРЬ ─────────────────────────────────────────────
 const tab      = ref('list')
@@ -324,6 +330,14 @@ border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4
 border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .dt-word.learned { border-color: var(--gold); background: rgba(176,120,40,.07); }
 .dtw-arm  { font-family: var(--d); font-size: 22px; font-style: italic; color: var(--red); flex-shrink: 0; }
+.dtw-play {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid var(--line); background: transparent;
+  font-size: 9px; color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; padding-left: 1px;
+  transition: .15s var(--spring);
+}
+.dtw-play:hover { border-color: var(--gold); color: var(--gold); }
 .dtw-tr   { font-family: var(--m); font-size: 11px; color: var(--muted); flex: 1; }
 .dtw-ru   { width: 100%; font-family: var(--s); font-size: 15px; color: var(--ink); padding-top: 6px; border-top: 1px solid var(--line); margin-top: 4px; }
 .dtw-learn {

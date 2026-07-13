@@ -23,7 +23,9 @@
 
       <div class="rv-card" @click="!revealed && (revealed = true)">
         <div class="rv-cat">{{ current.cat }}</div>
-        <div class="rv-arm">{{ current.arm }}</div>
+        <div class="rv-arm">{{ current.arm }}
+          <button class="rv-play" :title="playTitle" @click.stop="speak(current.arm)">▶</button>
+        </div>
         <div class="rv-tr">{{ current.translit }}</div>
         <transition name="rv-fade" mode="out-in">
           <div v-if="revealed" key="ru" class="rv-ru">{{ current.ru }}</div>
@@ -41,9 +43,14 @@
 
 <script setup>
 import { ref, computed, onActivated } from 'vue'
+import { useSpeech } from '../../composables/useSpeech.js'
 
 const props = defineProps({ words: Array })
 const emit  = defineEmits(['review','go-tab'])
+const { speak, hasArmenianVoice } = useSpeech()
+const playTitle = computed(() => hasArmenianVoice.value
+  ? 'Прослушать произношение'
+  : 'Армянский голос не найден в браузере — приближённое произношение')
 
 const queue    = ref([])
 const idx      = ref(0)
@@ -90,7 +97,15 @@ function mark(remembered) {
   border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);
 }
 .rv-cat { font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
-.rv-arm { font-family:var(--d); font-size:56px; font-style:italic; color:var(--red); line-height:1; }
+.rv-arm { font-family:var(--d); font-size:56px; font-style:italic; color:var(--red); line-height:1; display:flex; align-items:center; justify-content:center; gap:12px; }
+.rv-play {
+  width:34px; height:34px; border-radius:50%; flex-shrink:0;
+  border:1px solid var(--line); background:transparent;
+  font-size:13px; color:var(--muted); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; padding-left:2px;
+  transition:.15s var(--spring);
+}
+.rv-play:hover { border-color:var(--gold); color:var(--gold); }
 .rv-tr  { font-family:var(--m); font-size:13px; color:var(--muted); margin-top:6px; }
 .rv-tap { font-family:var(--s); font-size:12px; color:var(--muted); margin-top:14px; font-style:italic; opacity:.7; }
 .rv-ru  { font-family:var(--d); font-size:32px; font-weight:700; color:var(--ink); margin-top:14px; }
