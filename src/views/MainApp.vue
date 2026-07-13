@@ -174,8 +174,8 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
   position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
   height:64px; border-radius:24px;
   background: var(--glass-bg-strong);
-  
-  
+
+
   border: 1px solid var(--glass-border);
   box-shadow: 0 10px 34px var(--glass-shadow), inset 0 1px 0 var(--glass-shine);
   display:flex; align-items:stretch;
@@ -190,6 +190,19 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
   content:''; position:absolute; top:0; left:16%; right:16%; height:1px;
   background:linear-gradient(90deg, transparent, var(--gold), transparent);
   opacity:.5; pointer-events:none;
+}
+
+/* ── ДЕСКТОП: узкая колонка с рамками по бокам, как на телефоне ── */
+@media (min-width: 700px) {
+  .app-wrap {
+    max-width:480px; margin:0 auto;
+    border-left:1px solid var(--line); border-right:1px solid var(--line);
+    box-shadow: 0 0 60px var(--glass-shadow);
+  }
+  .tabbar {
+    left:50%; right:auto; transform:translateX(-50%);
+    width:min(456px, calc(100vw - 24px));
+  }
 }
 
 /* морфящий индикатор — перетекает между вкладками */
