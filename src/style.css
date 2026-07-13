@@ -124,7 +124,7 @@ body::before {
 
 /* Зернистость пергамента */
 
-.topbar,.hero,.strip,.krow,.nav,.content,
+.topbar,.hero,.strip,.krow,.nav,.content,.app-content,.app-wrap,
 #alphabetScreen,#splash,#main {
   position:relative; z-index:1;
 }
