@@ -139,7 +139,7 @@ border-color:var(--glass-border);}
 .bug-label { font-family: var(--m); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
 .bug-types { display: flex; flex-wrap: wrap; gap: 8px; }
 .bug-type  { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background:var(--glass-bg); font-family: var(--s); font-size: 13px; color: var(--ink); cursor: pointer; transition:.15s var(--spring); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.bug-type.active { background: var(--red); border-color: var(--red); color: var(--bg); }
+.bug-type.active { background: var(--red); border-color: var(--red); color: var(--on-accent); }
 .bug-textarea {
   width: 100%; padding: 12px 14px;
   border: 1.5px solid var(--line); border-radius: 12px;
@@ -159,7 +159,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 .bug-status.err { background: rgba(140,28,28,.1); color: var(--red); }
 .bug-send {
   width: 100%; padding: 16px; background: var(--red); border: none;
-  border-radius: 14px; color: var(--bg);
+  border-radius: 14px; color: var(--on-accent);
   font-family: var(--d); font-size: 18px; font-style: italic;
   cursor: pointer; transition:.2s var(--spring); margin-top: 4px;
 }

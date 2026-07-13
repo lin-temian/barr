@@ -393,14 +393,14 @@ function markDone() {
   background:var(--glass-bg-strong);
 border-color:var(--glass-border);}
 .learn-title { font-family:var(--d); font-size:28px; font-weight:700; font-style:italic; color:var(--red); }
-.learn-level { background:var(--red); color:var(--bg); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; }
+.learn-level { background:var(--red); color:var(--on-accent); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; }
 .level-tabs  { display:flex; padding:16px 20px 0; gap:8px; }
 .ltab {
   flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px;
   font-family:var(--m); font-size:13px; font-weight:700; color:var(--muted);
   background:var(--glass-bg); cursor:pointer; transition:.15s var(--spring); text-align:center;
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.ltab.active { background:var(--red); border-color:var(--red); color:var(--bg); }
+.ltab.active { background:var(--red); border-color:var(--red); color:var(--on-accent); }
 .ltab:hover:not(.active) { border-color:var(--gold); color:var(--ink); }
 .learn-body { padding:16px 20px; }
 .learn-list { display:flex; flex-direction:column; gap:10px; }
@@ -447,7 +447,7 @@ border-color:var(--glass-border);}
 .gr-example { display:flex; gap:12px; align-items:baseline; background:var(--glass-bg); padding:8px 12px; border-radius:8px; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .gr-arm { font-family:var(--d); font-size:20px; font-style:italic; color:var(--red); }
 .gr-ru  { font-family:var(--s); font-size:13px; color:var(--muted); }
-.lm-done-btn { width:100%; padding:16px; background:var(--red); border:none; border-radius:14px; color:var(--bg); font-family:var(--d); font-size:18px; font-style:italic; cursor:pointer; margin-top:24px; transition:.2s var(--spring); }
+.lm-done-btn { width:100%; padding:16px; background:var(--red); border:none; border-radius:14px; color:var(--on-accent); font-family:var(--d); font-size:18px; font-style:italic; cursor:pointer; margin-top:24px; transition:.2s var(--spring); }
 .lm-done-btn:hover { opacity:.88; }
 
 /* Inline lesson shared styles */

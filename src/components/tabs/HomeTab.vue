@@ -128,7 +128,7 @@ function nextFact() {
 border-color:var(--glass-border);}
 .home-greeting { font-family:var(--m); font-size:11px; color:var(--muted); }
 .home-name { font-family:var(--d); font-size:26px; font-weight:700; font-style:italic; color:var(--red); }
-.home-level { background:var(--red); color:var(--bg); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; letter-spacing:1px; }
+.home-level { background:var(--red); color:var(--on-accent); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; letter-spacing:1px; }
 .home-body { padding:16px; display:flex; flex-direction:column; gap:14px; }
 .streak-card {
   background:var(--glass-bg); backdrop-filter:blur(8px);

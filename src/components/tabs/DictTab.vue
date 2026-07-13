@@ -313,7 +313,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   text-transform: capitalize;
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .pill:hover { border-color: var(--gold); }
-.pill.on { background: var(--red); border-color: var(--red); color: var(--bg); }
+.pill.on { background: var(--red); border-color: var(--red); color: var(--on-accent); }
 .dt-words { display: flex; flex-direction: column; gap: 6px; }
 .dt-word {
   display: flex; align-items: center; gap: 10px;
@@ -331,7 +331,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   border: 1px solid var(--line); background: transparent;
   font-size: 14px; color: var(--muted); cursor: pointer; flex-shrink: 0;
 }
-.dt-word.learned .dtw-learn { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+.dt-word.learned .dtw-learn { background: var(--gold); border-color: var(--gold); color: var(--on-accent); }
 
 /* ── КАРТОЧКИ ── */
 .swipe-wrap {
@@ -417,8 +417,8 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   padding: 6px 16px; border-radius: 20px;
   pointer-events: none; z-index: 10;
 }
-.sw-indicator.left  { left: 16px;  background: var(--gold);  color: var(--bg); }
-.sw-indicator.right { right: 16px; background: var(--blue);  color: var(--bg); }
+.sw-indicator.left  { left: 16px;  background: var(--gold);  color: var(--on-accent); }
+.sw-indicator.right { right: 16px; background: var(--blue);  color: var(--on-accent); }
 
 /* Финальный экран */
 .sw-done {
@@ -429,7 +429,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 .sw-done-title { font-family: var(--d); font-size: 28px; font-style: italic; color: var(--red); }
 .sw-done-sub   { font-family: var(--s); font-size: 15px; color: var(--muted); }
 .sw-done-btn {
-  padding: 14px 28px; background: var(--red); color: var(--bg);
+  padding: 14px 28px; background: var(--red); color: var(--on-accent);
   border: none; border-radius: 12px; font-family: var(--s); font-size: 15px;
   font-weight: 600; cursor: pointer; width: 100%; max-width: 280px;
 }
@@ -443,5 +443,5 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
   letter-spacing: 1px; color: var(--muted); cursor: pointer; transition:.15s var(--spring);
   text-transform: uppercase;
 }
-.sf-btn.on { background: var(--red); border-color: var(--red); color: var(--bg); }
+.sf-btn.on { background: var(--red); border-color: var(--red); color: var(--on-accent); }
 </style>

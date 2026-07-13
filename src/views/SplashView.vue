@@ -96,13 +96,13 @@ onUnmounted(() => clearInterval(timer))
 }
 .splash-btn span { transition: opacity .2s; display: block; }
 .splash-btn:active { transform: scale(.98); }
-.splash-btn-learn { color: var(--bg); background: var(--red); }
+.splash-btn-learn { color: var(--on-accent); background: var(--red); }
 .splash-btn-learn:hover { background: var(--ink); }
 .splash-btn-dict {
   color: var(--red); background: transparent;
   border: 2px solid var(--red);
 }
-.splash-btn-dict:hover { background: var(--red); color: var(--bg); }
+.splash-btn-dict:hover { background: var(--red); color: var(--on-accent); }
 
 @keyframes arev-spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 @keyframes arev-appear { from{opacity:0;transform:scale(.5) rotate(-60deg)} to{opacity:1;transform:scale(1) rotate(0deg)} }

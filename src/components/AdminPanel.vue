@@ -298,7 +298,7 @@ onMounted(loadArts)
 .ap-input:focus { border-color:var(--gold); }
 .ap-btn { padding:9px 16px; border:1px solid var(--line); border-radius:8px; background:var(--glass-bg); font-family:var(--s); font-size:13px; color:var(--ink); cursor:pointer; transition:.15s var(--spring); white-space:nowrap; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .ap-btn:hover { border-color:var(--gold); }
-.ap-btn.primary { background:var(--red); border-color:var(--red); color:var(--bg); font-weight:600; }
+.ap-btn.primary { background:var(--red); border-color:var(--red); color:var(--on-accent); font-weight:600; }
 .ap-btn.sm { padding:5px 10px; font-size:13px; }
 .ap-btn.danger { border-color:var(--red); color:var(--red); }
 .ap-btn:disabled { opacity:.5; cursor:not-allowed; }

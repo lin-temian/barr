@@ -137,7 +137,7 @@ const rows3 = [
 .pt-arm { font-family:var(--d); font-size:clamp(18px,3.5vw,24px); font-style:italic; color:var(--red); line-height:1.1; margin-bottom:2px; }
 .pt-tr  { font-family:var(--m); font-size:10px; color:var(--muted); }
 .pt-ru  { font-family:var(--s); font-size:14px; color:var(--ink); margin-top:2px; font-weight:600; }
-.pt-case-arm { font-family:var(--d); font-size:clamp(12px,2vw,15px); font-style:italic; color:var(--red); line-height:1.2; margin-bottom:2px; }
+.pt-case-arm { font-family:var(--d); font-size:clamp(12px,2vw,15px); font-style:italic; color:var(--bg); opacity:.9; line-height:1.2; margin-bottom:2px; }
 .pt-case-ru  { font-family:var(--m); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--bg); opacity:.75; }
 
 /* VALUE CELLS */

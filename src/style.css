@@ -21,6 +21,9 @@
   --vowel:     #6b1212;
   --vowel-bg:  #ede0c6;
   --consonant: #2e1808;
+  /* Текст поверх цветных (красных/золотых) фонов — НЕ меняется по темам,
+     в отличие от --bg, который в тёмной теме тоже становится тёмным */
+  --on-accent: #f2e8d5;
   --d: 'Fraunces', 'Noto Serif Armenian', serif;
   --s: 'Newsreader', serif;
   --m: 'Instrument Mono', monospace;

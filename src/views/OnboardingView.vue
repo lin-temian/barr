@@ -130,7 +130,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 }
 .ob-btn {
   width: 100%; padding: 16px;
-  background: var(--red); color: var(--bg);
+  background: var(--red); color: var(--on-accent);
   border: none; border-radius: 12px;
   font-family: var(--d); font-size: 18px; font-style: italic;
   cursor: pointer; transition: background .2s;

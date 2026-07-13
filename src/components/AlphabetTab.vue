@@ -404,7 +404,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-ba
 .lv-learned-btn { flex:1; padding:16px; background:var(--glass-bg); border:2px solid var(--line); border-radius:14px; font-family:var(--d); font-size:16px; font-style:italic; color:var(--muted); cursor:pointer; transition:all .2s; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .lv-learned-btn:hover { border-color:var(--gold); color:var(--ink); }
 .lv-learned-btn.done  { background:rgba(176,120,40,.12); border-color:var(--gold); color:var(--gold); }
-.lv-next-btn  { flex:2; padding:16px; background:var(--red); border:none; border-radius:14px; font-family:var(--d); font-size:18px; font-style:italic; color:var(--bg); cursor:pointer; transition:.2s var(--spring); }
+.lv-next-btn  { flex:2; padding:16px; background:var(--red); border:none; border-radius:14px; font-family:var(--d); font-size:18px; font-style:italic; color:var(--on-accent); cursor:pointer; transition:.2s var(--spring); }
 .lv-next-btn:hover { opacity:.88; }
 .lv-finish-btn { background:var(--ink); }
 

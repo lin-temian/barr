@@ -731,7 +731,7 @@ border-color:var(--glass-border);}
 .art-card { background:var(--glass-bg); border:1px solid var(--line); border-radius:14px; padding:16px; cursor:pointer; transition:.15s var(--spring); display:flex; flex-direction:column; gap:6px; margin-bottom:10px; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .art-card:hover { border-color:var(--gold); }
 .art-header { display:flex; gap:8px; align-items:center; }
-.art-level { font-family:var(--m); font-size:10px; letter-spacing:1px; background:var(--red); color:var(--bg); padding:2px 8px; border-radius:10px; }
+.art-level { font-family:var(--m); font-size:10px; letter-spacing:1px; background:var(--red); color:var(--on-accent); padding:2px 8px; border-radius:10px; }
 .art-cat { font-family:var(--m); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
 .art-title { font-family:var(--d); font-size:20px; font-style:italic; color:var(--ink); }
 .art-desc { font-family:var(--s); font-size:13px; color:var(--muted); line-height:1.5; }
