@@ -2,10 +2,11 @@
   <div class="app-wrap">
     <div class="app-content">
       <KeepAlive>
-        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" @go-tab="tab=$event" />
+        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" :due-count="dueWords.length" @go-tab="tab=$event" />
         <LearnTab    v-else-if="tab==='learn'"    :words="words" :level="level" @open-alphabet="alphaOpen = true" />
         <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" @toggle-learn="toggleLearn" />
         <PracticeTab v-else-if="tab==='practice'" :words="words" />
+        <ReviewTab   v-else-if="tab==='review'"   :words="dueWords" @review="reviewWord" @go-tab="tab=$event" />
         <LitTab      v-else-if="tab==='lit'"      :learnedAlpha="learnedAlpha" />
         <AdminPanel  v-else-if="tab==='admin'" :words="words" @words-updated="$emit('reload-words')" />
         <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" @logout="handleLogout" @change-level="handleChangeLevel" />
@@ -52,6 +53,7 @@ import LearnTab    from '../components/tabs/LearnTab.vue'
 import DictTab     from '../components/tabs/DictTab.vue'
 import PracticeTab from '../components/tabs/PracticeTab.vue'
 import ProfileTab  from '../components/tabs/ProfileTab.vue'
+import ReviewTab   from '../components/tabs/ReviewTab.vue'
 import AdminPanel  from '../components/AdminPanel.vue'
 import LitTab      from '../components/tabs/LitTab.vue'
 import AlphabetTab from '../components/AlphabetTab.vue'
@@ -81,9 +83,36 @@ const streak       = ref(Number(localStorage.getItem('barr_streak') || 0))
 
 function toggleLearn(id) {
   const s = new Set(learned.value)
-  s.has(id) ? s.delete(id) : s.add(id)
+  if (s.has(id)) {
+    s.delete(id)
+  } else {
+    s.add(id)
+    if (!srs.value[id]) {
+      srs.value = { ...srs.value, [id]: { box: 0, due: Date.now() } }
+      localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
+    }
+  }
   learned.value = s
   localStorage.setItem(SK, JSON.stringify([...s]))
+}
+
+/* ── интервальные повторения (Leitner) ── */
+const SRS_KEY = 'barr_srs'
+const REVIEW_INTERVALS_DAYS = [0, 1, 3, 7, 14, 30]
+const srs = ref(JSON.parse(localStorage.getItem(SRS_KEY) || '{}'))
+
+const dueWords = computed(() => props.words.filter(w => {
+  if (!learned.value.has(w.id)) return false
+  const entry = srs.value[w.id]
+  return !entry || entry.due <= Date.now()
+}))
+
+function reviewWord(id, remembered) {
+  const cur  = srs.value[id] || { box: 0, due: Date.now() }
+  const box  = remembered ? Math.min(cur.box + 1, REVIEW_INTERVALS_DAYS.length - 1) : 0
+  const due  = Date.now() + REVIEW_INTERVALS_DAYS[box] * 86400000
+  srs.value  = { ...srs.value, [id]: { box, due } }
+  localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
 }
 
 async function handleLogout() {

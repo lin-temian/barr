@@ -39,6 +39,16 @@
         </div>
       </div>
 
+      <!-- ПОВТОРЕНИЕ -->
+      <div v-if="dueCount > 0" class="review-card" @click="$emit('go-tab','review')">
+        <div class="rc-badge">{{ dueCount }}</div>
+        <div class="rc-body">
+          <div class="rc-title">Пора повторить</div>
+          <div class="rc-desc">{{ dueCount }} {{ wordForm(dueCount) }} {{ waitForm(dueCount) }} повторения</div>
+        </div>
+        <span class="rc-arrow">→</span>
+      </div>
+
       <!-- СЛОВО ДНЯ -->
       <div class="word-card" @click="flipped=!flipped">
         <div class="wc-label">✦ Слово дня</div>
@@ -90,8 +100,19 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-const props = defineProps({ user:Object, words:Array, level:String, learned:Object, streak:Number })
+const props = defineProps({ user:Object, words:Array, level:String, learned:Object, streak:Number, dueCount:{type:Number, default:0} })
 defineEmits(['go-tab'])
+
+function wordForm(n) {
+  const mod10 = n % 10, mod100 = n % 100
+  if (mod10 === 1 && mod100 !== 11) return 'слово'
+  if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return 'слова'
+  return 'слов'
+}
+function waitForm(n) {
+  const mod10 = n % 10, mod100 = n % 100
+  return (mod10 === 1 && mod100 !== 11) ? 'ждёт' : 'ждут'
+}
 
 const flipped = ref(false)
 const displayName = computed(() => props.user?.displayName?.split(' ')[0] || 'Друг')
@@ -158,6 +179,24 @@ border-color:var(--glass-border);}
 .cc-fill { height:100%; background:var(--gold); border-radius:3px; transition:width .5s; }
 .cc-pct { font-family:var(--m); font-size:11px; color:rgba(242,232,213,.6); }
 .cc-arrow { margin-left:auto; font-size:18px; color:rgba(242,232,213,.4); }
+.review-card {
+  display:flex; align-items:center; gap:14px;
+  background:var(--glass-bg); border:1px solid rgba(176,120,40,.35); border-radius:16px;
+  padding:16px 18px; cursor:pointer; transition:all .2s;
+  border-color:var(--glass-border);
+}
+.review-card:hover { border-color:var(--gold); }
+.rc-badge {
+  flex-shrink:0; width:36px; height:36px; border-radius:50%;
+  background:var(--gold); color:var(--on-accent);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--m); font-size:14px; font-weight:700;
+}
+.rc-body { flex:1; }
+.rc-title { font-family:var(--s); font-size:15px; font-weight:600; color:var(--ink); }
+.rc-desc  { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:2px; }
+.rc-arrow { font-size:18px; color:var(--gold); }
+
 .word-card {
   background:var(--glass-bg); 
   border:1px solid rgba(26,58,110,.2); border-radius:16px;
@@ -209,9 +248,11 @@ border-color:var(--glass-border);}
 [data-theme=dark] .streak-card,
 [data-theme=dark] .word-card,
 [data-theme=dark] .qc,
+[data-theme=dark] .review-card,
 [data-theme=dark] .stats-row { background:rgba(24,16,8,.94) !important; }
 [data-theme=amoled] .streak-card,
 [data-theme=amoled] .word-card,
 [data-theme=amoled] .qc,
+[data-theme=amoled] .review-card,
 [data-theme=amoled] .stats-row { background:rgba(0,0,0,.95) !important; }
 </style>
