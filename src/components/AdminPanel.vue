@@ -81,6 +81,8 @@
           <option value="__new__">+ Новая</option>
         </select>
         <input v-if="wForm.cat==='__new__'" v-model="wForm.newCat" class="ap-input" placeholder="Название категории" />
+        <label>Аудио-файл (URL, необязательно)</label>
+        <input v-model="wForm.audioUrl" class="ap-input" placeholder="https://.../barev.mp3" />
         <div class="ap-modal-btns">
           <button class="ap-btn" @click="wModal=false">Отмена</button>
           <button class="ap-btn primary" @click="saveWord" :disabled="saving">{{ saving?'...':'Сохранить' }}</button>
@@ -138,7 +140,7 @@ const migMsg   = ref('')
 
 const wModal = ref(false)
 const aModal = ref(false)
-const wForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', firestoreId:null })
+const wForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', audioUrl:'', firestoreId:null })
 const aForm  = ref({ id:null, title:'', category:'', level:'A1', desc:'', body:'' })
 
 // ── СЛОВА ────────────────────────────────────────────────
@@ -156,16 +158,16 @@ const filtered = computed(() => {
 const allCats = computed(() => [...new Set(props.words.map(w => w.cat))].sort())
 
 function openAdd() {
-  wForm.value = { arm:'', translit:'', ru:'', cat:allCats.value[0]||'разное', newCat:'', firestoreId:null }
+  wForm.value = { arm:'', translit:'', ru:'', cat:allCats.value[0]||'разное', newCat:'', audioUrl:'', firestoreId:null }
   wModal.value = true
 }
 function openEdit(w) {
-  wForm.value = { arm:w.arm, translit:w.translit||w.tr||'', ru:w.ru, cat:w.cat, newCat:'', firestoreId:w.firestoreId||null }
+  wForm.value = { arm:w.arm, translit:w.translit||w.tr||'', ru:w.ru, cat:w.cat, newCat:'', audioUrl:w.audioUrl||'', firestoreId:w.firestoreId||null }
   wModal.value = true
 }
 async function saveWord() {
   const cat = wForm.value.cat==='__new__' ? wForm.value.newCat : wForm.value.cat
-  const data = { arm:wForm.value.arm, translit:wForm.value.translit, ru:wForm.value.ru, cat }
+  const data = { arm:wForm.value.arm, translit:wForm.value.translit, ru:wForm.value.ru, cat, audioUrl:wForm.value.audioUrl||'' }
   saving.value = true
   try {
     if (wForm.value.firestoreId) {

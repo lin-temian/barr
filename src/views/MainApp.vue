@@ -47,7 +47,8 @@
 
 <script setup>
 import { ref, computed, onMounted, nextTick, watch } from 'vue'
-import { logout } from '../firebase'
+import { logout, db } from '../firebase'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import HomeTab     from '../components/tabs/HomeTab.vue'
 import LearnTab    from '../components/tabs/LearnTab.vue'
 import DictTab     from '../components/tabs/DictTab.vue'
@@ -114,6 +115,31 @@ function reviewWord(id, remembered) {
   srs.value  = { ...srs.value, [id]: { box, due } }
   localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
 }
+
+/* ── синхронизация повторений с Firestore для авторизованных ── */
+let srsSaveTimer = null
+function scheduleSrsSave() {
+  if (!props.user) return
+  clearTimeout(srsSaveTimer)
+  srsSaveTimer = setTimeout(() => {
+    setDoc(doc(db, 'users', props.user.uid), { srs: srs.value }, { merge: true }).catch(() => {})
+  }, 800)
+}
+watch(srs, scheduleSrsSave, { deep: true })
+
+watch(() => props.user, async (u) => {
+  if (!u) return
+  try {
+    const snap  = await getDoc(doc(db, 'users', u.uid))
+    const cloud = snap.exists() ? snap.data().srs : null
+    if (cloud && Object.keys(cloud).length) {
+      srs.value = cloud
+      localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
+    } else {
+      scheduleSrsSave()
+    }
+  } catch (e) { /* оффлайн или нет доступа — остаёмся на localStorage */ }
+}, { immediate: true })
 
 async function handleLogout() {
   await logout()

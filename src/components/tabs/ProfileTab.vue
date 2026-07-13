@@ -118,6 +118,8 @@ const ALL_BADGES = [
   { id:'streak7', icon:'💫', name:'Недельная серия',   desc:'7 дней подряд занятий'         },
   { id:'lesson1', icon:'🎓', name:'Первый урок',       desc:'Завершил первый урок'           },
   { id:'lesson5', icon:'🏆', name:'Прилежный ученик',  desc:'Завершил 5 уроков'             },
+  { id:'pron',    icon:'🎤', name:'Есть контакт',      desc:'Успешно произнёс слово вслух'  },
+  { id:'dialogues', icon:'💬', name:'Разговорчивый',   desc:'Прочитал все диалоги'           },
 ]
 
 const VOWEL_IDX = new Set([0,4,6,7,10,23,33,36,37])
@@ -144,6 +146,11 @@ const earnedSet = computed(() => {
 
   if (completed.size >= 1) earned.add('lesson1')
   if (completed.size >= 5) earned.add('lesson5')
+
+  const pronOk    = Number(localStorage.getItem('barr_pron_ok') || 0)
+  const dialogues = new Set(JSON.parse(localStorage.getItem('barr_dialogues_read') || '[]'))
+  if (pronOk >= 1) earned.add('pron')
+  if (dialogues.size >= 5) earned.add('dialogues')
 
   return earned
 })

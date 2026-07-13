@@ -63,6 +63,7 @@
           <FoodTab        v-else-if="active.comp==='food'" />
           <TimeTab        v-else-if="active.comp==='time'" />
           <VerbsTab       v-else-if="active.comp==='verbs'" />
+          <DialogueTab    v-else-if="active.comp==='dialogue'" />
           <div v-else class="lm-coming">
             <div class="lm-coming-icon">🚧</div>
             <div class="lm-coming-text">Урок в разработке</div>
@@ -80,6 +81,8 @@
               </div>
             </div>
           </div>
+
+          <PronunciationCheck v-if="pronWord && active.comp!=='dialogue'" :word="pronWord" @result="onPronResult" />
 
           <button class="lm-done-btn" @click="markDone">
             {{ completedIds.has(active.id) ? '✓ Пройден' : 'Отметить как пройденный' }}
@@ -107,6 +110,8 @@ import FutureTenseTab from '../FutureTenseTab.vue'
 import NegationTab    from '../NegationTab.vue'
 import ArmeniaTab     from '../ArmeniaTab.vue'
 import ProverbsTab    from '../ProverbsTab.vue'
+import DialogueTab    from '../DialogueTab.vue'
+import PronunciationCheck from '../PronunciationCheck.vue'
 
 // Lazy inline lesson components — defined locally to avoid extra files
 import { defineComponent, h } from 'vue'
@@ -352,6 +357,7 @@ const LESSONS = [
   { id:23, ru:'Армения',                arm:'Հայաստան',       desc:'История · культура · традиции',      level:'B1', locked:false,  comp:'armenia' },
   { id:24, ru:'Диалоги',                arm:'Զրույթ',          desc:'Живая речь · разговорные фразы',     level:'B1', locked:false,  comp:'proverbs' },
   { id:25, ru:'Литература',             arm:'Գրականություն',      desc:'Классические тексты',                level:'B1', locked:true,  comp:null },
+  { id:26, ru:'Диалоги на практике',    arm:'Խոսակցություն',      desc:'Кафе · такси · рынок · знакомство · аэропорт', level:'B1', locked:false, comp:'dialogue' },
 ]
 
 // Unlock based on completed
@@ -367,9 +373,21 @@ const filteredLessons = computed(() =>
   LESSONS.filter(l => l.level === currentLevel.value)
 )
 
+const pronWord = ref(null)
+function pickPronWord() {
+  if (!props.words?.length) { pronWord.value = null; return }
+  pronWord.value = props.words[Math.floor(Math.random() * props.words.length)]
+}
+function onPronResult(ok) {
+  if (!ok) return
+  const n = Number(localStorage.getItem('barr_pron_ok') || 0) + 1
+  localStorage.setItem('barr_pron_ok', n)
+}
+
 function openLesson(l) {
   if (l.comp === 'alphabet') { emit('open-alphabet'); return }
   active.value = l
+  pickPronWord()
 }
 function close() { active.value = null }
 

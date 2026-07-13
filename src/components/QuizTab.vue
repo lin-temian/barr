@@ -9,7 +9,7 @@
     <div class="qcard" v-if="current">
       <div class="qlabel">Переведи на русский</div>
       <div class="qword">{{ current.arm }}
-        <button class="qplay" :title="playTitle" @click.stop="speak(current.arm)">▶</button>
+        <button class="qplay" :title="playTitle" @click.stop="playWord(current)">▶</button>
       </div>
       <div class="qtr">{{ current.translit }}</div>
       <div class="qfb" :class="fb.cls">{{ fb.text }}</div>
@@ -28,7 +28,7 @@
 import { ref, computed, onUnmounted } from 'vue'
 import { useSpeech } from '../composables/useSpeech.js'
 const props = defineProps({ words: Array })
-const { speak, hasArmenianVoice } = useSpeech()
+const { playWord, hasArmenianVoice } = useSpeech()
 const playTitle = computed(() => hasArmenianVoice.value
   ? 'Прослушать произношение'
   : 'Армянский голос не найден в браузере — приближённое произношение')
@@ -47,6 +47,7 @@ function next() {
   const pool = rand(props.words)
   current.value = pool[0]
   opts.value = rand([pool[0], ...pool.slice(1,4)])
+  playWord(current.value)
   timerVal = 15; timerPct.value = 100
   timerInterval = setInterval(() => {
     timerVal--; timerPct.value = timerVal / 15 * 100

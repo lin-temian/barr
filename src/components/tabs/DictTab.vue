@@ -27,7 +27,7 @@
           class="dt-word" :class="{learned: learned.has(w.id)}"
           @click="selected=selected===w.id?null:w.id">
           <div class="dtw-arm">{{ w.arm }}</div>
-          <button class="dtw-play" :title="playTitle" @click.stop="speak(w.arm)">▶</button>
+          <button class="dtw-play" :title="playTitle" @click.stop="playWord(w)">▶</button>
           <div class="dtw-tr">{{ w.translit }}</div>
           <div class="dtw-ru" v-if="selected===w.id">{{ w.ru }}</div>
           <button class="dtw-learn" @click.stop="$emit('toggle-learn',w.id)">
@@ -120,7 +120,7 @@ import { useSpeech } from '../../composables/useSpeech.js'
 
 const props = defineProps({ words: Array, learned: Object })
 const emit  = defineEmits(['toggle-learn'])
-const { speak, hasArmenianVoice } = useSpeech()
+const { playWord, hasArmenianVoice } = useSpeech()
 const playTitle = computed(() => hasArmenianVoice.value
   ? 'Прослушать произношение'
   : 'Армянский голос не найден в браузере — приближённое произношение')

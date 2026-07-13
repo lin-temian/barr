@@ -41,5 +41,19 @@ export function useSpeech() {
     window.speechSynthesis.speak(utter)
   }
 
-  return { speak, speaking, supported, hasArmenianVoice }
+  // Слово с записанным audioUrl (mp3) проигрывается напрямую, иначе — синтез речи
+  function playWord(word) {
+    if (!word) return
+    if (word.audioUrl) {
+      speaking.value = true
+      const audio = new Audio(word.audioUrl)
+      audio.onended = () => { speaking.value = false }
+      audio.onerror = () => { speaking.value = false; speak(word.arm) }
+      audio.play().catch(() => { speaking.value = false; speak(word.arm) })
+    } else {
+      speak(word.arm)
+    }
+  }
+
+  return { speak, playWord, speaking, supported, hasArmenianVoice }
 }
