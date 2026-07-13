@@ -40,8 +40,8 @@ const numbers = [
 .pv-title { font-family:var(--d); font-size:clamp(26px,4vw,48px); font-weight:700; font-style:italic; color:var(--red); padding:28px 0 20px; border-bottom:2px solid var(--line); margin-bottom:24px; position:relative; }
 .pv-title::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--blue); opacity:.6; }
 .pv-grid  { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-.pv-card  { border:1px solid var(--line); border-left:3px solid var(--red); background:var(--glass-bg); padding:14px 16px; overflow:hidden; animation:cardIn .3s both; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.num-card:hover { border-color:var(--gold); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.pv-card  { border:1px solid var(--line); border-left:3px solid var(--red); background:var(--glass-bg); padding:14px 16px; overflow:hidden; animation:cardIn .3s both; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.num-card:hover { border-color:var(--gold); background:var(--glass-bg); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .pv-arm { font-family:var(--d); font-size:clamp(24px,6vw,36px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700; font-style:italic; color:var(--red); line-height:1; margin-bottom:6px; }
 .pv-tr  { font-family:var(--m); font-size:11px; color:var(--muted); font-style:italic; margin-bottom:4px; }
 .pv-ru  { font-family:var(--s); font-size:16px; color:var(--ink); }

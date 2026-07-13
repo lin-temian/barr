@@ -103,7 +103,7 @@ async function handleGoogle() {
   background:var(--glass-bg);
   border-radius: 10px;
   border: 1px solid var(--line);
-border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .auth-benefit-icon { font-size: 20px; }
 .auth-google-btn {
   width: 100%; padding: 14px 20px;

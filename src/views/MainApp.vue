@@ -145,8 +145,8 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
   position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
   height:64px; border-radius:24px;
   background: var(--glass-bg-strong);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  
+  
   border: 1px solid var(--glass-border);
   box-shadow: 0 10px 34px var(--glass-shadow), inset 0 1px 0 var(--glass-shine);
   display:flex; align-items:stretch;

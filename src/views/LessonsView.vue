@@ -187,7 +187,7 @@ const examples = [
 .lb-title { font-family:var(--d); font-size:28px; font-weight:700; font-style:italic; color:var(--ink); margin-bottom:6px; }
 .lb-sub   { font-family:var(--m); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
 .lb-letters { display:flex; flex-wrap:wrap; gap:10px; }
-.lb-letter-card { border:1px solid var(--line); padding:14px 16px; min-width:72px; text-align:center; transition:.15s var(--spring); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.lb-letter-card { border:1px solid var(--line); padding:14px 16px; min-width:72px; text-align:center; transition:.15s var(--spring); background:var(--glass-bg); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .lb-letter-card.is-vowel .llc-big { color:var(--vowel); }
 .lb-letter-card.is-consonant .llc-big { color:var(--consonant); }
 .llc-big   { font-family:var(--d); font-size:40px; font-weight:700; line-height:1; }
@@ -197,7 +197,7 @@ const examples = [
 .tip-letter { font-family:var(--d); font-size:28px; font-weight:700; color:var(--red); flex-shrink:0; min-width:60px; }
 .pron-table { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; border-left:1px solid var(--line); border-top:1px solid var(--line); }
 .pt-header  { background:var(--ink); color:var(--bg); font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:10px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
-.pt-cell    { padding:12px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--glass-bg); border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.pt-cell    { padding:12px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--glass-bg); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .pt-arm     { font-family:var(--d); font-size:22px; font-style:italic; color:var(--red); }
 .pt-tr      { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:2px; }
 .pt-ru      { font-family:var(--s); font-size:14px; color:var(--ink); margin-top:2px; }

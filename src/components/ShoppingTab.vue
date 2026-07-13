@@ -44,7 +44,7 @@ const WORDS = [
 .d-line{display:flex;gap:10px;align-items:flex-start;}.d-line.rb{flex-direction:row-reverse;}
 .d-sp{font-family:var(--m);font-size:11px;font-weight:700;color:var(--on-accent);background:var(--red);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
 .d-line.rb .d-sp{background:var(--blue);}
-.d-body{background:var(--glass-bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;max-width:88%;border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.d-body{background:var(--glass-bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;max-width:88%;border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .d-arm{font-family:var(--d);font-size:17px;font-style:italic;color:var(--ink);}
 .d-tr{font-family:var(--m);font-size:10px;color:var(--muted);}
 .d-ru{font-family:var(--s);font-size:13px;color:var(--muted);}

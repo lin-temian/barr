@@ -127,7 +127,7 @@ const rows3 = [
 .pron-group-title { font-family:var(--m); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
 .pron-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
 .pt { border-collapse:collapse; min-width:340px; width:100%; border:1px solid var(--line); }
-.pt thead th { background:var(--glass-bg); border:1px solid var(--line); padding:12px 14px; text-align:center; vertical-align:bottom; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.pt thead th { background:var(--glass-bg); border:1px solid var(--line); padding:12px 14px; text-align:center; vertical-align:bottom; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .pt-pad {
   background:var(--ink) !important; color:var(--bg) !important;
   font-family:var(--m); font-size:10px; letter-spacing:1px; text-transform:uppercase;
@@ -141,18 +141,18 @@ const rows3 = [
 .pt-case-ru  { font-family:var(--m); font-size:9px; letter-spacing:.5px; text-transform:uppercase; color:var(--bg); opacity:.75; }
 
 /* VALUE CELLS */
-.pt-val { border:1px solid var(--line); padding:10px 12px; text-align:center; background:var(--glass-bg); vertical-align:middle; border-color:var(--glass-border);backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.pt-val { border:1px solid var(--line); padding:10px 12px; text-align:center; background:var(--glass-bg); vertical-align:middle; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 .ptv-arm { font-family:var(--d); font-size:clamp(16px,2.5vw,20px); font-style:italic; color:var(--ink); line-height:1.2; }
 .ptv-tr  { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:3px; letter-spacing:.3px; }
 
 /* Чередование строк */
-.pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg); backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg); box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 
 [data-theme=dark] .pt-val,
-[data-theme=dark] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-[data-theme=dark] .pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+[data-theme=dark] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+[data-theme=dark] .pt tbody tr:nth-child(even) .pt-val { background:var(--glass-bg) !important; box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 [data-theme=dark] .ptv-arm { color:var(--ink) !important; }
 
 [data-theme=amoled] .pt-val,
-[data-theme=amoled] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; backdrop-filter:var(--glass-blur-sm);-webkit-backdrop-filter:var(--glass-blur-sm);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+[data-theme=amoled] .pt thead th:not(.pt-pad) { background:var(--glass-bg) !important; box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
 </style>
