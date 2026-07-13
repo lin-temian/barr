@@ -190,9 +190,11 @@ border-color:var(--glass-border);}
 .stat-l { font-family:var(--m); font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
 .stat-div { width:1px; height:44px; background:rgba(176,120,40,.2); }
 .lang-fact {
-  background:rgba(26,58,110,.07); 
+  background:rgba(26,58,110,.07);
   border:1px solid rgba(26,58,110,.18); border-radius:16px;
   padding:20px; display:flex; flex-direction:column; gap:12px;
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
 }
 .lf-label { font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--blue); }
 .lf-text  { font-family:var(--s); font-size:15px; color:var(--ink); line-height:1.6; }
