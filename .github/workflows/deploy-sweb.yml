@@ -24,4 +24,4 @@ jobs:
           username: ${{ secrets.SWEB_FTP_USERNAME }}
           password: ${{ secrets.SWEB_FTP_PASSWORD }}
           local-dir: ./dist-sweb/
-          server-dir: ./
+          server-dir: ./public_html/
