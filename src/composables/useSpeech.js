@@ -16,14 +16,6 @@ if (supported) {
   window.speechSynthesis.onvoiceschanged = refreshVoices
 }
 
-function pickVoice(lang) {
-  if (!supported) return null
-  const voices = window.speechSynthesis.getVoices()
-  return voices.find(v => v.lang === lang)
-      || voices.find(v => v.lang && v.lang.startsWith(lang.split('-')[0]))
-      || null
-}
-
 export function useSpeech() {
   const speaking = ref(false)
 
@@ -32,9 +24,9 @@ export function useSpeech() {
 
     const doSpeak = () => {
       const utter = new SpeechSynthesisUtterance(text)
-      const voice = pickVoice(lang) || (lang === ARM_LANG ? pickVoice('ru-RU') : null)
-      if (voice) utter.voice = voice
-      utter.lang = voice ? voice.lang : lang
+      // Явно назначать utter.voice ненадёжно (объект голоса может устареть) —
+      // достаточно указать lang, браузер сам подберёт подходящий голос
+      utter.lang = (lang === ARM_LANG && !hasArmenianVoice.value) ? 'ru-RU' : lang
       utter.rate = 0.85
       utter.volume = 1
       utter.onstart = () => { speaking.value = true }
