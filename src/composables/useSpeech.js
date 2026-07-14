@@ -24,9 +24,7 @@ export function useSpeech() {
 
     const doSpeak = () => {
       const utter = new SpeechSynthesisUtterance(text)
-      // Явно назначать utter.voice ненадёжно (объект голоса может устареть) —
-      // достаточно указать lang, браузер сам подберёт подходящий голос
-      utter.lang = (lang === ARM_LANG && !hasArmenianVoice.value) ? 'ru-RU' : lang
+      utter.lang = lang
       utter.rate = 0.85
       utter.volume = 1
       utter.onstart = () => { speaking.value = true }
@@ -45,6 +43,15 @@ export function useSpeech() {
     }
   }
 
+  // Без армянского голоса читать армянский текст бесполезно — голос его просто
+  // не произносит (проверено: та же фраза кириллицей звучит, армянским текстом — тишина).
+  // Поэтому без hy-AM озвучиваем транслитерацию латиницей, а не сам армянский текст.
+  function speakWord(word) {
+    if (!word) return
+    if (hasArmenianVoice.value) speak(word.arm, ARM_LANG)
+    else speak(word.translit || word.arm, 'ru-RU')
+  }
+
   // Слово с записанным audioUrl (mp3) проигрывается напрямую, иначе — синтез речи
   function playWord(word) {
     if (!word) return
@@ -52,10 +59,10 @@ export function useSpeech() {
       speaking.value = true
       const audio = new Audio(word.audioUrl)
       audio.onended = () => { speaking.value = false }
-      audio.onerror = () => { speaking.value = false; speak(word.arm) }
-      audio.play().catch(() => { speaking.value = false; speak(word.arm) })
+      audio.onerror = () => { speaking.value = false; speakWord(word) }
+      audio.play().catch(() => { speaking.value = false; speakWord(word) })
     } else {
-      speak(word.arm)
+      speakWord(word)
     }
   }
 
