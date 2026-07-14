@@ -29,16 +29,28 @@ export function useSpeech() {
 
   function speak(text, lang = ARM_LANG) {
     if (!supported || !text) return
-    window.speechSynthesis.cancel()
-    const utter = new SpeechSynthesisUtterance(text)
-    const voice = pickVoice(lang) || (lang === ARM_LANG ? pickVoice('ru-RU') : null)
-    if (voice) utter.voice = voice
-    utter.lang = voice ? voice.lang : lang
-    utter.rate = 0.85
-    utter.onstart = () => { speaking.value = true }
-    utter.onend   = () => { speaking.value = false }
-    utter.onerror = () => { speaking.value = false }
-    window.speechSynthesis.speak(utter)
+
+    const doSpeak = () => {
+      const utter = new SpeechSynthesisUtterance(text)
+      const voice = pickVoice(lang) || (lang === ARM_LANG ? pickVoice('ru-RU') : null)
+      if (voice) utter.voice = voice
+      utter.lang = voice ? voice.lang : lang
+      utter.rate = 0.85
+      utter.volume = 1
+      utter.onstart = () => { speaking.value = true }
+      utter.onend   = () => { speaking.value = false }
+      utter.onerror = () => { speaking.value = false }
+      window.speechSynthesis.speak(utter)
+    }
+
+    // cancel() сразу перед speak() в Chrome часто "проглатывает" саму озвучку —
+    // даём очереди синтеза время обработать отмену перед новым вызовом
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel()
+      setTimeout(doSpeak, 60)
+    } else {
+      doSpeak()
+    }
   }
 
   // Слово с записанным audioUrl (mp3) проигрывается напрямую, иначе — синтез речи
