@@ -107,11 +107,11 @@ const levels = [
   background:var(--glass-bg);
   cursor: pointer; transition: all .2s;
   position: relative;
-border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.ob-level:hover { border-color: var(--gold); background:var(--glass-bg); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
+.ob-level:hover { border-color: var(--gold); background:var(--glass-bg); border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .ob-level.active {
   border-color: var(--red); border-width: 2px;
-  background: rgba(140,28,28,.06);
+  background: rgba(128,6,19,.06);
 }
 .ob-level-badge {
   width: 44px; height: 44px; border-radius: 10px;

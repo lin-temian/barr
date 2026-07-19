@@ -120,7 +120,7 @@ onBeforeUnmount(() => recognition?.stop())
 @keyframes pcPulse { 0%,100%{opacity:1} 50%{opacity:.7} }
 .pc-result { margin-top:14px; padding:12px; border-radius:12px; }
 .pc-result.ok  { background:rgba(42,94,58,.1); }
-.pc-result.bad { background:rgba(140,28,28,.08); }
+.pc-result.bad { background:rgba(128,6,19,.08); }
 .pc-result-title { font-family:var(--s); font-size:14px; font-weight:600; }
 .pc-result.ok .pc-result-title  { color:var(--ok); }
 .pc-result.bad .pc-result-title { color:var(--red); }
@@ -129,5 +129,5 @@ onBeforeUnmount(() => recognition?.stop())
 .pc-fade-enter-from { opacity:0; }
 
 [data-theme=dark] .pc,
-[data-theme=amoled] .pc { background:rgba(24,16,8,.94) !important; border-color:rgba(176,120,40,.2) !important; }
+[data-theme=amoled] .pc { background:rgba(24,16,8,.94) !important; border-color:rgba(246,140,54,.2) !important; }
 </style>

@@ -54,7 +54,7 @@ onUnmounted(() => clearInterval(timer))
   content: ''; position: absolute;
   inset: 24px; pointer-events: none;
   border: 1px solid var(--gold); opacity: .35;
-  box-shadow: inset 0 0 0 4px rgba(242,232,213,.6), inset 0 0 0 5px var(--gold);
+  box-shadow: inset 0 0 0 4px rgba(231,220,208,.6), inset 0 0 0 5px var(--gold);
 }
 .splash-ornament {
   font-size: 13px; letter-spacing: 12px;

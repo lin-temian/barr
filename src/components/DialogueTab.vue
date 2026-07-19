@@ -145,7 +145,7 @@ function markRead() {
 }
 .dlg-back:hover { color: var(--red); border-color: var(--gold); }
 [data-theme=dark] .dlg-back,
-[data-theme=amoled] .dlg-back { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=amoled] .dlg-back { background: rgba(24,16,8,.94) !important; border-color: rgba(246,140,54,.2) !important; color: rgba(231,220,208,.9) !important; }
 
 .dlg-r-title { font-family:var(--d); font-size:26px; font-style:italic; color:var(--red); margin:14px 0 18px; }
 .dlg-lines { display:flex; flex-direction:column; gap:10px; }
@@ -156,7 +156,7 @@ function markRead() {
   border-radius:14px; padding:12px 16px; border-color:var(--glass-border);
 }
 .dlg-line.a .dlg-line-body { border-top-left-radius:4px; }
-.dlg-line.b .dlg-line-body { border-top-right-radius:4px; background:rgba(26,58,110,.06); }
+.dlg-line.b .dlg-line-body { border-top-right-radius:4px; background:rgba(35,88,138,.06); }
 .dlg-arm { font-family:var(--d); font-size:17px; font-style:italic; color:var(--red); display:flex; align-items:center; gap:8px; }
 .dlg-play {
   width:22px; height:22px; border-radius:50%; flex-shrink:0;
@@ -170,7 +170,7 @@ function markRead() {
 
 .dlg-note {
   margin-top:20px; padding:14px 16px; border-radius:12px;
-  background:rgba(176,120,40,.08); border:1px solid rgba(176,120,40,.25);
+  background:rgba(246,140,54,.08); border:1px solid rgba(246,140,54,.25);
 }
 .dlg-note-title { font-family:var(--m); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
 .dlg-note-arm   { font-family:var(--d); font-size:18px; font-style:italic; color:var(--red); margin-top:6px; }
@@ -184,7 +184,7 @@ function markRead() {
 .dlg-read-btn:hover { opacity:.9; }
 
 [data-theme=dark] .dlg-card,
-[data-theme=dark] .dlg-line-body { background:rgba(24,16,8,.94) !important; border-color:rgba(176,120,40,.2) !important; }
+[data-theme=dark] .dlg-line-body { background:rgba(24,16,8,.94) !important; border-color:rgba(246,140,54,.2) !important; }
 [data-theme=amoled] .dlg-card,
 [data-theme=amoled] .dlg-line-body { background:rgba(0,0,0,.95) !important; }
 </style>

@@ -7,16 +7,6 @@
 
     <div v-if="!activeSection" class="lit-sections">
 
-      <div class="lit-section-card" @click="activeSection = 'reading'">
-        <div class="lsc-icon">Այբ</div>
-        <div class="lsc-body">
-          <div class="lsc-title">Чтение с буквами</div>
-          <div class="lsc-desc">Тексты где русские буквы заменены армянскими — тренируй узнавание</div>
-          <div class="lsc-badge">{{ learnedCount }} букв выучено</div>
-        </div>
-        <div class="lsc-arrow">→</div>
-      </div>
-
       <div class="lit-section-card" @click="activeSection = 'numbers'">
         <div class="lsc-icon">Թվեր</div>
         <div class="lsc-body">
@@ -44,65 +34,6 @@
         <div class="lsc-arrow">→</div>
       </div>
 
-      <div class="lit-section-card" @click="activeSection = 'articles'">
-        <div class="lsc-icon">📝</div>
-        <div class="lsc-body">
-          <div class="lsc-title">Статьи</div>
-          <div class="lsc-desc">{{ articles.length ? articles.length + ' ' + pluralMaterials(articles.length) : 'Загрузка...' }}</div>
-        </div>
-        <div class="lsc-arrow">→</div>
-      </div>
-
-    </div>
-
-    <!-- СТАТЬИ -->
-    <div v-else-if="activeSection === 'articles'" class="lit-inner">
-      <button class="lit-back" @click="activeSection = null; activeArticle = null">← Назад</button>
-      <div v-if="!activeArticle">
-        <div v-if="articles.length === 0" class="lit-empty">Статей пока нет</div>
-        <div v-for="a in articles" :key="a.id" class="art-card" @click="activeArticle = a">
-          <div class="art-header"><span class="art-level">{{ a.level }}</span><span class="art-cat">{{ a.category }}</span></div>
-          <div class="art-title">{{ a.title }}</div>
-          <div class="art-desc">{{ a.desc }}</div>
-          <div class="art-arrow">Читать →</div>
-        </div>
-      </div>
-      <div v-else class="art-body">
-        <button class="lit-back" @click="activeArticle = null">← К статьям</button>
-        <div class="art-body-level">{{ activeArticle.level }} · {{ activeArticle.category }}</div>
-        <div class="art-body-title">{{ activeArticle.title }}</div>
-        <div class="art-body-text" v-html="renderBody(activeArticle.body)"></div>
-      </div>
-    </div>
-
-    <!-- ЧТЕНИЕ -->
-    <div v-else-if="activeSection === 'reading'" class="lit-inner">
-      <button class="lit-back" @click="activeSection = null; activeStory = null">← Назад</button>
-      <div class="reading-info">
-        <div class="ri-title">Чтение с заменой букв</div>
-        <div class="ri-desc">Выучи буквы в Алфавите — и они появятся в текстах красным.</div>
-        <div class="ri-count">Выучено: <strong>{{ learnedCount }}</strong> из 39 букв</div>
-      </div>
-      <div class="text-list">
-        <div v-for="(story, si) in STORIES" :key="si"
-          class="story-card"
-          :class="{active: activeStory === si}"
-          @click="activeStory = activeStory === si ? null : si">
-          <div class="sc-head">
-            <div>
-              <div class="sc-title">{{ story.title }}</div>
-              <div class="sc-focus" v-if="story.focus">фокус: {{ story.focus }}</div>
-            </div>
-            <div class="sc-level">{{ story.level }}</div>
-          </div>
-          <div v-if="activeStory === si" class="sc-body">
-            <p class="sc-text" v-html="renderText(story.text)"></p>
-            <div class="sc-legend">
-              <span class="scl-arm">Арм</span> — выученная буква &nbsp;&nbsp; <span class="scl-ru">обычная</span> — ещё не выучена
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- ЧИСЛА -->
@@ -231,176 +162,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { db } from '../../firebase.js'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-
-const props = defineProps({ learnedAlpha: Object })
-const learnedCount = computed(() => props.learnedAlpha?.size || 0)
+import { ref } from 'vue'
 
 const activeSection = ref(null)
 const activeArticle = ref(null)
-const articles      = ref([])
-
-async function loadArticles() {
-  try {
-    const q = query(collection(db, 'articles'), orderBy('createdAt', 'desc'))
-    const s = await getDocs(q)
-    articles.value = s.docs.map(d => ({ id: d.id, ...d.data() }))
-  } catch(e) { articles.value = [] }
-}
-
-function pluralMaterials(n) {
-  const mod10 = n % 10, mod100 = n % 100
-  if (mod10 === 1 && mod100 !== 11) return 'материал'
-  if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return 'материала'
-  return 'материалов'
-}
-
-function fmtDate(ts) {
-  if (!ts) return ''
-  const d = ts.toDate ? ts.toDate() : new Date(ts)
-  return d.toLocaleDateString('ru-RU')
-}
-
-function renderBody(text) {
-  if (!text) return ''
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>')
-    .replace(/^/, '<p>').replace(/$/, '</p>')
-}
-
-onMounted(loadArticles)
-const activeStory   = ref(null)
-
-// ─── CHAR MAP ────────────────────────────────────────────────────────────────
-const IDX_TO_RU = {
-  0: ['\u0430','\u0410'],   // Ա а/А
-  1: ['\u0431','\u0411'],   // Բ б/Б
-  2: ['\u0433','\u0413'],   // Գ г/Г
-  3: ['\u0434','\u0414'],   // Դ д/Д
-  4: ['\u0435','\u0415'],   // Ե е/Е
-  5: ['\u0437','\u0417'],   // Զ з/З
-  9: ['\u0436','\u0416'],   // Ժ ж/Ж
-  10: ['\u0438','\u0418'],  // Ի и/И
-  11: ['\u043b','\u041b'],  // Լ л/Л
-  14: ['\u043a','\u041a'],  // Կ к/К
-  19: ['\u043c','\u041c'],  // Մ м/М
-  21: ['\u043d','\u041d'],  // Ն н/Н
-  22: ['\u0448','\u0428'],  // Շ ш/Ш
-  23: ['\u043e','\u041e'],  // Ո о/О
-  25: ['\u043f','\u041f'],  // Պ п/П
-  27: ['\u0440','\u0420'],  // Ռ р/Р
-  28: ['\u0441','\u0421'],  // Ս с/С
-  29: ['\u0432','\u0412'],  // Վ в/В
-  30: ['\u0442','\u0422'],  // Տ т/Т
-  34: ['\u0444','\u0424'],  // Փ ф/Ф
-  12: ['\u0445','\u0425'],  // Խ х/Х
-}
-const ALPHA_LOWER = [
-  '\u0561','\u0562','\u0563','\u0564','\u0565','\u0566','\u0567','\u0568',
-  '\u0569','\u056a','\u056b','\u056c','\u056d','\u056e','\u056f','\u0570',
-  '\u0571','\u0572','\u0573','\u0574','\u0575','\u0576','\u0577','\u0578',
-  '\u0579','\u057a','\u057b','\u057c','\u057d','\u057e','\u057f','\u0580',
-  '\u0581','\u0578\u0582','\u0583','\u0584','\u0587','\u0585','\u0586',
-]
-const ALPHA_UPPER = [
-  '\u0531','\u0532','\u0533','\u0534','\u0535','\u0536','\u0537','\u0538',
-  '\u0539','\u053a','\u053b','\u053c','\u053d','\u053e','\u053f','\u0540',
-  '\u0541','\u0542','\u0543','\u0544','\u0545','\u0546','\u0547','\u0548',
-  '\u0549','\u054a','\u054b','\u054c','\u054d','\u054e','\u054f','\u0550',
-  '\u0551','\u0548\u0552','\u0553','\u0554','\u0535\u054e','\u0555','\u0556',
-]
-
-// Реактивная карта замен — computed автоматически следит за learnedAlpha
-const learnedMap = computed(() => {
-  const map = {}
-  // Читаем size чтобы computed отслеживал изменения Set
-  const _ = props.learnedAlpha?.size
-  if (!props.learnedAlpha) return map
-  for (const [idxStr, ruPair] of Object.entries(IDX_TO_RU)) {
-    const idx = Number(idxStr)
-    if (props.learnedAlpha.has(idx)) {
-      map[ruPair[0]] = ALPHA_LOWER[idx]
-      map[ruPair[1]] = ALPHA_UPPER[idx]
-    }
-  }
-  return map
-})
-
-function renderText(text) {
-  const map = learnedMap.value
-  let result = ''
-  for (const ch of text) {
-    if (map[ch]) {
-      result += `<span class="arm-char">${map[ch]}</span>`
-    } else {
-      result += ch
-    }
-  }
-  return result
-}
-
-// ─── STORIES ─────────────────────────────────────────────────────────────────
-const STORIES = [
-  {
-    title: 'Маша и школа',
-    level: 'Начальный',
-    focus: 'А, Б, Г, Д',
-    text: 'Маша пошла домой после школы. По дороге она встретила подругу Дашу. Они шли вместе и разговаривали о сегодняшнем уроке рисования. Учительница Анна Петровна похвалила Машину работу. Маша нарисовала горный пейзаж с рекой и деревьями. Даша тоже старалась но сказала что у неё не получаются горы. Маша пообещала помочь ей. Дома Маша поела и сделала домашнее задание. Потом она нарисовала ещё один рисунок — подарок для мамы. Мама была очень рада.'
-  },
-  {
-    title: 'Город и горы',
-    level: 'Начальный',
-    focus: 'Г, Д, З, И',
-    text: 'Арам живёт в небольшом городе у подножия гор. Каждое утро он открывает окно и видит заснеженные вершины. Летом горы зелёные а зимой белые от снега. В прошлые выходные Арам ходил в горы с братом и двумя друзьями. Они шли три часа по узкой тропинке. По дороге видели орла который парил высоко в небе. На вершине холма они разожгли небольшой костёр и сварили чай. Вид оттуда был потрясающий — весь город был виден как на ладони. Арам сфотографировал закат и отправил фото родителям. Горный воздух был чистым и холодным. Домой вернулись уже в темноте уставшие но довольные.'
-  },
-  {
-    title: 'Утро в Ереване',
-    level: 'Начальный',
-    focus: 'А, Е, И, О',
-    text: 'Арег живёт в Ереване уже пять лет. Каждое утро он встаёт в семь часов. Первым делом он открывает занавески и смотрит на Арарат. В ясные дни гора видна очень хорошо — огромная и белая. Арег варит кофе и завтракает на балконе. Потом он идёт пешком на работу — это занимает около двадцати минут. По дороге он проходит мимо рынка где уже в такую рань кипит торговля. Продавцы раскладывают фрукты и зелень. Пахнет свежим хлебом из пекарни на углу. На работе Арег занимается переводами с армянского на русский. Вечером он любит гулять по старым улицам города.'
-  },
-  {
-    title: 'Рынок',
-    level: 'Средний',
-    focus: 'М, Н, С, П',
-    text: 'Каждую субботу бабушка Сируш ходит на рынок. Она выходит из дома рано пока не стало жарко. Рынок находится в десяти минутах ходьбы от её дома. Там продают всё — овощи фрукты зелень сыр мясо и домашнее варенье. Продавец Вартан знает Сируш уже много лет. Он всегда откладывает для неё самые спелые персики и самые сочные помидоры. Сегодня она купила килограмм абрикосов полкило сыра пучок кинзы и свежий лаваш. Вартан дал ей немного мяты в подарок. Сируш поблагодарила его и пошла домой. Дома она сварила варенье из абрикосов — по старому семейному рецепту. Запах разошёлся по всему двору.'
-  },
-  {
-    title: 'Письмо другу',
-    level: 'Средний',
-    focus: 'Р, С, Т, В',
-    text: 'Дорогой Артур! Давно не писал тебе — всё никак не находил времени. Сейчас я в Ереване уже третий месяц. Город очень красивый особенно весной когда всё цветёт. Вчера я ходил в Матенадаран — это знаменитый музей рукописей. Там хранятся тысячи древних книг написанных вручную. Некоторым рукописям больше тысячи лет. Я стоял перед одной страницей и думал о том человеке который её писал. Каким терпением нужно было обладать! После музея я зашёл в кафе и попробовал настоящий армянский кофе — густой крепкий с кардамоном. Очень советую приехать сюда этим летом. Буду рад тебя встретить. Твой друг Нарек.'
-  },
-  {
-    title: 'Армянская кухня',
-    level: 'Средний',
-    focus: 'Д, З, Л, М',
-    text: 'Армянская кухня — одна из древнейших в мире. Главное блюдо праздничного стола — долма. Это фарш из баранины с рисом и специями завёрнутый в виноградные листья. Готовится долма долго — несколько часов. Ещё одно важное блюдо — хаш. Его варят из говяжьих ног всю ночь и едят ранним утром с чесноком и лавашом. Лаваш — тонкий хлеб который пекут в глиняной печи тандыре. Женщины раскатывают тесто очень тонко и бросают его на раскалённые стенки. Готовый лаваш высыхает и хранится месяцами. Перед едой его смачивают водой и он снова становится мягким. На десерт обычно подают пахлаву или гата — слоёное печенье с орехами и сахаром. Армяне говорят что еда без хлеба — не еда.'
-  },
-  {
-    title: 'Монастырь Гегард',
-    level: 'Продвинутый',
-    focus: 'Все буквы',
-    text: 'В сорока километрах от Еревана в горном ущелье спрятан монастырь Гегард. Его название означает «копьё» — по преданию здесь хранилось копьё которым пронзили Христа. Монастырь основан в четвёртом веке но большинство построек относятся к двенадцатому-тринадцатому векам. Часть монастыря буквально вырублена в скале. Каменщики средневековья создали внутри горы целые залы с куполами и колоннами. Стены покрыты резьбой — цветами крестами и надписями на древнеармянском. Акустика внутри удивительная — малейший звук отражается от стен и звучит как орган. В хорошую погоду сюда приезжают сотни туристов. Местные жители до сих пор приходят сюда молиться и зажигать свечи. Монастырь включён в список всемирного наследия ЮНЕСКО.'
-  },
-  {
-    title: 'Арарат',
-    level: 'Средний',
-    focus: 'А, Р, Т',
-    text: 'Арарат — самая известная гора в истории Армении. Она состоит из двух вершин: Большой Арарат высотой пять тысяч метров и Малый Арарат высотой около четырёх тысяч. По Библии именно на Арарате остановился Ноев ковчег после потопа. Для армян это священная гора — символ родины и национальной идентичности. Арарат изображён на гербе Армении и на этикетке знаменитого армянского коньяка. Однако сама гора находится на территории Турции — это болезненная историческая тема для армянского народа. Граница проходит совсем близко. С ереванских улиц и крыш гора видна очень хорошо — огромная белая двуглавая громада на горизонте. В ясные дни она кажется близкой но добраться до неё непросто. Туристы могут наблюдать Арарат из Армении но подняться на него — уже с турецкой стороны.'
-  },
-  {
-    title: 'Ереванское метро',
-    level: 'Продвинутый',
-    focus: 'Е, М, Р, Н',
-    text: 'Ереванское метро — одно из самых маленьких в мире. В нём всего одна линия и десять станций. Строительство началось в советское время и первые поезда пошли в тысяча девятьсот восемьдесят первом году. Станции оформлены в разных стилях — есть строгие советские и есть украшенные армянскими орнаментами. Станция Площадь Республики считается самой красивой — её стены отделаны розовым туфом. Метро работает с шести утра до полуночи. Билет стоит совсем недорого. Многие жители предпочитают метро автобусу потому что в час пик на улицах большие пробки. Туристам метро интересно само по себе — как памятник советской архитектуры. Некоторые старые вагоны до сих пор в строю. На некоторых станциях можно купить горячий кофе прямо на платформе.'
-  },
-]
 
 // ─── NUMBERS ─────────────────────────────────────────────────────────────────
 const UNITS = [
@@ -575,7 +340,7 @@ const ARTICLES = [
   border-bottom:1px solid var(--line);
   background:var(--glass-bg-strong);
   position: sticky; top: 0; z-index: 10;
-border-color:var(--glass-border);}
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .lit-title { font-family: var(--d); font-size: clamp(26px,5vw,40px); font-weight: 700; font-style: italic; color: var(--red); }
 .lit-sub   { font-family: var(--s); font-size: 13px; color: var(--muted); margin-top: 4px; font-style: italic; }
 
@@ -585,13 +350,13 @@ border-color:var(--glass-border);}
   border:1px solid var(--line); border-radius: 18px;
   padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 16px;
   transition: all .2s;
-border-color:var(--glass-border);}
-.lit-section-card:hover { border-color: var(--gold); box-shadow: 0 2px 16px rgba(176,120,40,.12); }
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
+.lit-section-card:hover { border-color: var(--gold); box-shadow: 0 2px 16px rgba(246,140,54,.12); }
 .lsc-icon  { font-family: var(--d); font-size: 32px; color: var(--red); line-height: 1; min-width: 44px; text-align: center; }
 .lsc-body  { flex: 1; }
 .lsc-title { font-family: var(--d); font-size: 18px; font-style: italic; color: var(--ink); margin-bottom: 4px; }
 .lsc-desc  { font-family: var(--s); font-size: 12px; color: var(--muted); line-height: 1.5; }
-.lsc-badge { display: inline-block; margin-top: 6px; background: rgba(140,28,28,.1); color: var(--red); font-family: var(--m); font-size: 10px; padding: 2px 10px; border-radius: 20px; }
+.lsc-badge { display: inline-block; margin-top: 6px; background: rgba(128,6,19,.1); color: var(--red); font-family: var(--m); font-size: 10px; padding: 2px 10px; border-radius: 20px; }
 .lsc-arrow { font-size: 18px; color: var(--muted); }
 
 .lit-inner { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
@@ -600,60 +365,34 @@ border-color:var(--glass-border);}
   font-family: var(--m); font-size: 10px;
   letter-spacing: 2px; text-transform: uppercase; color: var(--ink);
   cursor: pointer; padding: 8px 14px; align-self: flex-start; transition:.15s var(--spring);
-border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .lit-back:hover, .art-back:hover { color: var(--red); border-color: var(--gold); }
 
 [data-theme=dark] .lit-back,
-[data-theme=dark] .art-back { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=dark] .art-back { background: rgba(24,16,8,.94) !important; border-color: rgba(246,140,54,.2) !important; color: rgba(231,220,208,.9) !important; }
 [data-theme=amoled] .lit-back,
-[data-theme=amoled] .art-back { background: rgba(0,0,0,.95) !important; color: rgba(242,232,213,.9) !important; }
+[data-theme=amoled] .art-back { background: rgba(0,0,0,.95) !important; color: rgba(231,220,208,.9) !important; }
 
 .sec-title { font-family: var(--d); font-size: 26px; font-style: italic; color: var(--red); margin: 0; }
-
-/* READING */
-.reading-info { background: rgba(26,58,110,.07); border: 1px solid rgba(26,58,110,.18); border-radius: 14px; padding: 16px; }
-.ri-title { font-family: var(--d); font-size: 18px; font-style: italic; color: var(--blue); margin-bottom: 6px; }
-.ri-desc  { font-family: var(--s); font-size: 13px; color: var(--ink); line-height: 1.6; margin-bottom: 8px; }
-.ri-count { font-family: var(--m); font-size: 11px; color: var(--muted); }
-.ri-count strong { color: var(--ink); }
-
-.text-list { display: flex; flex-direction: column; gap: 10px; }
-.story-card {
-  background:var(--glass-bg); 
-  border:1px solid var(--line); border-radius: 14px;
-  overflow: hidden; cursor: pointer; transition: all .2s;
-border-color:var(--glass-border);}
-.story-card:hover { border-color: var(--gold); }
-.story-card.active { border-color: var(--red); }
-.sc-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; gap: 8px; }
-.sc-title { font-family: var(--d); font-size: 17px; font-style: italic; color: var(--ink); }
-.sc-focus { font-family: var(--m); font-size: 9px; color: var(--muted); margin-top: 2px; }
-.sc-level { font-family: var(--m); font-size: 9px; letter-spacing: 1px; background: rgba(176,120,40,.15); color: var(--gold); padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
-.sc-body  { padding: 0 16px 16px; border-top:1px solid var(--line); padding-top: 12px; }
-.sc-text  { font-family: var(--s); font-size: 18px; line-height: 2.2; color: var(--ink); margin: 0 0 12px; }
-.arm-char { font-family: var(--d); font-size: 1.15em; color: var(--red); font-weight: 700; }
-.sc-legend { font-family: var(--s); font-size: 12px; color: var(--muted); background:var(--glass-bg); border-radius: 8px; padding: 8px 12px; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.scl-arm   { font-family: var(--d); font-size: 1.05em; color: var(--red); font-weight: 700; }
-.scl-ru    { color: var(--muted); }
 
 /* NUMBERS */
 .num-section { display: flex; flex-direction: column; gap: 10px; }
 .num-sec-title { font-family: var(--m); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); }
 .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 8px; }
-.num-card { background:var(--glass-bg); border:1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.num-card { background:var(--glass-bg); border:1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .nc-n   { font-family: var(--m); font-size: 11px; color: var(--muted); }
 .nc-arm { font-family: var(--d); font-size: 20px; font-style: italic; color: var(--red); font-weight: 700; }
 .nc-tr  { font-family: var(--m); font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-.formula-table { background:var(--glass-bg); border:1px solid var(--line); border-radius: 12px; overflow: hidden; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.formula-table { background:var(--glass-bg); border:1px solid var(--line); border-radius: 12px; overflow: hidden; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .ft-row { display: grid; grid-template-columns: 56px 1fr 1fr; gap: 0; padding: 10px 14px; border-bottom:1px solid var(--line); font-family: var(--s); font-size: 13px; color: var(--ink); }
 .ft-row:last-child { border-bottom: none; }
-.ft-head { font-family: var(--m); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: rgba(176,120,40,.06); }
+.ft-head { font-family: var(--m); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: rgba(246,140,54,.06); }
 .ft-n  { font-family: var(--d); font-size: 18px; font-weight: 700; color: var(--red); }
 .ft-f  { font-family: var(--m); font-size: 12px; color: var(--blue); }
 .ft-r  { font-family: var(--d); font-size: 15px; font-style: italic; color: var(--ink); }
 
-.num-fact { background: rgba(26,58,110,.07); border: 1px solid rgba(26,58,110,.15); border-radius: 14px; padding: 16px; }
+.num-fact { background: rgba(35,88,138,.07); border: 1px solid rgba(35,88,138,.15); border-radius: 14px; padding: 16px; }
 .nf-label { font-family: var(--m); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
 .num-fact p { font-family: var(--s); font-size: 14px; color: var(--ink); line-height: 1.6; margin: 0; }
 
@@ -664,9 +403,9 @@ border-color:var(--glass-border);}
   border:1px solid var(--line); border-radius: 14px;
   padding: 16px; cursor: pointer; display: flex; align-items: center; gap: 14px;
   transition: all .2s;
-border-color:var(--glass-border);}
+border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .article-card:hover { border-color: var(--gold); }
-.ac-num  { font-family: var(--d); font-size: 30px; font-weight: 700; color: rgba(176,120,40,.35); line-height: 1; min-width: 40px; }
+.ac-num  { font-family: var(--d); font-size: 30px; font-weight: 700; color: rgba(246,140,54,.35); line-height: 1; min-width: 40px; }
 .ac-body { flex: 1; }
 .ac-title { font-family: var(--d); font-size: 16px; font-style: italic; color: var(--ink); margin-bottom: 3px; }
 .ac-desc  { font-family: var(--s); font-size: 11px; color: var(--muted); line-height: 1.4; }
@@ -674,7 +413,7 @@ border-color:var(--glass-border);}
 
 .article-view { display: flex; flex-direction: column; gap: 14px; }
 .av-title { font-family: var(--d); font-size: 22px; font-style: italic; color: var(--red); line-height: 1.3; margin: 0; }
-.av-body  { font-family: var(--s); font-size: 14px; line-height: 1.8; color: var(--ink); background:var(--glass-bg); border:1px solid var(--line); border-radius: 14px; padding: 18px; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.av-body  { font-family: var(--s); font-size: 14px; line-height: 1.8; color: var(--ink); background:var(--glass-bg); border:1px solid var(--line); border-radius: 14px; padding: 18px; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .av-body :deep(p) { margin: 0 0 12px; }
 .av-body :deep(p:last-child) { margin: 0; }
 .av-body :deep(h4) { font-family: var(--m); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin: 16px 0 8px; }
@@ -687,62 +426,31 @@ border-color:var(--glass-border);}
 .av-body :deep(.gram-table) { border:1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 10px 0; }
 .av-body :deep(.gt-row) { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom:1px solid var(--line); padding: 8px 12px; font-size: 13px; gap: 8px; }
 .av-body :deep(.gt-row:last-child) { border-bottom: none; }
-.av-body :deep(.gt-head) { font-family: var(--m); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: rgba(176,120,40,.06); }
+.av-body :deep(.gt-head) { font-family: var(--m); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: rgba(246,140,54,.06); }
 
 /* DARK THEME */
 [data-theme=dark] .lit-header,
-[data-theme=amoled] .lit-header { background: rgba(10,8,4,.95) !important; border-bottom-color: rgba(176,120,40,.15); }
+[data-theme=amoled] .lit-header { background: rgba(10,8,4,.95) !important; border-bottom-color: rgba(246,140,54,.15); }
 
 [data-theme=dark] .lit-section-card,
-[data-theme=dark] .story-card,
 [data-theme=dark] .article-card,
 [data-theme=dark] .av-body,
-[data-theme=dark] .art-body-text,
 [data-theme=dark] .num-card,
-[data-theme=dark] .formula-table { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; }
+[data-theme=dark] .formula-table { background: rgba(24,16,8,.94) !important; border-color: rgba(246,140,54,.2) !important; }
 
-[data-theme=dark] .sc-text,
 [data-theme=dark] .av-body,
-[data-theme=dark] .art-body-text,
-[data-theme=dark] .ac-title,
-[data-theme=dark] .sc-title { color: rgba(242,232,213,.9) !important; }
+[data-theme=dark] .ac-title { color: rgba(231,220,208,.9) !important; }
 
-[data-theme=dark] .reading-info,
-[data-theme=dark] .num-fact { background: rgba(26,58,110,.15) !important; }
+[data-theme=dark] .num-fact { background: rgba(35,88,138,.15) !important; }
 
-[data-theme=dark] .ft-row { color: rgba(242,232,213,.85); border-bottom-color: rgba(176,120,40,.1); }
-[data-theme=dark] .ft-head { background: rgba(176,120,40,.08); }
-
-[data-theme=dark] .sc-legend { background: rgba(24,16,8,.94); color: rgba(242,232,213,.5); }
+[data-theme=dark] .ft-row { color: rgba(231,220,208,.85); border-bottom-color: rgba(246,140,54,.1); }
+[data-theme=dark] .ft-head { background: rgba(246,140,54,.08); }
 
 [data-theme=amoled] .lit-section-card,
-[data-theme=amoled] .story-card,
 [data-theme=amoled] .article-card,
 [data-theme=amoled] .av-body,
-[data-theme=amoled] .art-body-text,
 [data-theme=amoled] .num-card,
 [data-theme=amoled] .formula-table { background: rgba(0,0,0,.95) !important; }
 
-[data-theme=amoled] .sc-text,
-[data-theme=amoled] .av-body,
-[data-theme=amoled] .art-body-text { color: rgba(242,232,213,.9) !important; }
-/* ── СТАТЬИ ── */
-.lit-empty { text-align:center; color:var(--muted); font-family:var(--s); padding:40px 20px; }
-.art-card { background:var(--glass-bg); border:1px solid var(--line); border-radius:14px; padding:16px; cursor:pointer; transition:.15s var(--spring); display:flex; flex-direction:column; gap:6px; margin-bottom:10px; border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.art-card:hover { border-color:var(--gold); }
-.art-header { display:flex; gap:8px; align-items:center; }
-.art-level { font-family:var(--m); font-size:10px; letter-spacing:1px; background:var(--red); color:var(--on-accent); padding:2px 8px; border-radius:10px; }
-.art-cat { font-family:var(--m); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
-.art-title { font-family:var(--d); font-size:20px; font-style:italic; color:var(--ink); }
-.art-desc { font-family:var(--s); font-size:13px; color:var(--muted); line-height:1.5; }
-.art-arrow { font-family:var(--m); font-size:11px; color:var(--gold); margin-top:4px; }
-.art-body { display:flex; flex-direction:column; gap:10px; }
-.art-body-level { font-family:var(--m); font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
-.art-body-title { font-family:var(--d); font-size:28px; font-style:italic; font-weight:700; color:var(--red); line-height:1.2; }
-.art-body-text {
-  font-family:var(--s); font-size:15px; color:var(--ink); line-height:1.8;
-  background:var(--glass-bg); border:1px solid var(--line); border-radius:14px; padding:18px;
-border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
-.art-body-text p { margin:0 0 12px; }
-.art-body-text p:last-child { margin:0; }
+[data-theme=amoled] .av-body { color: rgba(231,220,208,.9) !important; }
 </style>

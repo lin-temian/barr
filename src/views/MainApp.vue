@@ -2,12 +2,11 @@
   <div class="app-wrap">
     <div class="app-content">
       <KeepAlive>
-        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" :due-count="dueWords.length" @go-tab="tab=$event" />
+        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" :due-count="dueWords.length" :learnedAlpha="learnedAlpha" @go-tab="tab=$event" />
         <LearnTab    v-else-if="tab==='learn'"    :words="words" :level="level" @open-alphabet="alphaOpen = true" />
         <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" @toggle-learn="toggleLearn" />
         <PracticeTab v-else-if="tab==='practice'" :words="words" />
         <ReviewTab   v-else-if="tab==='review'"   :words="dueWords" @review="reviewWord" @go-tab="tab=$event" />
-        <LitTab      v-else-if="tab==='lit'"      :learnedAlpha="learnedAlpha" />
         <AdminPanel  v-else-if="tab==='admin'" :words="words" @words-updated="$emit('reload-words')" />
         <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" @logout="handleLogout" @change-level="handleChangeLevel" />
       </KeepAlive>
@@ -56,7 +55,6 @@ import PracticeTab from '../components/tabs/PracticeTab.vue'
 import ProfileTab  from '../components/tabs/ProfileTab.vue'
 import ReviewTab   from '../components/tabs/ReviewTab.vue'
 import AdminPanel  from '../components/AdminPanel.vue'
-import LitTab      from '../components/tabs/LitTab.vue'
 import AlphabetTab from '../components/AlphabetTab.vue'
 
 const emit = defineEmits(['reload-words'])
@@ -73,7 +71,7 @@ const tabs = [
   { id: 'home',     label: 'Главная',   icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z M9 22V12h6v10' },
   { id: 'learn',    label: 'Учёба',     icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' },
   { id: 'dict',     label: 'Словарь',   icon: 'M4 19.5A2.5 2.5 0 016.5 17H20 M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z' },
-  { id: 'lit',      label: 'Литература',icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+  { id: 'practice', label: 'Практика',  icon: 'M12 12m-8 0a8 8 0 1016 0a8 8 0 10-16 0 M12 12m-3 0a3 3 0 106 0a3 3 0 10-6 0' },
   { id: 'profile',  label: 'Профиль',   icon: 'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z' },
 ]
 
@@ -199,8 +197,9 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
 .tabbar {
   position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom));
   height:64px; border-radius:24px;
-  background: var(--glass-bg-strong);
-
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 
   border: 1px solid var(--glass-border);
   box-shadow: 0 10px 34px var(--glass-shadow), inset 0 1px 0 var(--glass-shine);
@@ -210,7 +209,7 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
 }
 .tabbar::before{
   content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-  background:linear-gradient(135deg, var(--glass-shine) 0%, transparent 30%, transparent 70%, rgba(176,120,40,.08) 100%);
+  background:linear-gradient(135deg, var(--glass-shine) 0%, transparent 30%, transparent 70%, rgba(246,140,54,.08) 100%);
 }
 .tabbar::after{
   content:''; position:absolute; top:0; left:16%; right:16%; height:1px;
@@ -235,14 +234,14 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
 .tab-indicator{
   position:absolute; top:6px; bottom:6px; left:0;
   border-radius:18px;
-  background: rgba(140,28,28,.10);
-  box-shadow: inset 0 0 0 1px rgba(140,28,28,.18);
+  background: rgba(128,6,19,.10);
+  box-shadow: inset 0 0 0 1px rgba(128,6,19,.18);
   transition: transform .5s var(--spring), width .5s var(--spring);
   pointer-events:none; z-index:0;
 }
 [data-theme=dark] .tab-indicator, [data-theme=amoled] .tab-indicator{
-  background: rgba(212,160,64,.12);
-  box-shadow: inset 0 0 0 1px rgba(212,160,64,.22);
+  background: rgba(251,157,89,.12);
+  box-shadow: inset 0 0 0 1px rgba(251,157,89,.22);
 }
 
 .tabbar-btn {
@@ -276,7 +275,7 @@ window.addEventListener('resize', () => nextTick(moveIndicator))
   transform: scale(1.15) rotate(-4deg);
 }
 
-[data-theme=dark] .tabbar-btn   { color: rgba(180,140,90,.6); }
+[data-theme=dark] .tabbar-btn   { color: rgba(178,161,145,.6); }
 [data-theme=dark] .tabbar-btn.active { color: var(--red); }
 [data-theme=dark] .alpha-fab-letter { color: var(--red); }
 </style>

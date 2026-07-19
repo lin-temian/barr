@@ -16,7 +16,7 @@
 </template>
 <script setup></script>
 <style scoped>
-.arm-fact{background:var(--glass-bg);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:12px;padding:14px;border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);}
+.arm-fact{background:var(--glass-bg);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:12px;padding:14px;border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .af-t{font-family:var(--s);font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px;}
 .af-d{font-family:var(--s);font-size:13px;color:var(--ink);line-height:1.6;}
 </style>

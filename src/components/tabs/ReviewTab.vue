@@ -86,7 +86,7 @@ function mark(remembered) {
 
 .rv-progress { display:flex; flex-direction:column; gap:8px; }
 .rv-progress-lbl { font-family:var(--m); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
-.rv-bar { height:6px; background:rgba(140,28,28,.15); border-radius:3px; }
+.rv-bar { height:6px; background:rgba(128,6,19,.15); border-radius:3px; }
 .rv-fill { height:100%; background:var(--red); border-radius:3px; transition:width .3s var(--spring-soft); }
 
 .rv-card {
@@ -140,7 +140,7 @@ function mark(remembered) {
 
 [data-theme=dark] .rv-back,
 [data-theme=dark] .rv-card,
-[data-theme=dark] .rv-btn { background: rgba(24,16,8,.94) !important; border-color: rgba(176,120,40,.2) !important; }
+[data-theme=dark] .rv-btn { background: rgba(24,16,8,.94) !important; border-color: rgba(246,140,54,.2) !important; }
 [data-theme=amoled] .rv-back,
 [data-theme=amoled] .rv-card,
 [data-theme=amoled] .rv-btn { background: rgba(0,0,0,.95) !important; }
