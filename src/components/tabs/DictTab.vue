@@ -16,12 +16,11 @@
       <div class="dt-search-wrap">
         <input v-model="search" class="dt-search" placeholder="Поиск по-армянски, по-русски..." />
       </div>
-      <div class="dt-pills">
-        <button v-for="c in ['all',...cats]" :key="c"
-          class="pill" :class="{on: cat===c}" @click="cat=c">
-          {{ c==='all' ? 'Все' : c }}
-        </button>
-      </div>
+      <button class="dt-cat-select" @click="catModalOpen = true">
+        <span class="dcs-label">Категория</span>
+        <span class="dcs-value">{{ cat==='all' ? 'Все слова' : cat }}</span>
+        <span class="dcs-arrow">▾</span>
+      </button>
       <div class="dt-words">
         <div v-for="w in filtered" :key="w.id"
           class="dt-word" :class="{learned: learned.has(w.id)}"
@@ -111,6 +110,29 @@
           @click="setFilter(f.v)">{{ f.l }}</button>
       </div>
     </div>
+
+    <!-- ══ ВЫБОР КАТЕГОРИИ ══ -->
+    <Teleport to="body">
+      <transition name="cm-fade">
+        <div v-if="catModalOpen" class="cat-modal-overlay" @click.self="catModalOpen=false">
+          <div class="cat-modal">
+            <div class="cat-modal-header">
+              <div class="cat-modal-title">Категория</div>
+              <button class="cat-modal-close" @click="catModalOpen=false">✕</button>
+            </div>
+            <div class="cat-grid">
+              <button class="cat-chip" :class="{on: cat==='all'}" @click="selectCat('all')">
+                Все слова <span class="cat-chip-n">{{ words.length }}</span>
+              </button>
+              <button v-for="c in cats" :key="c"
+                class="cat-chip" :class="{on: cat===c}" @click="selectCat(c)">
+                {{ c }} <span class="cat-chip-n">{{ catCounts[c] }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 </template>
 
@@ -132,6 +154,13 @@ const cat      = ref('all')
 const selected = ref(null)
 
 const cats = computed(() => [...new Set(props.words.map(w => w.cat))].sort())
+const catCounts = computed(() => {
+  const m = {}
+  props.words.forEach(w => { m[w.cat] = (m[w.cat]||0) + 1 })
+  return m
+})
+const catModalOpen = ref(false)
+function selectCat(c) { cat.value = c; catModalOpen.value = false }
 
 const filtered = computed(() => {
   let list = cat.value === 'all' ? [...props.words] : props.words.filter(w => w.cat === cat.value)
@@ -311,22 +340,47 @@ border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4
   box-sizing: border-box;
 border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .dt-search:focus { border-color: var(--gold); }
-.dt-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.pill {
-  padding: 5px 12px; border: 1px solid var(--line); border-radius: 20px;
-  background:var(--glass-bg); font-family: var(--m); font-size: 10px;
-  letter-spacing: 1px; color: var(--ink); cursor: pointer; transition:.15s var(--spring);
-  text-transform: capitalize;
+.dt-cat-select {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 12px 14px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 12px;
+  background:var(--glass-bg); cursor: pointer; transition:.15s var(--spring); text-align: left;
 border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
-.pill:hover { border-color: var(--gold); }
-.pill.on { background: var(--red); border-color: var(--red); color: var(--on-accent); }
+.dt-cat-select:hover { border-color: var(--gold); }
+.dcs-label { font-family: var(--m); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.dcs-value { font-family: var(--s); font-size: 14px; font-weight: 600; color: var(--ink); text-transform: capitalize; flex: 1; }
+.dcs-arrow { color: var(--muted); font-size: 12px; }
+
+/* ── МОДАЛ ВЫБОРА КАТЕГОРИИ ── */
+.cat-modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.5); display: flex; align-items: flex-end; }
+.cat-modal { width: 100%; max-height: 80dvh; overflow-y: auto; background: var(--bg); border-radius: 24px 24px 0 0; padding: 20px; box-shadow: 0 -8px 40px rgba(0,0,0,.3); }
+.cat-modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cat-modal-title { font-family: var(--d); font-size: 22px; font-style: italic; color: var(--red); }
+.cat-modal-close { width: 32px; height: 32px; border-radius: 50%; background: rgba(128,6,19,.1); border: none; font-size: 14px; color: var(--red); cursor: pointer; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 8px; }
+.cat-chip {
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px;
+  background:var(--glass-bg); font-family: var(--s); font-size: 13px;
+  color: var(--ink); cursor: pointer; transition:.15s var(--spring);
+  text-transform: capitalize; display: flex; align-items: center; justify-content: space-between; gap: 6px;
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
+.cat-chip:hover { border-color: var(--gold); }
+.cat-chip.on { background: var(--red); border-color: var(--red); color: var(--on-accent); }
+.cat-chip-n { font-family: var(--m); font-size: 10px; opacity: .65; }
+.cm-fade-enter-active, .cm-fade-leave-active { transition: opacity .2s; }
+.cm-fade-enter-active .cat-modal, .cm-fade-leave-active .cat-modal { transition: transform .25s cubic-bezier(.22,.61,.36,1); }
+.cm-fade-enter-from { opacity: 0; }
+.cm-fade-enter-from .cat-modal { transform: translateY(40px); }
+.cm-fade-leave-to { opacity: 0; }
+
+[data-theme=dark] .cat-modal, [data-theme=amoled] .cat-modal { background: #0a0804; }
+[data-theme=dark] .cat-chip, [data-theme=amoled] .cat-chip { background: rgba(24,16,8,.94) !important; border-color: rgba(246,140,54,.2) !important; }
 .dt-words { display: flex; flex-direction: column; gap: 6px; }
 .dt-word {
   display: flex; align-items: center; gap: 10px;
   padding: 12px 14px; border: 1px solid var(--line);
   border-radius: 10px; background:var(--glass-bg);
   cursor: pointer; transition: background-color .15s, border-color .15s; flex-wrap: wrap;
-  content-visibility: auto; contain-intrinsic-size: 0 58px;
+  content-visibility: auto; contain-intrinsic-size: auto 58px;
 border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .dt-word.learned { border-color: var(--gold); background: rgba(246,140,54,.07); }
 .dtw-arm  { font-family: var(--d); font-size: 22px; font-style: italic; color: var(--red); flex-shrink: 0; }

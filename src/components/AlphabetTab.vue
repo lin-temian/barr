@@ -91,6 +91,12 @@
               Проверить знание →
             </button>
 
+            <!-- Рукописный ввод -->
+            <HandwritingCheck v-if="writeMode" :upper="ALPHA[activeIdx].upper" :lower="ALPHA[activeIdx].lower" />
+            <button class="lv-quiz-start" v-else @click="writeMode=true">
+              Написать от руки →
+            </button>
+
             <!-- Достижение при выучивании -->
             <transition name="badge-pop">
               <div v-if="newBadge" class="new-badge-toast">
@@ -126,6 +132,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import HandwritingCheck from './HandwritingCheck.vue'
 
 const props = defineProps({ isOpen: Boolean })
 const emit  = defineEmits(['close', 'update:learnedAlpha'])
@@ -189,6 +196,7 @@ const quizMode       = ref(false)
 const quizOpts       = ref([])
 const quizChosen     = ref(null)
 const quizAnswered   = ref(false)
+const writeMode      = ref(false)
 const newBadge       = ref(null)
 const prevBadgeIds   = ref(new Set(JSON.parse(localStorage.getItem('barr_badges') || '[]')))
 
@@ -223,6 +231,7 @@ function openLetter(i) {
   quizMode.value     = false
   quizAnswered.value = false
   quizChosen.value   = null
+  writeMode.value    = false
 }
 function prev() { if (activeIdx.value > 0)  openLetter(activeIdx.value - 1) }
 function next() { if (activeIdx.value < 38) openLetter(activeIdx.value + 1) }

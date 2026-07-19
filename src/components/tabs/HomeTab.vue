@@ -28,6 +28,19 @@
         </div>
         <div class="hmc-arrow">→</div>
       </div>
+      <div class="home-menu-card" @click="screen='literature'">
+        <div class="hmc-icon">Գր</div>
+        <div class="hmc-body">
+          <div class="hmc-title">Литература</div>
+          <div class="hmc-desc">Числа · грамматика · история армянского языка</div>
+        </div>
+        <div class="hmc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- ЛИТЕРАТУРА -->
+    <div v-else-if="screen==='literature'" class="home-section-body">
+      <LitTab />
     </div>
 
     <!-- СТАТЬЯ (детально) -->
@@ -155,7 +168,7 @@
         <div class="hme-icon">📚</div>
         <div class="hme-body">
           <div class="hme-title">Статьи и чтение</div>
-          <div class="hme-desc">Материалы для чтения на армянском и тексты с заменой букв</div>
+          <div class="hme-desc">Статьи, тексты с заменой букв, грамматика и история языка</div>
         </div>
         <div class="hme-arrow">→</div>
       </div>
@@ -183,18 +196,19 @@
 import { ref, computed, onMounted } from 'vue'
 import { db } from '../../firebase.js'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import LitTab from './LitTab.vue'
 const props = defineProps({ user:Object, words:Array, level:String, learned:Object, streak:Number, dueCount:{type:Number, default:0}, learnedAlpha:Object })
 defineEmits(['go-tab'])
 
 // ── МЕНЮ «Статьи и чтение» ───────────────────────────────────────────────
-const screen         = ref(null) // null | 'menu' | 'articles' | 'reading'
+const screen         = ref(null) // null | 'menu' | 'articles' | 'reading' | 'literature'
 const articles       = ref([])
 const activeArticle  = ref(null)
 const activeStory    = ref(null)
 
 function goBack() {
   if (activeArticle.value) { activeArticle.value = null; return }
-  if (screen.value === 'articles' || screen.value === 'reading') { screen.value = 'menu'; return }
+  if (screen.value === 'articles' || screen.value === 'reading' || screen.value === 'literature') { screen.value = 'menu'; return }
   screen.value = null
 }
 

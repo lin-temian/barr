@@ -37,15 +37,12 @@
       <div v-if="active" class="lmodal" @click.self="close">
         <div class="lmodal-box">
           <button class="lmodal-close" @click="close">✕</button>
-          <template v-if="active.comp!=='literature'">
-            <div class="lm-eye">Урок {{ active.id }} · {{ active.level }}</div>
-            <h2 class="lm-ru">{{ active.ru }}</h2>
-            <h3 class="lm-arm">{{ active.arm }}</h3>
-            <p  class="lm-desc">{{ active.desc }}</p>
-          </template>
+          <div class="lm-eye">Урок {{ active.id }} · {{ active.level }}</div>
+          <h2 class="lm-ru">{{ active.ru }}</h2>
+          <h3 class="lm-arm">{{ active.arm }}</h3>
+          <p  class="lm-desc">{{ active.desc }}</p>
 
-          <LitTab         v-if="active.comp==='literature'" />
-          <PronounsTab    v-else-if="active.comp==='pronouns'" />
+          <PronounsTab    v-if="active.comp==='pronouns'" />
           <NumbersTab     v-else-if="active.comp==='numbers'" />
           <PluralTab      v-else-if="active.comp==='plural'" />
           <VerbBeTab      v-else-if="active.comp==='verbBe'" />
@@ -85,9 +82,9 @@
             </div>
           </div>
 
-          <PronunciationCheck v-if="pronWord && active.comp!=='dialogue' && active.comp!=='literature'" :word="pronWord" @result="onPronResult" />
+          <PronunciationCheck v-if="pronWord && active.comp!=='dialogue'" :word="pronWord" @result="onPronResult" />
 
-          <button class="lm-done-btn" v-if="active.comp!=='literature'" @click="markDone">
+          <button class="lm-done-btn" @click="markDone">
             {{ completedIds.has(active.id) ? '✓ Пройден' : 'Отметить как пройденный' }}
           </button>
         </div>
@@ -115,7 +112,6 @@ import ArmeniaTab     from '../ArmeniaTab.vue'
 import ProverbsTab    from '../ProverbsTab.vue'
 import DialogueTab    from '../DialogueTab.vue'
 import PronunciationCheck from '../PronunciationCheck.vue'
-import LitTab          from './LitTab.vue'
 
 // Lazy inline lesson components — defined locally to avoid extra files
 import { defineComponent, h } from 'vue'
@@ -360,7 +356,6 @@ const LESSONS = [
   { id:22, ru:'Сложные глаголы',        arm:'Բարդական',       desc:'Каузативы · залог · виды',           level:'B1', locked:true,  comp:null },
   { id:23, ru:'Армения',                arm:'Հայաստան',       desc:'История · культура · традиции',      level:'B1', locked:false,  comp:'armenia' },
   { id:24, ru:'Диалоги',                arm:'Զրույթ',          desc:'Живая речь · разговорные фразы',     level:'B1', locked:false,  comp:'proverbs' },
-  { id:25, ru:'Литература',             arm:'Գրականություն',      desc:'Чтение · числа · грамматика · история языка', level:'B1', locked:false, comp:'literature' },
   { id:26, ru:'Диалоги на практике',    arm:'Խոսակցություն',      desc:'Кафе · такси · рынок · знакомство · аэропорт', level:'B1', locked:false, comp:'dialogue' },
 ]
 

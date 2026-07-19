@@ -25,6 +25,31 @@
       </div>
     </div>
 
+    <!-- ══ ФРАЗЫ ══ -->
+    <div v-if="tab==='phrases'" class="ap-sec">
+      <div class="ap-row">
+        <button class="ap-btn primary" @click="openAddPhrase">+ Добавить фразу</button>
+      </div>
+      <div v-if="phrases.length===0" class="ap-empty">
+        Фраз пока нет в базе — сайт показывает встроенный набор.
+        <div style="margin-top:10px">
+          <button class="ap-btn primary" @click="migratePhrases" :disabled="mig">
+            {{ mig ? migMsg : '🚀 Загрузить стартовые фразы в Firestore' }}
+          </button>
+        </div>
+      </div>
+      <div v-for="p in phrases" :key="p.firestoreId" class="apw-row">
+        <span class="apw-arm">{{ p.arm }}</span>
+        <span class="apw-tr">{{ p.translit }}</span>
+        <span class="apw-ru">{{ p.ru }}</span>
+        <span class="apw-cat">{{ p.cat }}</span>
+        <div class="apw-btns">
+          <button class="ap-btn sm" @click="openEditPhrase(p)">✏️</button>
+          <button class="ap-btn sm danger" @click="delPhrase(p)">🗑️</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ══ СТАТЬИ ══ -->
     <div v-if="tab==='articles'" class="ap-sec">
       <button class="ap-btn primary" style="margin-bottom:12px" @click="openAddArt">+ Новая статья</button>
@@ -90,6 +115,26 @@
       </div>
     </div>
 
+    <!-- МОДАЛ ФРАЗА -->
+    <div v-if="pModal" class="ap-overlay" @click.self="pModal=false">
+      <div class="ap-modal">
+        <div class="ap-modal-title">{{ pForm.firestoreId ? 'Редактировать фразу' : 'Добавить фразу' }}</div>
+        <label>Армянский</label><input v-model="pForm.arm" class="ap-input" />
+        <label>Транслит</label><input v-model="pForm.translit" class="ap-input" />
+        <label>Русский</label><input v-model="pForm.ru" class="ap-input" />
+        <label>Категория</label>
+        <select v-model="pForm.cat" class="ap-input">
+          <option v-for="c in allPhraseCats" :key="c" :value="c">{{ c }}</option>
+          <option value="__new__">+ Новая</option>
+        </select>
+        <input v-if="pForm.cat==='__new__'" v-model="pForm.newCat" class="ap-input" placeholder="Название категории" />
+        <div class="ap-modal-btns">
+          <button class="ap-btn" @click="pModal=false">Отмена</button>
+          <button class="ap-btn primary" @click="savePhrase" :disabled="saving">{{ saving?'...':'Сохранить' }}</button>
+        </div>
+      </div>
+    </div>
+
     <!-- МОДАЛ СТАТЬЯ -->
     <div v-if="aModal" class="ap-overlay" @click.self="aModal=false">
       <div class="ap-modal ap-modal-wide">
@@ -120,12 +165,14 @@ import { db } from '../firebase.js'
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc,
          writeBatch, serverTimestamp, orderBy, query, getDoc } from 'firebase/firestore'
 import wordsJson from '../data/words.json'
+import phrasesJson from '../data/phrases.json'
 
 const props = defineProps({ words: Array })
 const emit  = defineEmits(['words-updated'])
 
 const TABS = [
   { id:'words',    label:'📚 Слова' },
+  { id:'phrases',  label:'💬 Фразы' },
   { id:'articles', label:'📝 Статьи' },
   { id:'stats',    label:'📊 Статистика' },
 ]
@@ -133,6 +180,7 @@ const TABS = [
 const tab      = ref('words')
 const ws       = ref('')
 const articles = ref([])
+const phrases  = ref([])
 const saving   = ref(false)
 const toast    = ref('')
 const mig      = ref(false)
@@ -140,8 +188,10 @@ const migMsg   = ref('')
 
 const wModal = ref(false)
 const aModal = ref(false)
+const pModal = ref(false)
 const wForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', audioUrl:'', firestoreId:null })
 const aForm  = ref({ id:null, title:'', category:'', level:'A1', desc:'', body:'' })
+const pForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', firestoreId:null })
 
 // ── СЛОВА ────────────────────────────────────────────────
 const filtered = computed(() => {
@@ -187,6 +237,55 @@ async function delWord(w) {
   if (w.firestoreId) await deleteDoc(doc(db,'words',w.firestoreId))
   emit('words-updated')
   showToast('Удалено')
+}
+
+// ── ФРАЗЫ ────────────────────────────────────────────────
+const allPhraseCats = computed(() => [...new Set(phrases.value.map(p=>p.cat))].sort())
+
+async function loadPhrases() {
+  try {
+    const s = await getDocs(collection(db,'phrases'))
+    phrases.value = s.docs.map(d => ({ firestoreId:d.id, ...d.data() }))
+  } catch(e) { phrases.value = [] }
+}
+function openAddPhrase() {
+  pForm.value = { arm:'', translit:'', ru:'', cat:allPhraseCats.value[0]||'общее', newCat:'', firestoreId:null }
+  pModal.value = true
+}
+function openEditPhrase(p) {
+  pForm.value = { arm:p.arm, translit:p.translit, ru:p.ru, cat:p.cat, newCat:'', firestoreId:p.firestoreId }
+  pModal.value = true
+}
+async function savePhrase() {
+  const cat = pForm.value.cat==='__new__' ? pForm.value.newCat : pForm.value.cat
+  const data = { arm:pForm.value.arm, translit:pForm.value.translit, ru:pForm.value.ru, cat }
+  saving.value = true
+  try {
+    if (pForm.value.firestoreId) await updateDoc(doc(db,'phrases',pForm.value.firestoreId), data)
+    else await addDoc(collection(db,'phrases'), data)
+    pModal.value = false
+    await loadPhrases()
+    showToast('✓ Сохранено')
+  } catch(e) { showToast('Ошибка: '+e.message) }
+  finally { saving.value = false }
+}
+async function delPhrase(p) {
+  if (!confirm(`Удалить "${p.arm}"?`)) return
+  await deleteDoc(doc(db,'phrases',p.firestoreId))
+  await loadPhrases()
+  showToast('Удалено')
+}
+async function migratePhrases() {
+  if (!confirm(`Загрузить ${phrasesJson.length} фраз в Firestore?`)) return
+  mig.value = true; migMsg.value = 'Загружаем...'
+  try {
+    const batch = writeBatch(db)
+    phrasesJson.forEach(p => batch.set(doc(collection(db,'phrases')), p))
+    await batch.commit()
+    await loadPhrases()
+    showToast(`✅ Загружено ${phrasesJson.length} фраз`)
+  } catch(e) { showToast('Ошибка: '+e.message) }
+  finally { mig.value = false; migMsg.value = '' }
 }
 
 // ── СТАТЬИ ────────────────────────────────────────────────
@@ -284,7 +383,7 @@ function fmtDate(ts) {
 }
 function showToast(msg) { toast.value = msg; setTimeout(()=>toast.value='',2500) }
 
-onMounted(loadArts)
+onMounted(() => { loadArts(); loadPhrases() })
 </script>
 
 <style scoped>
