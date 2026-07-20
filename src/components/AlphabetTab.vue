@@ -7,7 +7,7 @@
           <!-- HEADER -->
           <div class="am-header">
             <div>
-              <h2 class="at-title">Հայոցս Այբուբեն</h2>
+              <h2 class="at-title">Հայոց ԱՅԲՈՒԲԵՆ</h2>
               <p class="at-sub">Нажми на букву — изучи и проверь знания</p>
             </div>
             <button class="am-close" @click="$emit('close')">✕</button>

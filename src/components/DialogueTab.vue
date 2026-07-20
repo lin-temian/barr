@@ -20,9 +20,7 @@
       <div class="dlg-lines">
         <div v-for="(l,i) in active.lines" :key="i" class="dlg-line" :class="l.speaker">
           <div class="dlg-line-body">
-            <div class="dlg-arm">{{ l.arm }}
-              <button class="dlg-play" @click="playWord({arm:l.arm})">▶</button>
-            </div>
+            <div class="dlg-arm">{{ l.arm }}</div>
             <div class="dlg-tr">{{ l.translit }}</div>
             <div class="dlg-ru">{{ l.ru }}</div>
           </div>
@@ -44,9 +42,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useSpeech } from '../composables/useSpeech.js'
-
-const { playWord } = useSpeech()
 
 const DIALOGUES = [
   {
@@ -157,14 +152,7 @@ function markRead() {
 }
 .dlg-line.a .dlg-line-body { border-top-left-radius:4px; }
 .dlg-line.b .dlg-line-body { border-top-right-radius:4px; background:rgba(35,88,138,.06); }
-.dlg-arm { font-family:var(--d); font-size:17px; font-style:italic; color:var(--red); display:flex; align-items:center; gap:8px; }
-.dlg-play {
-  width:22px; height:22px; border-radius:50%; flex-shrink:0;
-  border:1px solid var(--line); background:transparent;
-  font-size:8px; color:var(--muted); cursor:pointer;
-  display:flex; align-items:center; justify-content:center; padding-left:1px;
-}
-.dlg-play:hover { border-color:var(--gold); color:var(--gold); }
+.dlg-arm { font-family:var(--d); font-size:17px; font-style:italic; color:var(--red); }
 .dlg-tr { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:3px; }
 .dlg-ru { font-family:var(--s); font-size:13px; color:var(--ink); margin-top:4px; }
 

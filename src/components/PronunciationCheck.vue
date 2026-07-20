@@ -9,7 +9,7 @@
     <template v-else>
       <div class="pc-target">
         <span class="pc-arm">{{ word.arm }}</span>
-        <button class="pc-play" @click="playWord(word)">▶</button>
+        <button class="pc-play" v-if="word.audioUrl" @click="playWord(word)">▶</button>
       </div>
       <div class="pc-tr">{{ word.translit }}</div>
 

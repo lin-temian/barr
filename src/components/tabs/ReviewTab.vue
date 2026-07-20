@@ -24,7 +24,7 @@
       <div class="rv-card" @click="!revealed && (revealed = true)">
         <div class="rv-cat">{{ current.cat }}</div>
         <div class="rv-arm">{{ current.arm }}
-          <button class="rv-play" :title="playTitle" @click.stop="playWord(current)">▶</button>
+          <button class="rv-play" v-if="current.audioUrl" title="Прослушать произношение" @click.stop="playWord(current)">▶</button>
         </div>
         <div class="rv-tr">{{ current.translit }}</div>
         <transition name="rv-fade" mode="out-in">
@@ -47,10 +47,7 @@ import { useSpeech } from '../../composables/useSpeech.js'
 
 const props = defineProps({ words: Array })
 const emit  = defineEmits(['review','go-tab'])
-const { playWord, hasArmenianVoice } = useSpeech()
-const playTitle = computed(() => hasArmenianVoice.value
-  ? 'Прослушать произношение'
-  : 'Армянский голос не найден в браузере — приближённое произношение')
+const { playWord } = useSpeech()
 
 const queue    = ref([])
 const idx      = ref(0)

@@ -13,6 +13,8 @@ dist-sweb
 dist-ssr
 *.local
 *.zip
+.env
+/audio_out
 
 # Editor directories and files
 .vscode/*

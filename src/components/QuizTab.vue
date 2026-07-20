@@ -9,7 +9,7 @@
     <div class="qcard" v-if="current">
       <div class="qlabel">Переведи на русский</div>
       <div class="qword">{{ current.arm }}
-        <button class="qplay" :title="playTitle" @click.stop="playWord(current)">▶</button>
+        <button class="qplay" v-if="current.audioUrl" title="Прослушать произношение" @click.stop="playWord(current)">▶</button>
       </div>
       <div class="qtr">{{ current.translit }}</div>
       <div class="qfb" :class="fb.cls">{{ fb.text }}</div>
@@ -25,13 +25,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onUnmounted } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import { useSpeech } from '../composables/useSpeech.js'
 const props = defineProps({ words: Array })
-const { playWord, hasArmenianVoice } = useSpeech()
-const playTitle = computed(() => hasArmenianVoice.value
-  ? 'Прослушать произношение'
-  : 'Армянский голос не найден в браузере — приближённое произношение')
+const { playWord } = useSpeech()
 
 const score = ref(0), total = ref(0), streak = ref(0)
 const current = ref(null), opts = ref([]), answered = ref(false), chosen = ref(null)

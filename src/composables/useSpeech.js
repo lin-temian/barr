@@ -52,18 +52,17 @@ export function useSpeech() {
     else speak(word.translit || word.arm, 'ru-RU')
   }
 
-  // Слово с записанным audioUrl (mp3) проигрывается напрямую, иначе — синтез речи
+  // Браузерный синтез речи временно отключён — качество голоса для армянского
+  // никакое (см. speak/speakWord выше). Пока проигрываем только слова с реальной
+  // записанной озвучкой (word.audioUrl, генерируется через generate_audio.js).
+  // Как только у слова появится audioUrl — кнопка "▶" в интерфейсе появится сама.
   function playWord(word) {
-    if (!word) return
-    if (word.audioUrl) {
-      speaking.value = true
-      const audio = new Audio(word.audioUrl)
-      audio.onended = () => { speaking.value = false }
-      audio.onerror = () => { speaking.value = false; speakWord(word) }
-      audio.play().catch(() => { speaking.value = false; speakWord(word) })
-    } else {
-      speakWord(word)
-    }
+    if (!word?.audioUrl) return
+    speaking.value = true
+    const audio = new Audio(word.audioUrl)
+    audio.onended = () => { speaking.value = false }
+    audio.onerror = () => { speaking.value = false }
+    audio.play().catch(() => { speaking.value = false })
   }
 
   return { speak, playWord, speaking, supported, hasArmenianVoice }
