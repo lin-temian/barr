@@ -29,6 +29,14 @@
           <button class="dtw-play" v-if="w.audioUrl" title="Прослушать произношение" @click.stop="playWord(w)">▶</button>
           <div class="dtw-tr">{{ w.translit }}</div>
           <div class="dtw-ru" v-if="selected===w.id">{{ w.ru }}</div>
+          <div class="dtw-mnem" v-if="selected===w.id" @click.stop>
+            <textarea
+              class="dtw-mnem-input"
+              :value="mnemonics[w.id] || ''"
+              placeholder="Твоя ассоциация (необязательно)"
+              @blur="onMnemonicBlur(w.id, $event.target.value)"
+            ></textarea>
+          </div>
           <button class="dtw-learn" @click.stop="$emit('toggle-learn',w.id)">
             {{ learned.has(w.id) ? '✓' : '+' }}
           </button>
@@ -45,6 +53,7 @@
           <div class="sw-prog-fill" :style="{width: progPct+'%'}"></div>
         </div>
         <div class="sw-prog-lbl">{{ swIdx + 1 }} / {{ swDeck.length }}</div>
+        <button class="sw-img-toggle" :class="{on: imageMode}" title="Режим: картинка → слово" @click="imageMode=!imageMode">🖼</button>
       </div>
 
       <!-- Подсказки управления -->
@@ -72,8 +81,17 @@
         <div class="sw-card-inner">
           <!-- Передняя сторона -->
           <div class="sw-front">
-            <div class="sw-word">{{ swDeck[swIdx].arm }}</div>
-            <div class="sw-tr">{{ swDeck[swIdx].translit }}</div>
+            <template v-if="imageMode">
+              <img v-if="swDeck[swIdx].imageUrl" class="sw-img" :src="swDeck[swIdx].imageUrl" :alt="swDeck[swIdx].ru" />
+              <div v-else class="sw-img-placeholder">
+                <span class="sw-img-ph-icon">🖼</span>
+                <span>Изображение скоро появится</span>
+              </div>
+            </template>
+            <template v-else>
+              <div class="sw-word">{{ swDeck[swIdx].arm }}</div>
+              <div class="sw-tr">{{ swDeck[swIdx].translit }}</div>
+            </template>
             <div class="sw-cat">{{ swDeck[swIdx].cat }}</div>
           </div>
           <!-- Задняя сторона -->
@@ -81,6 +99,10 @@
             <div class="sw-word">{{ swDeck[swIdx].arm }}</div>
             <div class="sw-tr">{{ swDeck[swIdx].translit }}</div>
             <div class="sw-ru">{{ swDeck[swIdx].ru }}</div>
+            <div class="sw-example" v-if="swDeck[swIdx].exampleAm">
+              <div class="sw-ex-am" v-html="highlightWord(swDeck[swIdx].exampleAm, swDeck[swIdx].arm)"></div>
+              <div class="sw-ex-ru">{{ swDeck[swIdx].exampleRu }}</div>
+            </div>
           </div>
         </div>
 
@@ -140,9 +162,15 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useSpeech } from '../../composables/useSpeech.js'
 
-const props = defineProps({ words: Array, learned: Object })
-const emit  = defineEmits(['toggle-learn'])
+const props = defineProps({ words: Array, learned: Object, mnemonics: { type: Object, default: () => ({}) } })
+const emit  = defineEmits(['toggle-learn', 'save-mnemonic'])
 const { playWord } = useSpeech()
+
+function onMnemonicBlur(id, text) {
+  const trimmed = text.trim()
+  if (trimmed === (props.mnemonics[id] || '')) return
+  emit('save-mnemonic', id, trimmed)
+}
 
 // ── СЛОВАРЬ ─────────────────────────────────────────────
 const tab      = ref('list')
@@ -173,6 +201,12 @@ const filtered = computed(() => {
 })
 
 // ── КАРТОЧКИ ─────────────────────────────────────────────
+const imageMode = ref(false)
+function highlightWord(sentence, word) {
+  if (!sentence || !word) return sentence || ''
+  return sentence.split(word).join(`<strong>${word}</strong>`)
+}
+
 const FILTERS = [
   { v: 'all',      l: 'Все слова' },
   { v: 'unlearned', l: 'Невыученные' },
@@ -391,6 +425,14 @@ border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4
 .dtw-play:hover { border-color: var(--gold); color: var(--gold); }
 .dtw-tr   { font-family: var(--m); font-size: 11px; color: var(--muted); flex: 1; }
 .dtw-ru   { width: 100%; font-family: var(--s); font-size: 15px; color: var(--ink); padding-top: 6px; border-top: 1px solid var(--line); margin-top: 4px; }
+.dtw-mnem { width: 100%; margin-top: 8px; }
+.dtw-mnem-input {
+  width: 100%; box-sizing: border-box; resize: vertical; min-height: 44px;
+  padding: 8px 10px; border: 1px dashed var(--line2); border-radius: 8px;
+  background: var(--glass-bg); font-family: var(--s); font-size: 12px; color: var(--ink);
+  font-style: italic; outline: none;
+}
+.dtw-mnem-input:focus { border-color: var(--gold); }
 .dtw-learn {
   margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
   border: 1px solid var(--line); background: transparent;
@@ -408,6 +450,13 @@ border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4
 .sw-prog-bar { flex: 1; height: 4px; background: var(--line2); border-radius: 2px; }
 .sw-prog-fill { height: 100%; background: var(--red); border-radius: 2px; transition: width .3s; }
 .sw-prog-lbl { font-family: var(--m); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.sw-img-toggle {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--glass-bg); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: .15s var(--spring);
+}
+.sw-img-toggle:hover { border-color: var(--gold); }
+.sw-img-toggle.on { background: var(--red); border-color: var(--red); }
 
 .sw-hints { display: flex; gap: 20px; }
 .sw-hint { font-family: var(--m); font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
@@ -474,6 +523,20 @@ border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4
 .sw-tr   { font-family: var(--m); font-size: 14px; color: var(--muted); letter-spacing: 1px; }
 .sw-cat  { font-family: var(--m); font-size: 10px; color: var(--muted); opacity: .6; text-transform: uppercase; letter-spacing: 2px; }
 .sw-ru   { font-family: var(--s); font-size: 24px; font-weight: 700; color: var(--ink); text-align: center; }
+.sw-img  { max-width: 100%; max-height: 140px; border-radius: 12px; object-fit: cover; }
+.sw-img-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--muted); font-family: var(--s); font-size: 12px; font-style: italic; text-align: center;
+  padding: 20px; border: 1.5px dashed var(--line2); border-radius: 12px;
+}
+.sw-img-ph-icon { font-size: 32px; opacity: .5; }
+.sw-example {
+  margin-top: 6px; padding: 10px 14px; border-radius: 12px; background: rgba(35,88,138,.07);
+  max-width: 100%; box-sizing: border-box;
+}
+.sw-ex-am { font-family: var(--s); font-size: 13px; color: var(--ink); line-height: 1.5; }
+.sw-ex-am :deep(strong) { color: var(--red); font-weight: 700; }
+.sw-ex-ru { font-family: var(--m); font-size: 11px; color: var(--muted); margin-top: 4px; font-style: italic; }
 
 .sw-indicator {
   position: absolute; top: 50%; transform: translateY(-50%);

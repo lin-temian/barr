@@ -15,6 +15,8 @@ dist-ssr
 *.zip
 .env
 /audio_out
+serviceAccountKey.json
+*serviceAccount*.json
 
 # Editor directories and files
 .vscode/*

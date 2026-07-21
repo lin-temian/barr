@@ -108,6 +108,12 @@
         <input v-if="wForm.cat==='__new__'" v-model="wForm.newCat" class="ap-input" placeholder="Название категории" />
         <label>Аудио-файл (URL, необязательно)</label>
         <input v-model="wForm.audioUrl" class="ap-input" placeholder="https://.../barev.mp3" />
+        <label>Изображение (URL, необязательно)</label>
+        <input v-model="wForm.imageUrl" class="ap-input" placeholder="https://.../barev.jpg" />
+        <label>Пример-предложение (армянский, необязательно)</label>
+        <input v-model="wForm.exampleAm" class="ap-input" placeholder="Ես ասում եմ բարև" />
+        <label>Перевод примера (русский, необязательно)</label>
+        <input v-model="wForm.exampleRu" class="ap-input" placeholder="Я говорю привет" />
         <div class="ap-modal-btns">
           <button class="ap-btn" @click="wModal=false">Отмена</button>
           <button class="ap-btn primary" @click="saveWord" :disabled="saving">{{ saving?'...':'Сохранить' }}</button>
@@ -189,7 +195,7 @@ const migMsg   = ref('')
 const wModal = ref(false)
 const aModal = ref(false)
 const pModal = ref(false)
-const wForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', audioUrl:'', firestoreId:null })
+const wForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', audioUrl:'', imageUrl:'', exampleAm:'', exampleRu:'', firestoreId:null })
 const aForm  = ref({ id:null, title:'', category:'', level:'A1', desc:'', body:'' })
 const pForm  = ref({ arm:'', translit:'', ru:'', cat:'', newCat:'', firestoreId:null })
 
@@ -208,16 +214,20 @@ const filtered = computed(() => {
 const allCats = computed(() => [...new Set(props.words.map(w => w.cat))].sort())
 
 function openAdd() {
-  wForm.value = { arm:'', translit:'', ru:'', cat:allCats.value[0]||'разное', newCat:'', audioUrl:'', firestoreId:null }
+  wForm.value = { arm:'', translit:'', ru:'', cat:allCats.value[0]||'разное', newCat:'', audioUrl:'', imageUrl:'', exampleAm:'', exampleRu:'', firestoreId:null }
   wModal.value = true
 }
 function openEdit(w) {
-  wForm.value = { arm:w.arm, translit:w.translit||w.tr||'', ru:w.ru, cat:w.cat, newCat:'', audioUrl:w.audioUrl||'', firestoreId:w.firestoreId||null }
+  wForm.value = { arm:w.arm, translit:w.translit||w.tr||'', ru:w.ru, cat:w.cat, newCat:'', audioUrl:w.audioUrl||'', imageUrl:w.imageUrl||'', exampleAm:w.exampleAm||'', exampleRu:w.exampleRu||'', firestoreId:w.firestoreId||null }
   wModal.value = true
 }
 async function saveWord() {
   const cat = wForm.value.cat==='__new__' ? wForm.value.newCat : wForm.value.cat
-  const data = { arm:wForm.value.arm, translit:wForm.value.translit, ru:wForm.value.ru, cat, audioUrl:wForm.value.audioUrl||'' }
+  const data = {
+    arm:wForm.value.arm, translit:wForm.value.translit, ru:wForm.value.ru, cat,
+    audioUrl:wForm.value.audioUrl||'', imageUrl:wForm.value.imageUrl||'',
+    exampleAm:wForm.value.exampleAm||'', exampleRu:wForm.value.exampleRu||'',
+  }
   saving.value = true
   try {
     if (wForm.value.firestoreId) {

@@ -69,6 +69,14 @@
           @click="$emit('change-level', l)">{{ l }}</div>
       </div>
 
+      <!-- ДНЕВНАЯ ЦЕЛЬ -->
+      <div class="prof-section-title">Дневная цель</div>
+      <div class="level-row">
+        <div v-for="g in GOAL_OPTIONS" :key="g"
+          class="level-btn" :class="{active: dailyGoal===g}"
+          @click="$emit('change-daily-goal', g)">{{ g }}</div>
+      </div>
+
       <!-- АККАУНТ -->
       <div class="prof-section-title">Аккаунт</div>
       <div class="prof-item danger" v-if="user" @click="$emit('logout')">
@@ -84,10 +92,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-const props = defineProps({ user:Object, learned:Object, streak:Number, level:String, learnedAlpha:Object })
-defineEmits(['logout','change-level','login'])
+const props = defineProps({ user:Object, learned:Object, streak:Number, level:String, learnedAlpha:Object, dailyGoal:{type:Number, default:10} })
+defineEmits(['logout','change-level','login','change-daily-goal'])
 
 const levels = ['A1','A2','B1']
+const GOAL_OPTIONS = [5, 10, 20]
 const themes = [
   { v:'light',  l:'Светлая', color:'#f2e8d5' },
   { v:'dark',   l:'Тёмная',  color:'#1a1208' },

@@ -5,6 +5,7 @@
     </div>
     <div class="prac-body">
       <QuizTab :words="words" />
+      <ClozeQuiz :words="words" style="margin-top:24px" />
       <PhrasesTab style="margin-top:24px" />
     </div>
   </div>
@@ -12,6 +13,7 @@
 
 <script setup>
 import QuizTab   from '../QuizTab.vue'
+import ClozeQuiz from '../ClozeQuiz.vue'
 import PhrasesTab from '../PhrasesTab.vue'
 defineProps({ words: Array })
 </script>

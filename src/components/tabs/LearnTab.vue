@@ -5,33 +5,42 @@
       <div class="learn-level">{{ props.level }}</div>
     </div>
 
-    <div class="level-tabs">
-      <button v-for="lvl in ['A1','A2','B1']" :key="lvl"
-        class="ltab" :class="{active: currentLevel===lvl}"
-        @click="currentLevel=lvl">
-        {{ lvl }}
-      </button>
+    <div class="mode-tabs">
+      <button class="mtab" :class="{active: mode==='lessons'}" @click="mode='lessons'">Уроки</button>
+      <button class="mtab" :class="{active: mode==='course'}" @click="mode='course'">Курс · 30 шагов</button>
     </div>
 
-    <div class="learn-body">
-      <div class="learn-list">
-        <div v-for="l in filteredLessons" :key="l.id"
-          class="ll" :class="{locked: l.locked, done: completedIds.has(l.id)}"
-          @click="!l.locked && openLesson(l)">
-          <div class="ll-num" :class="{locked: l.locked}">{{ l.id }}</div>
-          <div class="ll-info">
-            <div class="ll-ru">{{ l.ru }}</div>
-            <div class="ll-arm">{{ l.arm }}</div>
-            <div class="ll-desc">{{ l.desc }}</div>
-          </div>
-          <div class="ll-right">
-            <span class="ll-done" v-if="completedIds.has(l.id)">✓</span>
-            <span class="ll-lock" v-else-if="l.locked">🔒</span>
-            <span class="ll-arrow" v-else>→</span>
+    <template v-if="mode==='lessons'">
+      <div class="level-tabs">
+        <button v-for="lvl in ['A1','A2','B1']" :key="lvl"
+          class="ltab" :class="{active: currentLevel===lvl}"
+          @click="currentLevel=lvl">
+          {{ lvl }}
+        </button>
+      </div>
+
+      <div class="learn-body">
+        <div class="learn-list">
+          <div v-for="l in filteredLessons" :key="l.id"
+            class="ll" :class="{locked: l.locked, done: completedIds.has(l.id)}"
+            @click="!l.locked && openLesson(l)">
+            <div class="ll-num" :class="{locked: l.locked}">{{ l.id }}</div>
+            <div class="ll-info">
+              <div class="ll-ru">{{ l.ru }}</div>
+              <div class="ll-arm">{{ l.arm }}</div>
+              <div class="ll-desc">{{ l.desc }}</div>
+            </div>
+            <div class="ll-right">
+              <span class="ll-done" v-if="completedIds.has(l.id)">✓</span>
+              <span class="ll-lock" v-else-if="l.locked">🔒</span>
+              <span class="ll-arrow" v-else>→</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
+
+    <CourseGame v-else />
 
     <Teleport to="body">
       <div v-if="active" class="lmodal" @click.self="close">
@@ -112,6 +121,7 @@ import ArmeniaTab     from '../ArmeniaTab.vue'
 import ProverbsTab    from '../ProverbsTab.vue'
 import DialogueTab    from '../DialogueTab.vue'
 import PronunciationCheck from '../PronunciationCheck.vue'
+import CourseGame from '../CourseGame.vue'
 
 // Lazy inline lesson components — defined locally to avoid extra files
 import { defineComponent, h } from 'vue'
@@ -324,6 +334,7 @@ const VerbsTab = defineComponent({
 const props = defineProps({ words: Array, level: String })
 const emit  = defineEmits(['open-alphabet'])
 
+const mode = ref('lessons') // 'lessons' | 'course'
 const currentLevel = ref(props.level || 'A1')
 const active       = ref(null)
 const completedIds = ref(new Set(JSON.parse(localStorage.getItem('barr_lessons') || '[]')))
@@ -411,6 +422,14 @@ function markDone() {
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .learn-title { font-family:var(--d); font-size:28px; font-weight:700; font-style:italic; color:var(--red); }
 .learn-level { background:var(--red); color:var(--on-accent); font-family:var(--m); font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; }
+.mode-tabs   { display:flex; padding:16px 20px 0; gap:8px; }
+.mtab {
+  flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px;
+  font-family:var(--m); font-size:12px; font-weight:700; color:var(--muted);
+  background:var(--glass-bg); cursor:pointer; transition:.15s var(--spring); text-align:center;
+border-color:var(--glass-border);box-shadow:inset 0 1px 0 var(--glass-shine),0 4px 16px var(--glass-shadow);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
+.mtab.active { background:var(--ink); border-color:var(--ink); color:var(--bg); }
+.mtab:hover:not(.active) { border-color:var(--gold); color:var(--ink); }
 .level-tabs  { display:flex; padding:16px 20px 0; gap:8px; }
 .ltab {
   flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px;
@@ -497,6 +516,7 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backd
 [data-theme=amoled] .learn-header { background:rgba(0,0,0,.96) !important; }
 [data-theme=dark]   .ll { background:rgba(24,16,8,.94) !important; }
 [data-theme=amoled] .ll { background:rgba(0,0,0,.95) !important; }
+[data-theme=dark]   .mtab { background:rgba(24,16,8,.94) !important; }
 [data-theme=dark]   .ltab { background:rgba(24,16,8,.94) !important; }
 [data-theme=dark]   .ltab.active { background:var(--red) !important; }
 [data-theme=dark]   .lmodal-box { background:#0a0804; }

@@ -95,19 +95,22 @@
     <div class="home-body" v-else>
       <!-- STREAK -->
       <div class="streak-card">
-        <div class="streak-fire">
+        <div class="streak-fire" :class="{pulse: streakPulse}">
           <span class="streak-emoji">🔥</span>
           <span class="streak-num">{{ streak }}</span>
           <span class="streak-lbl">дней подряд</span>
+          <span class="streak-freeze" v-if="streakFreezes > 0" title="Заморозки streak — сохранят серию при пропущенном дне">
+            ❄️ {{ streakFreezes }}
+          </span>
         </div>
         <div class="streak-sep"></div>
         <div class="streak-progress">
           <div class="sp-top">
             <span class="sp-lbl">Цель на сегодня</span>
-            <span class="sp-val">{{ Math.min(learned.size % 10, 10) }}/10 слов</span>
+            <span class="sp-val">{{ Math.min(learnedToday, dailyGoal) }}/{{ dailyGoal }} слов</span>
           </div>
           <div class="sp-bar">
-            <div class="sp-fill" :style="{width: Math.min((learned.size % 10)/10*100, 100)+'%'}"></div>
+            <div class="sp-fill" :style="{width: Math.min(learnedToday/dailyGoal*100, 100)+'%'}"></div>
           </div>
         </div>
       </div>
@@ -129,6 +132,16 @@
         <div class="rc-body">
           <div class="rc-title">Пора повторить</div>
           <div class="rc-desc">{{ dueCount }} {{ wordForm(dueCount) }} {{ waitForm(dueCount) }} повторения</div>
+        </div>
+        <span class="rc-arrow">→</span>
+      </div>
+
+      <!-- СЛАБЫЕ МЕСТА -->
+      <div v-if="weakCount > 0" class="weak-card" @click="$emit('go-weak-review')">
+        <div class="rc-badge weak">{{ weakCount }}</div>
+        <div class="rc-body">
+          <div class="rc-title">Слабые места</div>
+          <div class="rc-desc">{{ weakCount }} {{ wordForm(weakCount) }}, {{ weakCount===1?'которое даётся':'которые даются' }} тяжело</div>
         </div>
         <span class="rc-arrow">→</span>
       </div>
@@ -193,12 +206,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { db } from '../../firebase.js'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import LitTab from './LitTab.vue'
-const props = defineProps({ user:Object, words:Array, level:String, learned:Object, streak:Number, dueCount:{type:Number, default:0}, learnedAlpha:Object })
-defineEmits(['go-tab'])
+const props = defineProps({
+  user:Object, words:Array, level:String, learned:Object, streak:Number,
+  dueCount:{type:Number, default:0}, weakCount:{type:Number, default:0},
+  dailyGoal:{type:Number, default:10}, learnedToday:{type:Number, default:0},
+  streakFreezes:{type:Number, default:0}, learnedAlpha:Object,
+})
+defineEmits(['go-tab', 'go-weak-review'])
 
 // ── МЕНЮ «Статьи и чтение» ───────────────────────────────────────────────
 const screen         = ref(null) // null | 'menu' | 'articles' | 'reading' | 'literature'
@@ -375,6 +393,14 @@ function waitForm(n) {
 const flipped = ref(false)
 const displayName = computed(() => props.user?.displayName?.split(' ')[0] || 'Друг')
 const progress = computed(() => Math.round(props.learned.size / props.words.length * 100))
+
+const streakPulse = ref(false)
+watch(() => props.streak, (n, old) => {
+  if (n > old) {
+    streakPulse.value = true
+    setTimeout(() => { streakPulse.value = false }, 550)
+  }
+})
 const lessonTitle = computed(() => ({ A1:'Урок 1 · Алфавит', A2:'Урок 5 · Глаголы', B1:'Урок 10 · Падежи' }[props.level] || 'Урок 1'))
 const wordDay = props.words[new Date().getDate() % props.words.length]
 
@@ -416,8 +442,11 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backd
 border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
 .streak-fire { display:flex; flex-direction:column; align-items:center; gap:2px; }
 .streak-emoji { font-size:32px; line-height:1; }
-.streak-num { font-family:var(--d); font-size:40px; font-weight:700; color:var(--red); line-height:1; }
+.streak-num { font-family:var(--d); font-size:40px; font-weight:700; color:var(--red); line-height:1; transition:transform .3s var(--spring); }
+.streak-fire.pulse .streak-num { animation:streakPulse .5s var(--spring); }
+@keyframes streakPulse { 0%{transform:scale(1)} 40%{transform:scale(1.35)} 100%{transform:scale(1)} }
 .streak-lbl { font-family:var(--m); font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+.streak-freeze { font-family:var(--m); font-size:10px; color:var(--blue); margin-top:2px; }
 .streak-sep { width:1px; height:50px; background:rgba(246,140,54,.25); }
 .streak-progress { flex:1; }
 .sp-top { display:flex; justify-content:space-between; margin-bottom:8px; }
@@ -454,6 +483,16 @@ border-color:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backd
 .rc-title { font-family:var(--s); font-size:15px; font-weight:600; color:var(--ink); }
 .rc-desc  { font-family:var(--m); font-size:10px; color:var(--muted); margin-top:2px; }
 .rc-arrow { font-size:18px; color:var(--gold); }
+
+.weak-card {
+  display:flex; align-items:center; gap:14px;
+  background:var(--glass-bg); border:1px solid rgba(35,88,138,.35); border-radius:16px;
+  padding:16px 18px; cursor:pointer; transition:all .2s;
+  border-color:var(--glass-border);
+}
+.weak-card:hover { border-color:var(--blue); }
+.weak-card .rc-arrow { color:var(--blue); }
+.rc-badge.weak { background:var(--blue); }
 
 .word-card {
   background:var(--glass-bg); 

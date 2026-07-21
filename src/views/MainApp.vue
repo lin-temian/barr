@@ -2,13 +2,13 @@
   <div class="app-wrap">
     <div class="app-content">
       <KeepAlive>
-        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" :due-count="dueWords.length" :learnedAlpha="learnedAlpha" @go-tab="tab=$event" />
+        <HomeTab     v-if="tab==='home'"     :user="user" :words="words" :level="level" :learned="learned" :streak="streak" :due-count="dueWords.length" :weak-count="weakWords.length" :daily-goal="dailyGoal" :learned-today="learnedToday" :streak-freezes="streakFreezes" :learnedAlpha="learnedAlpha" @go-tab="handleGoTab" @go-weak-review="startWeakReview" />
         <LearnTab    v-else-if="tab==='learn'"    :words="words" :level="level" @open-alphabet="alphaOpen = true" />
-        <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" @toggle-learn="toggleLearn" />
+        <DictTab     v-else-if="tab==='dict'"     :words="words" :learned="learned" :mnemonics="mnemonics" @toggle-learn="toggleLearn" @save-mnemonic="saveMnemonic" />
         <PracticeTab v-else-if="tab==='practice'" :words="words" />
-        <ReviewTab   v-else-if="tab==='review'"   :words="dueWords" @review="reviewWord" @go-tab="tab=$event" />
+        <ReviewTab   v-else-if="tab==='review'"   :words="reviewQueue" :mode="reviewMode" :mnemonics="mnemonics" @review="reviewWord" @go-tab="tab=$event" />
         <AdminPanel  v-else-if="tab==='admin'" :words="words" @words-updated="$emit('reload-words')" />
-        <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" @logout="handleLogout" @change-level="handleChangeLevel" />
+        <ProfileTab  v-else-if="tab==='profile'"  :user="user" :learned="learned" :streak="streak" :level="level" :learnedAlpha="learnedAlpha" :daily-goal="dailyGoal" @logout="handleLogout" @change-level="handleChangeLevel" @change-daily-goal="setDailyGoal" />
       </KeepAlive>
     </div>
 
@@ -48,6 +48,7 @@
 import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { logout, db } from '../firebase'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { migrateSrsMap, reviewSM2 } from '../composables/useSM2.js'
 import HomeTab     from '../components/tabs/HomeTab.vue'
 import LearnTab    from '../components/tabs/LearnTab.vue'
 import DictTab     from '../components/tabs/DictTab.vue'
@@ -80,6 +81,68 @@ const learned      = ref(new Set(JSON.parse(localStorage.getItem(SK) || '[]')))
 const learnedAlpha = ref(new Set(JSON.parse(localStorage.getItem('barr_alpha') || '[]')))
 const streak       = ref(Number(localStorage.getItem('barr_streak') || 0))
 
+function todayStr() { return new Date().toDateString() }
+
+/* ── дневная цель и счётчик выученного сегодня ── */
+const GOAL_KEY = 'barr_daily_goal'
+const dailyGoal = ref(Number(localStorage.getItem(GOAL_KEY) || 10))
+function setDailyGoal(n) {
+  dailyGoal.value = n
+  localStorage.setItem(GOAL_KEY, n)
+}
+
+const LEARNED_TODAY_KEY      = 'barr_learned_today'
+const LEARNED_TODAY_DATE_KEY = 'barr_learned_today_date'
+const learnedToday = ref(
+  localStorage.getItem(LEARNED_TODAY_DATE_KEY) === todayStr()
+    ? Number(localStorage.getItem(LEARNED_TODAY_KEY) || 0)
+    : 0
+)
+function bumpLearnedToday() {
+  if (localStorage.getItem(LEARNED_TODAY_DATE_KEY) !== todayStr()) {
+    learnedToday.value = 0
+    localStorage.setItem(LEARNED_TODAY_DATE_KEY, todayStr())
+  }
+  learnedToday.value++
+  localStorage.setItem(LEARNED_TODAY_KEY, learnedToday.value)
+}
+
+/* ── streak по факту активности (не просто по открытию приложения) + заморозки ── */
+const STREAK_KEY   = 'barr_streak'
+const LAST_DAY_KEY = 'barr_last_day'
+const FREEZE_KEY   = 'barr_streak_freezes'
+const MAX_FREEZES  = 2
+const streakFreezes = ref(Number(localStorage.getItem(FREEZE_KEY) || 0))
+
+function recordActivity() {
+  const today   = todayStr()
+  const lastDay = localStorage.getItem(LAST_DAY_KEY)
+  if (lastDay === today) return // сегодняшняя активность уже учтена
+
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1)
+  const gapDays = lastDay ? Math.round((new Date(today) - new Date(lastDay)) / 86400000) : 1
+
+  if (!lastDay) {
+    streak.value = 1
+  } else if (lastDay === yesterday.toDateString()) {
+    streak.value += 1
+  } else if (gapDays === 2 && streakFreezes.value > 0) {
+    // пропущен ровно один день, но есть заморозка — streak сохраняем
+    streakFreezes.value -= 1
+    localStorage.setItem(FREEZE_KEY, streakFreezes.value)
+  } else {
+    streak.value = 1
+  }
+
+  if (streak.value > 0 && streak.value % 7 === 0 && streakFreezes.value < MAX_FREEZES) {
+    streakFreezes.value += 1
+    localStorage.setItem(FREEZE_KEY, streakFreezes.value)
+  }
+
+  localStorage.setItem(STREAK_KEY, streak.value)
+  localStorage.setItem(LAST_DAY_KEY, today)
+}
+
 function toggleLearn(id) {
   const s = new Set(learned.value)
   if (s.has(id)) {
@@ -87,18 +150,19 @@ function toggleLearn(id) {
   } else {
     s.add(id)
     if (!srs.value[id]) {
-      srs.value = { ...srs.value, [id]: { box: 0, due: Date.now() } }
+      srs.value = { ...srs.value, [id]: { ease: 2.5, interval: 0, reps: 0, lapses: 0, due: Date.now(), lastReviewed: Date.now() } }
       localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
     }
+    bumpLearnedToday()
+    recordActivity()
   }
   learned.value = s
   localStorage.setItem(SK, JSON.stringify([...s]))
 }
 
-/* ── интервальные повторения (Leitner) ── */
+/* ── SM-2 повторения ── */
 const SRS_KEY = 'barr_srs'
-const REVIEW_INTERVALS_DAYS = [0, 1, 3, 7, 14, 30]
-const srs = ref(JSON.parse(localStorage.getItem(SRS_KEY) || '{}'))
+const srs = ref(migrateSrsMap(JSON.parse(localStorage.getItem(SRS_KEY) || '{}')))
 
 const dueWords = computed(() => props.words.filter(w => {
   if (!learned.value.has(w.id)) return false
@@ -106,36 +170,80 @@ const dueWords = computed(() => props.words.filter(w => {
   return !entry || entry.due <= Date.now()
 }))
 
-function reviewWord(id, remembered) {
-  const cur  = srs.value[id] || { box: 0, due: Date.now() }
-  const box  = remembered ? Math.min(cur.box + 1, REVIEW_INTERVALS_DAYS.length - 1) : 0
-  const due  = Date.now() + REVIEW_INTERVALS_DAYS[box] * 86400000
-  srs.value  = { ...srs.value, [id]: { box, due } }
-  localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
+/* ── слабые места: низкий ease или много ошибок ── */
+const WEAK_EASE_THRESHOLD   = 2.0
+const WEAK_LAPSES_THRESHOLD = 3
+const weakWords = computed(() => props.words.filter(w => {
+  if (!learned.value.has(w.id)) return false
+  const e = srs.value[w.id]
+  return e && (e.ease < WEAK_EASE_THRESHOLD || e.lapses >= WEAK_LAPSES_THRESHOLD)
+}))
+
+const reviewMode  = ref('due') // 'due' | 'weak'
+const reviewQueue = computed(() => reviewMode.value === 'weak' ? weakWords.value : dueWords.value)
+function startWeakReview() { reviewMode.value = 'weak'; tab.value = 'review' }
+function handleGoTab(t) {
+  if (t === 'review') reviewMode.value = 'due'
+  tab.value = t
 }
 
-/* ── синхронизация повторений с Firestore для авторизованных ── */
-let srsSaveTimer = null
-function scheduleSrsSave() {
+function reviewWord(id, remembered) {
+  srs.value = { ...srs.value, [id]: reviewSM2(srs.value[id], remembered) }
+  localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
+  recordActivity()
+}
+
+/* ── ассоциации пользователя ("mems") ── */
+const MNEM_KEY = 'barr_mnemonics'
+const mnemonics = ref(JSON.parse(localStorage.getItem(MNEM_KEY) || '{}'))
+function saveMnemonic(id, text) {
+  const m = { ...mnemonics.value }
+  if (text) m[id] = text
+  else delete m[id]
+  mnemonics.value = m
+  localStorage.setItem(MNEM_KEY, JSON.stringify(m))
+}
+
+/* ── синхронизация с Firestore для авторизованных (srs + ассоциации + цель + заморозки) ── */
+let userDataSaveTimer = null
+function scheduleUserDataSave() {
   if (!props.user) return
-  clearTimeout(srsSaveTimer)
-  srsSaveTimer = setTimeout(() => {
-    setDoc(doc(db, 'users', props.user.uid), { srs: srs.value }, { merge: true }).catch(() => {})
+  clearTimeout(userDataSaveTimer)
+  userDataSaveTimer = setTimeout(() => {
+    setDoc(doc(db, 'users', props.user.uid), {
+      srs: srs.value,
+      mnemonics: mnemonics.value,
+      dailyGoal: dailyGoal.value,
+      streakFreezes: streakFreezes.value,
+    }, { merge: true }).catch(() => {})
   }, 800)
 }
-watch(srs, scheduleSrsSave, { deep: true })
+watch([srs, mnemonics, dailyGoal, streakFreezes], scheduleUserDataSave, { deep: true })
 
 watch(() => props.user, async (u) => {
   if (!u) return
   try {
-    const snap  = await getDoc(doc(db, 'users', u.uid))
-    const cloud = snap.exists() ? snap.data().srs : null
-    if (cloud && Object.keys(cloud).length) {
-      srs.value = cloud
-      localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
-    } else {
-      scheduleSrsSave()
+    const snap = await getDoc(doc(db, 'users', u.uid))
+    if (snap.exists()) {
+      const data = snap.data()
+      if (data.srs && Object.keys(data.srs).length) {
+        srs.value = migrateSrsMap(data.srs)
+        localStorage.setItem(SRS_KEY, JSON.stringify(srs.value))
+      }
+      if (data.mnemonics) {
+        mnemonics.value = data.mnemonics
+        localStorage.setItem(MNEM_KEY, JSON.stringify(mnemonics.value))
+      }
+      if (typeof data.dailyGoal === 'number') {
+        dailyGoal.value = data.dailyGoal
+        localStorage.setItem(GOAL_KEY, dailyGoal.value)
+      }
+      if (typeof data.streakFreezes === 'number') {
+        streakFreezes.value = data.streakFreezes
+        localStorage.setItem(FREEZE_KEY, streakFreezes.value)
+      }
     }
+    if (!snap.exists() || !snap.data().srs) scheduleUserDataSave()
   } catch (e) { /* оффлайн или нет доступа — остаёмся на localStorage */ }
 }, { immediate: true })
 
@@ -149,17 +257,6 @@ function handleChangeLevel(l) {
   localStorage.setItem('barr_level', l)
   window.location.reload()
 }
-
-onMounted(() => {
-  const today     = new Date().toDateString()
-  const lastDay   = localStorage.getItem('barr_last_day')
-  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1)
-  if (lastDay !== today) {
-    streak.value = lastDay === yesterday.toDateString() ? streak.value + 1 : 1
-    localStorage.setItem('barr_streak', streak.value)
-    localStorage.setItem('barr_last_day', today)
-  }
-})
 
 /* ── морфящий стеклянный индикатор в таббаре ── */
 const tabbarEl    = ref(null)
